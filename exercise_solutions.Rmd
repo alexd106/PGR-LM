@@ -44,6 +44,12 @@ paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
 ```
 
+\  
+
+### Day 3
+
+\  
+
 ```{r sol_lm2, results='asis', eval = isTRUE(show_text_lm2)}
 link_name <- "Linear model with single categorical explanatory variable exercise"
 file_name <- "linear_model_2_exercise_solutions.html"
@@ -53,9 +59,7 @@ cat(sep="\n\n")
 
 \  
 
-### Day 3
-
-\  
+### Day4 
 
 ```{r sol_lm3, results='asis', eval = isTRUE(show_text_lm3)}
 link_name <- "Linear model with continuous and categorical explanatory variables exercise"
