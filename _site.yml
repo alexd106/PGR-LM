@@ -1,7 +1,7 @@
 name: "PGR-LM"
 output_dir: "."
 navbar:
-  title: "Introduction to Linear modelling"
+  title: "PGR-LM"
   icon: fa-home
   left:
     - text: "Home"
