@@ -30,7 +30,6 @@ Have fun!
 
 \  
 
-
 ```{r, reveal, echo=FALSE, eval = isFALSE(show_exercise)}
 cat("Exercises will be released as the course progresses")
 ```
