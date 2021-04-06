@@ -21,7 +21,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 \  
 
 |09:30 - 10:00 | 10:00 - 11:30 | 11:30 - 12:30 | 12:30 - 13:30 |13:30 - 16:00 | 16:00 - 17:00 |
-|:------------:|:-------------:|:-------------:|:-------------:|:------------:|:-------------:|
+|:------------|:-------------|:-------------|:-------------|:------------|:-------------|
 | Course introduction (ALL - live)  | Graphical data exploration (GDE) theory lecture (recorded) | GDE live practical (AD) | LUNCH |GDE live practical, Live review session (AD)| Linear models theory lectures (recorded AD), Linear models paper exercise |
 
 \  
@@ -33,7 +33,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 \  
 
 |09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 17:00    | 
-|:--------------------------:|:-----------------:|:-------------:|:---------------:|
+|:--------------------------|:-----------------|:-------------|:---------------|
 |Linear model theory (recorded AD)|Linear models live practical (AD) – single continuous explanatory variable|LUNCH|Linear models live practical (AD) – single continuous explanatory variable, Live review session|
 
 \  
@@ -45,7 +45,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 \  
 
 |09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 16:30    | 16:30 - 17:00      |
-|:--------------------------:|:-----------------:|:-------------:|:---------------:|:------------------:|
+|:--------------------------|:-----------------|:-------------|:---------------|:------------------|
 |Linear models theory – single categorical explanatory variable (recorded AD) | Linear models live practical (AD) – single categorical explanatory variable | LUNCH |Linear models live practical (AD) – single continuous explanatory variable, Live review session| Linear models theory - categorical and continuous explanatory variables (recorded TC)|
 
 \  
@@ -55,7 +55,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 \  
 
 |09:30 - 11:00               | 11:00 - 12:30     | 12:30 - 13:30 |13:30 - 16:00    | 16:00 - 17:00      |
-|:--------------------------:|:-----------------:|:-------------:|:---------------:|:------------------:|
+|:--------------------------|:-----------------|:-------------|:---------------|:------------------|
 |Linear models theory - model selection (recorded TC)| Linear models live practical (TC) – multiple explanatory variables | LUNCH | Linear models live practical (TC) – model selection, Live review session (TC) | Catchup/course close (ALL - LIVE)|
 
 \  
