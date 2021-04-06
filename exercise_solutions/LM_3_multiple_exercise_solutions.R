@@ -55,7 +55,6 @@ birds.inter.1 <- lm(ABUND ~ FGRAZE * LOGAREA , data = loyn)
 ## # The observations with the highest leverage don't appear to be overly
 ## # influential, according to the Cook's distances in the Residuals vs
 ## # Leverage plot.
-## 
 
 
 ## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE--------------------------------------------------------------------
@@ -82,7 +81,6 @@ summary(birds.inter.1)
 # model (in the optional questions)
 # but not much, considering that we have added a whole 4 parameters to the
 # model, i.e. nearly doubled its complexity
-
 
 
 ## ----Q8a, eval=TRUE, echo=TRUE, collapse=FALSE------------------------------------------------------------------------------------------
@@ -378,7 +376,6 @@ plot(M6log)
 # unknown predictors, or interactions.
 
 
-
 ## ----Q19, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------
 anova(M6)
 # null hypothesis 1: There is no effect of LOGAREA on ABUND
@@ -413,7 +410,6 @@ summary(M6)
 # ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3
 # - 1.59*FGRAZE4 - 11.89*FGRAZE5
 # Note that (Intercept) = 1 always
-
 
 
 ## ----Q20, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------
@@ -556,7 +552,6 @@ birds.add.2.SST<- sum(anova(birds.add.2)$'Sum Sq') # compute SST
 # the design is unbalanced and FGRAZE and LOGAREA covary (they are correlated)
 
 
-
 ## ----A2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE--------------------------------------------------------------------
 # ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3
 # - 1.59*FGRAZE4 - 11.89*FGRAZE5
@@ -587,7 +582,6 @@ sum(M6.coef * c(1, 0.5, 0, 1, 0, 0)) # 19.15072
 # estimate of the slope for the LOGAREA effect, since there is just one
 # LOGAREA unit of difference and the slope is the change in expected
 # abundance for a 1-unit increase in the predictor.
-
 
 
 ## ----A3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE--------------------------------------------------------------------

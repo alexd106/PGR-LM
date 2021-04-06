@@ -24,8 +24,6 @@ This practical has two exercises, as well as optional supplementary questions. T
 
 \  
 
-\  
-
 # Exercise 1: Linear model with interaction between continuous and categorical predictors (= explanatory variables)
 
 \  
@@ -34,11 +32,11 @@ This exercise builds on the linear model with one continuous predictor, and the 
 
 \  
 
-1. As in previous exercises, either create a new R script (perhaps call it linear_model_3) or continue with your previous R script in your RStudio Project. Again, make sure you include any metadata you feel is appropriate (title, description of task, date of creation etc) and  don't forget to comment out your metadata with a `#` at the beginning of the line. 
+1\. As in previous exercises, either create a new R script (perhaps call it linear_model_3) or continue with your previous R script in your RStudio Project. Again, make sure you include any metadata you feel is appropriate (title, description of task, date of creation etc) and  don't forget to comment out your metadata with a `#` at the beginning of the line. 
 
 \  
 
-2. Import the data file 'loyn.txt' into R and take a look at the structure of this dataframe using the `str()` function. We know that the abundance of birds `ABUND` increases quickly with the area of the patch `LOGAREA`, and more slowly for the larger patches (a saturating "log-linear relationship"). We now also know that bird abundance changes in a non-linear way with the grazing intensity `FGRAZE`. But how do these effects combine together? Would a small patch with low grazing intensity have more birds than a larger patch with high grazing intensity? Could the (poor) fit of the `ABUND ~ LOGAREA` model for the large patches be improved, if we accounted for grazing intensity in the patches?
+2\. Import the data file 'loyn.txt' into R and take a look at the structure of this dataframe using the `str()` function. We know that the abundance of birds `ABUND` increases quickly with the area of the patch `LOGAREA`, and more slowly for the larger patches (a saturating "log-linear relationship"). We now also know that bird abundance changes in a non-linear way with the grazing intensity `FGRAZE`. But how do these effects combine together? Would a small patch with low grazing intensity have more birds than a larger patch with high grazing intensity? Could the (poor) fit of the `ABUND ~ LOGAREA` model for the large patches be improved, if we accounted for grazing intensity in the patches?
 
 \  
 
@@ -49,7 +47,7 @@ str(loyn)
 
 \  
 
-3. As previously we want to treat `AREA` as a log-transformed area to limit the influence of the few disproportionately large patches, and `GRAZE` as a categorical variable with five levels. So the first thing we need to do is create the corresponding variables in the loyn dataframe, called `LOGAREA` and `FGRAZE`.
+3\. As previously we want to treat `AREA` as a log-transformed area to limit the influence of the few disproportionately large patches, and `GRAZE` as a categorical variable with five levels. So the first thing we need to do is create the corresponding variables in the loyn dataframe, called `LOGAREA` and `FGRAZE`.
 
 \  
 
@@ -61,7 +59,7 @@ loyn$FGRAZE <- factor(loyn$GRAZE)
 
 \  
 
-4. Explore the relationship between grazing and patch area, using a scatterplot. You could explore the joint effect of `FGRAZE` and `LOGAREA` on `ABUND`, using panel plots. Hint: See the function `coplot` in the Data exploration lecture slide 24, and/or the help page for `coplot`. Factor levels increase from the bottom-left panel to the top-right panel. What pattern do you see? Is it okay to assume the effect of `LOGAREA` to be the same for all grazing levels? This is effectively asking if we should let the slope of `LOGAREA` vary across `FGRAZE` levels, which is the definition of an interaction.
+4\. Explore the relationship between grazing and patch area, using a scatterplot. You could explore the joint effect of `FGRAZE` and `LOGAREA` on `ABUND`, using panel plots. Hint: See the function `coplot` in the Data exploration lecture slide 24, and/or the help page for `coplot`. Factor levels increase from the bottom-left panel to the top-right panel. What pattern do you see? Is it okay to assume the effect of `LOGAREA` to be the same for all grazing levels? This is effectively asking if we should let the slope of `LOGAREA` vary across `FGRAZE` levels, which is the definition of an interaction.
 
 \  
 
@@ -82,7 +80,7 @@ xyplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
 
 \  
 
-5. Fit an appropriate linear model in R to explain the variation in the response variable, `ABUND` with the explanatory variables `LOGAREA` and `FGRAZE` acting interactively. Hint: `*` is the interaction symbol! Remember to use the `data =` argument. Assign this linear model to an appropriately named object, like `birds.inter.1`.
+5\. Fit an appropriate linear model in R to explain the variation in the response variable, `ABUND` with the explanatory variables `LOGAREA` and `FGRAZE` acting interactively. Hint: `*` is the interaction symbol! Remember to use the `data =` argument. Assign this linear model to an appropriately named object, like `birds.inter.1`.
 
 \  
 
@@ -92,7 +90,7 @@ birds.inter.1 <- lm(ABUND ~ FGRAZE * LOGAREA , data = loyn)
 
 \  
 
-6. Let's first check the assumptions of your linear model by creating plots of the residuals from the model. Remember, that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions using these plots and report whether your model meets these assumptions.
+6\. Let's first check the assumptions of your linear model by creating plots of the residuals from the model. Remember, that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions using these plots and report whether your model meets these assumptions.
 
 \  
 
@@ -123,12 +121,11 @@ plot(birds.inter.1)
 # The observations with the highest leverage don't appear to be overly
 # influential, according to the Cook's distances in the Residuals vs
 # Leverage plot.  
-
 ```
 
 \  
 
-7. Use the `summary()` function on the first model object to produce the table of parameter estimates. Using this output, take each line in turn and answer the following questions: (A) what does this parameter measure, specifically? (B) What is the biological interpretation of the corresponding estimate? (C) What is the null hypothesis associated with it? (D) Do you reject or fail to reject this hypothesis? I encourage you to get someone to discuss your answers with you.
+7\. Use the `summary()` function on the first model object to produce the table of parameter estimates. Using this output, take each line in turn and answer the following questions: (A) what does this parameter measure, specifically? (B) What is the biological interpretation of the corresponding estimate? (C) What is the null hypothesis associated with it? (D) Do you reject or fail to reject this hypothesis? I encourage you to get someone to discuss your answers with you.
 
 \  
 
@@ -156,12 +153,11 @@ summary(birds.inter.1)
 # model (in the optional questions)
 # but not much, considering that we have added a whole 4 parameters to the
 # model, i.e. nearly doubled its complexity
-
 ```
 
 \  
 
-8. Let's now plot the predictions of your initial model to figure out how it really fits the data. Here's a recipe, using the `predict()` function.
+8\. Let's now plot the predictions of your initial model to figure out how it really fits the data. Here's a recipe, using the `predict()` function.
   + plot the raw data, using a different colour per `FGRAZE` level
   + for each `FGRAZE` level in turn,
   + create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values)
@@ -267,7 +263,7 @@ Take some time to observe the predictions from the model, and how the lines have
 
 \  
 
-9. From a biological point of view, what have we learned so far from the interactive model? (Assume that the assumptions are adequately met, for now). Do you think the model is biologically plausible? Is it supported statistically?
+9\. From a biological point of view, what have we learned so far from the interactive model? (Assume that the assumptions are adequately met, for now). Do you think the model is biologically plausible? Is it supported statistically?
 
 \  
 
@@ -293,8 +289,6 @@ Take some time to observe the predictions from the model, and how the lines have
 End of the Linear model with additive continuous and categorical predictors exercise
 
 \  
-\  
-\  
 
 # Exercise 2: Model selection
 
@@ -308,7 +302,7 @@ Exercise 2 revisits the Loyn data analysis, asking if a better model for the dat
 
 \  
 
-10.  Here we will be using all the explanatory variables to explain variation in bird density. If needed, remind yourself of your data exploration you conducted previously. Do any of the remaining variables need transforming? If so, what transformation did you apply? Add the required variables to the data set.
+10\.  Here we will be using all the explanatory variables to explain variation in bird density. If needed, remind yourself of your data exploration you conducted previously. Do any of the remaining variables need transforming? If so, what transformation did you apply? Add the required variables to the data set.
 
 \  
 
@@ -320,7 +314,7 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 
 \  
 
-11. We assume that all the predictors have been collected by the authors *because* they were believed to be biologically relevant for explaining bird abundance. However, it is a good idea to pause and think what might be relevant or not-so relevant or partly redundant and why, before even exploring the relationships with bird abundance (yes, even graphically). You could do this in a table format, and include a hypothetical ranking of importance. Is there anything that limits your ability to fill such a table?
+11\. We assume that all the predictors have been collected by the authors *because* they were believed to be biologically relevant for explaining bird abundance. However, it is a good idea to pause and think what might be relevant or not-so relevant or partly redundant and why, before even exploring the relationships with bird abundance (yes, even graphically). You could do this in a table format, and include a hypothetical ranking of importance. Is there anything that limits your ability to fill such a table?
 
 \  
 
@@ -342,10 +336,9 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 # study system and area, of course.
 ```
 
-
 \  
 
-12. It's useful to start with a graphical exploration of the relationships between predictors and between predictors and response. A pair-plot with `pairs()` is a very effective way of doing this when the number of variables is not too large. Hints:
+12\. It's useful to start with a graphical exploration of the relationships between predictors and between predictors and response. A pair-plot with `pairs()` is a very effective way of doing this when the number of variables is not too large. Hints:
   + restrict the plot to the variables you actually need
   + an effective way of doing this is to store the names of the variables of interest in a vector `VOI<- c("Var1", "Var2", ...)`
   + and then use the naming method for subsetting the data set `Mydata[, VOI]`
@@ -372,7 +365,7 @@ pairs(loyn[, VOI])
 
 \  
 
-13. Start with a model of ABUND containing all predictors. Don’t include any interactions other than `LOGAREA * FGRAZE` at this point: I suggest you simplify this exercise by including only the main effects (unless you have identified some interactions that you expect to be biologically important and you really want to include them).
+13\. Start with a model of ABUND containing all predictors. Don’t include any interactions other than `LOGAREA * FGRAZE` at this point: I suggest you simplify this exercise by including only the main effects (unless you have identified some interactions that you expect to be biologically important and you really want to include them).
 
 \  
 
@@ -384,7 +377,7 @@ M1 <- lm(ABUND ~ LOGDIST + LOGLDIST +
 
 \  
 
-14. Check for collinearity using the `vif()` function in the `car` package.
+14\. Check for collinearity using the `vif()` function in the `car` package.
 
 \  
 
@@ -400,9 +393,9 @@ vif(M1)
 # interaction is expected and can be ignored.
 ```
 
-\
+\  
 
-15. Is every term needed (everything significant?) in this model? To find out, perform a model selection step using `drop1()` for choosing which single term might be candidate for deletion (remember to use the test = ”F” argument to perform F tests). What is that term? What hypothesis is being tested when we do this model selection step?
+15\. Is every term needed (everything significant?) in this model? To find out, perform a model selection step using `drop1()` for choosing which single term might be candidate for deletion (remember to use the test = ”F” argument to perform F tests). What is that term? What hypothesis is being tested when we do this model selection step?
 
 \  
 
@@ -436,10 +429,9 @@ drop1(M1, test = "F")
 # multiple hypotheses at once)
 ```
 
+\  
 
-\
-
-16. Update the model and repeat single term deletions with `drop1()`, until there are no longer any non-significant terms, ignoring `LOGAREA` or `FGRAZE` (we want to leave them in for now, irrespective of what `drop1` suggests).
+16\. Update the model and repeat single term deletions with `drop1()`, until there are no longer any non-significant terms, ignoring `LOGAREA` or `FGRAZE` (we want to leave them in for now, irrespective of what `drop1` suggests).
 
 \  
 
@@ -478,7 +470,7 @@ drop1(M5, test = "F")
 
 \  
 
-17. If all goes well, you should end up the previous question with the interactive model again `lm(ABUND ~ LOGAREA * FGRAZE)`. Do you need to simplify this model? Do you need to use `drop1()` for that?
+17\. If all goes well, you should end up the previous question with the interactive model again `lm(ABUND ~ LOGAREA * FGRAZE)`. Do you need to simplify this model? Do you need to use `drop1()` for that?
 
 \  
 
@@ -512,9 +504,9 @@ drop1(M5, test= "F")
 # i.e. the hypothesis that the effect of grazing level depends on patch size (or vice versa).
 ```
 
-\
+\  
 
-18. Let's simplify the model anyway, considering the additive-only model `lm(ABUND ~ LOGAREA + FGRAZE)`. Although we could have validated models at each step the model selection procedure, this can become impractical. However, you really should validate your candidate models at least in the final stages of model selection, by creating plots of the residuals for the candidate final model (I say "candidate" because should the model fail the validation, it may need revisiting irrespective of what the model selection procedure suggested). Remember that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions of the model using these plots and report if these assumptions are acceptable.
+18\. Let's simplify the model anyway, considering the additive-only model `lm(ABUND ~ LOGAREA + FGRAZE)`. Although we could have validated models at each step the model selection procedure, this can become impractical. However, you really should validate your candidate models at least in the final stages of model selection, by creating plots of the residuals for the candidate final model (I say "candidate" because should the model fail the validation, it may need revisiting irrespective of what the model selection procedure suggested). Remember that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions of the model using these plots and report if these assumptions are acceptable.
 
 \  
 
@@ -557,12 +549,11 @@ plot(M6log)
 # Back to `M6`, then. The other issue was the extreme residuals.
 # This could be due to missing important predictors from the model, either
 # unknown predictors, or interactions.
-
 ```
 
 \  
 
-19. Obtain summaries of the model output using the `anova()` and `summary()` functions. Make sure you understand the difference between these two summaries (e.g. what specific hypotheses are being tested for each of them), and the interpretation of the coefficients in the summary table: a good test of your understanding is to reconstruct the model formula in writing (on paper or in your script), to be able to make predictions by hand (see optional questions 'A2' and 'A3' at the end). In doubt, try it and seek assistance!
+19\. Obtain summaries of the model output using the `anova()` and `summary()` functions. Make sure you understand the difference between these two summaries (e.g. what specific hypotheses are being tested for each of them), and the interpretation of the coefficients in the summary table: a good test of your understanding is to reconstruct the model formula in writing (on paper or in your script), to be able to make predictions by hand (see optional questions 'A2' and 'A3' at the end). In doubt, try it and seek assistance!
 
 \  
 
@@ -600,14 +591,13 @@ summary(M6)
 # ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3
 # - 1.59*FGRAZE4 - 11.89*FGRAZE5
 # Note that (Intercept) = 1 always
-
 ```
 
-\
+\  
 
-20. What inference can you make from this model? What are the biological interpretations, and the statistical lessons you take away from this analysis of the Loyn data?
+20\. What inference can you make from this model? What are the biological interpretations, and the statistical lessons you take away from this analysis of the Loyn data?
 
-\
+\  
 
 ```{r Q20, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # Biologically: confirming what we already found out in the previous LM exercises:
@@ -651,9 +641,9 @@ summary(M6)
 
 \  
 
-21. Had we not been aiming to test the effect of the LOGAREA * FGRAZE interaction statistically, we could also have used AIC to perform the model selection. Let's try this (taking the AIC values returned by drop1 or using the function stepAIC in the MASS package), and summarize the performance of the alternative models in a table.
+21\. Had we not been aiming to test the effect of the LOGAREA * FGRAZE interaction statistically, we could also have used AIC to perform the model selection. Let's try this (taking the AIC values returned by drop1 or using the function stepAIC in the MASS package), and summarize the performance of the alternative models in a table.
 
-\
+\  
 
 ```{r Q21, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # This time, we are not doing any specific hypothesis testing, so there's
@@ -730,10 +720,8 @@ summary.table
 
 \  
 
-End of the Linear model with interactive continuous and categorical predictors exercise
+End of the model selection exercise
 
-\
-\  
 \  
 
 # Optional questions, if you're fast or want to take it further
@@ -769,7 +757,6 @@ birds.add.2.SST<- sum(anova(birds.add.2)$'Sum Sq') # compute SST
 # essentially reversing the contributions found in the first model.
 # Conclusion: here the order matters a lot. This is not too surprising since
 # the design is unbalanced and FGRAZE and LOGAREA covary (they are correlated)
-
 ```
 
 \  
@@ -808,7 +795,6 @@ sum(M6.coef * c(1, 0.5, 0, 1, 0, 0)) # 19.15072
 # estimate of the slope for the LOGAREA effect, since there is just one
 # LOGAREA unit of difference and the slope is the change in expected
 # abundance for a 1-unit increase in the predictor.
-
 ```
 
 \  
