@@ -24,7 +24,7 @@ This practical has two exercises, as well as optional supplementary questions. T
 
 \  
 
-# Exercise 1: Linear model with interaction between continuous and categorical predictors (= explanatory variables)
+## Exercise 1: Linear model with interaction between continuous and categorical predictors (= explanatory variables)
 
 \  
 
@@ -290,7 +290,7 @@ End of the Linear model with additive continuous and categorical predictors exer
 
 \  
 
-# Exercise 2: Model selection
+## Exercise 2: Model selection
 
 \  
 
@@ -724,7 +724,7 @@ End of the model selection exercise
 
 \  
 
-# Optional questions, if you're fast or want to take it further
+## Optional questions, if you're fast or want to take it further
 
 \  
 
