@@ -518,7 +518,7 @@ drop1(M5, test= "F")
 
 \  
 
-```{r Q18, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q18, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 M6 <- lm(ABUND ~ LOGAREA + FGRAZE, data = loyn) 
 # first split the plotting device into 2 rows and 2 columns
 par(mfrow = c(2,2))
