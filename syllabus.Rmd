@@ -16,7 +16,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-### Tuesday 20^th^ April 2021
+#### Tuesday 20^th^ April 2021
 
 \  
 
@@ -28,19 +28,19 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-### Wednesday 21^st^ April 2021 
+#### Wednesday 21^st^ April 2021 
 
 \  
 
-|09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 17:00    | 
-|:--------------------------|:-----------------|:-------------|:---------------|
+|09:30 - 11:30      | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 17:00    | 
+|:---------------------|:-----------------|:-------------|:---------------|
 |Linear model theory (recorded AD)|Linear models live practical (AD) – single continuous explanatory variable|LUNCH|Linear models live practical (AD) – single continuous explanatory variable, Live review session|
 
 \  
 
 \  
 
-### Thursday 22^nd^ April 2021
+#### Thursday 22^nd^ April 2021
 
 \  
 
@@ -50,7 +50,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-### Friday 23^rd^ April 2021
+#### Friday 23^rd^ April 2021
 
 \  
 
@@ -60,6 +60,6 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-AD – Alex Douglas. TC - Thomas Cornulier
+AD – Alex Douglas TC - Thomas Cornulier
 
 \  

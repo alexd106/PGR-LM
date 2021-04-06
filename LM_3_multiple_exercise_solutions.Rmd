@@ -263,7 +263,7 @@ legend("topleft",
 
 \  
 
-> Take some time to observe the predictions from the model, and how the lines have different intercepts but the same slope (as assumed by the model with additive effects only)
+Take some time to observe the predictions from the model, and how the lines have different intercepts but the same slope (as assumed by the model with additive effects only)
 
 \  
 
