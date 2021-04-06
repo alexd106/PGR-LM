@@ -16,43 +16,50 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-\  
-<!--
-### Monday 8^th^ March 2021
+### Tuesday 20^th^ April 2021
 
 \  
 
-|09:30 - 10:15 | 10:15 - 11:30 | 11:30 - 12:30 | 12:30 - 13:30 |13:30 - 15:30 | 15:30 - 17:00 |
+|09:30 - 10:00 | 10:00 - 11:30 | 11:30 - 12:30 | 12:30 - 13:30 |13:30 - 16:00 | 16:00 - 17:00 |
 |:------------:|:-------------:|:-------------:|:-------------:|:------------:|:-------------:|
-| Course introduction (ALL - live)  | Graphical data exploration (GDE) theory lecture (recorded MB) | GDE live practical (MB) | LUNCH |GDE live practical, Live review session (MB)| Linear models theory lectures (recorded AD), Linear models paper exercise |
+| Course introduction (ALL - live)  | Graphical data exploration (GDE) theory lecture (recorded) | GDE live practical (AD) | LUNCH |GDE live practical, Live review session (AD)| Linear models theory lectures (recorded AD), Linear models paper exercise |
 
 \  
 
 \  
 
-### Tuesday 9^th^ March 2021 
+### Wednesday 21^st^ April 2021 
 
 \  
 
-|09:30 - 10:30               | 10:30 - 12:30     | 12:30 - 13:30 |13:30 - 14:30    | 14:30 - 15:30      |15:30 - 17:00|
-|:--------------------------:|:-----------------:|:-------------:|:---------------:|:------------------:|:-------------:|
-|Linear model theory (recorded AD)|Linear models live practical (AD) – single continuous explanatory variable|LUNCH|Linear models live practical (AD) – single continuous explanatory variable, Live review session|Linear models theory (recorded AD) – single categorical explanatory variable|Linear models live practical (AD) – single categorical explanatory variable|
+|09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 17:00    | 
+|:--------------------------:|:-----------------:|:-------------:|:---------------:|
+|Linear model theory (recorded AD)|Linear models live practical (AD) – single continuous explanatory variable|LUNCH|Linear models live practical (AD) – single continuous explanatory variable, Live review session|
 
 \  
 
 \  
 
-### Wednesday 10^th^ March 2021
+### Thursday 22^nd^ April 2021
 
 \  
 
 |09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 16:30    | 16:30 - 17:00      |
 |:--------------------------:|:-----------------:|:-------------:|:---------------:|:------------------:|
-|Linear model live practical (AD) – single categorical explanatory variable | Linear model theory (recorded ME) – categorical & continuous explanatory variables | LUNCH | Linear model live practical (ME) – categorical & continuous explanatory variables, Live review session (ME) | Catchup/course close (ALL - LIVE)|
+|Linear models theory – single categorical explanatory variable (recorded AD) | Linear models live practical (AD) – single categorical explanatory variable | LUNCH |Linear models live practical (AD) – single continuous explanatory variable, Live review session| Linear models theory - categorical and continuous explanatory variables (recorded TC)|
 
 \  
 
-MB – Maarten Blaauw, ME – Mark Emmerson, AD – Alex Douglas
+### Friday 23^rd^ April 2021
 
 \  
--->
+
+|09:30 - 11:00               | 11:00 - 12:30     | 12:30 - 13:30 |13:30 - 16:00    | 16:00 - 17:00      |
+|:--------------------------:|:-----------------:|:-------------:|:---------------:|:------------------:|
+|Linear models theory - model selection (recorded TC)| Linear models live practical (TC) – multiple explanatory variables | LUNCH | Linear models live practical (TC) – model selection, Live review session (TC) | Catchup/course close (ALL - LIVE)|
+
+\  
+
+AD – Alex Douglas. TC - Thomas Cornulier
+
+\  

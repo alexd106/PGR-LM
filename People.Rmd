@@ -38,7 +38,7 @@ knitr::include_graphics("images/thomas2.png")
 
 \  
 
-Thomas is a Biostatistician at the University of Aberdeen and has been teaching (and learning) R for the last 15 years. 
+Thomas is a Biostatistician at the University of Aberdeen and has been using R for the last 15 years. 
 
 - Email: cornulier(at)abdn(dot)ac(dot)uk
 - Web: https://www.abdn.ac.uk/people/cornulier/
