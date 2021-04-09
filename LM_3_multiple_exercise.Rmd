@@ -20,7 +20,7 @@ SOLUTIONS<- FALSE
 
 \  
 
-This practical has two exercises, as well as optional supplementary questions. The topic of interactions is covered in the optional part. Note that exercise 1 omits important steps of the normal modelling workflow, in particular the model validation and interpretation. This is addressed in Exercise 2.
+This practical has two exercises, as well as optional supplementary questions. Note that exercise 1 omits important steps of the normal modelling workflow, in particular the model validation and interpretation. This is addressed in Exercise 2.
 
 \  
 
@@ -281,11 +281,12 @@ Take some time to observe the predictions from the model, and how the lines have
 
 # Some observations are poorly predicted (fitted) using the current set
 # of predictors.
+
 ```
 
 \  
 
-End of the Linear model with additive continuous and categorical predictors exercise
+End of the Linear model with interactive continuous and categorical predictors exercise
 
 \  
 
@@ -505,7 +506,7 @@ drop1(M5, test= "F")
 
 \  
 
-18\. Let's simplify the model anyway, considering the additive-only model `lm(ABUND ~ LOGAREA + FGRAZE)`. Although we could have validated models at each step the model selection procedure, this can become impractical. However, you really should validate your candidate models at least in the final stages of model selection, by creating plots of the residuals for the candidate final model (I say "candidate" because should the model fail the validation, it may need revisiting irrespective of what the model selection procedure suggested). Remember that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions of the model using these plots and report if these assumptions are acceptable.
+18\. Let's simplify the model anyway, considering the additive-only model `lm(ABUND ~ LOGAREA + FGRAZE)`. Although we could have validated models at each step the model selection procedure, this can become impractical. However, you really should validate your models at least in the final stages of model selection, by creating plots of the residuals for the candidate final model (I say "candidate" because should the model fail the validation, it may need revisiting irrespective of what the model selection procedure suggested). Remember that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions of the model using these plots and report if these assumptions are acceptable.
 
 \  
 
@@ -535,7 +536,10 @@ plot(M6)
 # The observations with the highest leverage don't appear to be overly
 # influential, according to the Cook's distances in the Residuals vs
 # Leverage plot.  
+```
 
+```{r Q18extra, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# (Extra)
 # ABUND being bounded by zero, it wouldn't be too surprising if the variance increases with the mean abundance.
 # This is often improved by log-transforming the response
 loyn$logABUND<- log(loyn$ABUND + 1) # here the natural log
@@ -590,7 +594,6 @@ summary(M6)
 # ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3
 # - 1.59*FGRAZE4 - 11.89*FGRAZE5
 # Note that (Intercept) = 1 always
-
 ```
 
 \  
@@ -641,7 +644,7 @@ summary(M6)
 
 \  
 
-21\. Had we not been aiming to test the effect of the LOGAREA * FGRAZE interaction statistically, we could also have used AIC to perform the model selection. Let's try this (taking the AIC values returned by drop1 or using the function stepAIC in the MASS package), and summarize the performance of the alternative models in a table.
+21\. Had we not been aiming to test the effect of the `LOGAREA * FGRAZE` interaction statistically, we could also have used AIC to perform the model selection. Let's try this (taking the AIC values returned by `drop1` or using the function `step`), and summarize the performance of the alternative models in a table.
 
 \  
 
@@ -652,11 +655,9 @@ summary(M6)
 # But we should still start with a "most complex model considered" 
 # which we deem plausible.
 
-library(MASS)
-
 M.start<- lm(ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE, data= loyn)
 
-stepAIC(M.start)
+step(M.start)
 
 # or 
 
@@ -706,10 +707,10 @@ summary.table
 # interest. This is somewhat arbitrary and there is a chance to
 # miss the "best" model in that way.
 
-# The function `stepAIC` tries to reduce this problem with the
+# The function `step` tries to reduce this problem with the
 # options `direction= "both"`. This means that after achieving a
 # minimal model by applying "backwards" steps of model
-# reduction, `stepAIC` will eventually apply one or more
+# reduction, `step` will eventually apply one or more
 # "forward" steps, where previously deleted terms are added
 # again in case they lead to an improvement of the minimal model.
 
@@ -728,7 +729,7 @@ End of the model selection exercise
 
 \  
 
-A1. Taking the final additive model from Exercise 2: Since the `anova()` function does sequential tests of the effects, the results could be different if we put `FGRAZE` first. Run the corresponding model and its analysis of variance. What null hypotheses are being tested? Do you reject or fail to reject the null hypotheses? What percentage of variation does the model explain overall? Hint: (SST-SSE)/SST. How much variation do `LOGAREA` and `FGRAZE` explain respectively?
+A1. Taking the final additive model from Exercise 2: Since the `anova` function does sequential tests of the effects, the results could be different if we put `FGRAZE` first. Run the corresponding model and its analysis of variance. What null hypotheses are being tested? Do you reject or fail to reject the null hypotheses? What percentage of variation does the model explain overall? Hint: (SST-SSE)/SST. How much variation do `LOGAREA` and `FGRAZE` explain respectively?
 
 \  
 
@@ -739,7 +740,8 @@ anova(birds.add.2)
 # null hypothesis 1: There is no effect of FGRAZE on ABUND
 # (no difference between grazing levels)
 # null hypothesis 2: There is no effect of LOGAREA on ABUND
-# (the coefficient for LOGAREA is zero *after* the effect of FGRAZE)
+# (the proportion of variation in ABUND explained by LOGAREA is
+# zero *after* accounting for the effect of FGRAZE)
 # the p values are all very small therefore reject both null hypotheses.
 
 # we can also extract the Sums of squares like this:
@@ -753,11 +755,12 @@ birds.add.2.SST<- sum(anova(birds.add.2)$'Sum Sq') # compute SST
 # proportion of variation in the data explained by predictors:
 (birds.add.2.SS[1:2]) / birds.add.2.SST # 0.5449233 0.1820540
 
-# So that's 54% for LOGAREA and 18% for FGRAZE after LOGAREA,
-# essentially reversing the contributions found in the first model.
+# So that's 54% for FGRAZE and 18% for LOGAREA after FGRAZE,
+# essentially reversing the contributions found in the first
+# model (for reference, see the solution code chunk for Question 19).
+
 # Conclusion: here the order matters a lot. This is not too surprising since
 # the design is unbalanced and FGRAZE and LOGAREA covary (they are correlated)
-
 ```
 
 \  
@@ -796,7 +799,6 @@ sum(M6.coef * c(1, 0.5, 0, 1, 0, 0)) # 19.15072
 # estimate of the slope for the LOGAREA effect, since there is just one
 # LOGAREA unit of difference and the slope is the change in expected
 # abundance for a 1-unit increase in the predictor.
-
 ```
 
 \  
@@ -855,6 +857,6 @@ plot(birds.inter.1)
 # additionally captured is of biological interest. It most
 # likely is just noise in the data, because the sample size is
 # too low for the model (and us) to be able to distinguish true
-# patterns from noise.
+# patterns from noise (See plots from Question 8).
 ```
 
