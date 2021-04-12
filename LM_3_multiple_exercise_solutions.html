@@ -534,7 +534,7 @@ $(document).ready(function () {
 
 
 <p> </p>
-<p>This practical has two exercises, as well as optional supplementary questions. The topic of interactions is covered in the optional part. Note that exercise 1 omits important steps of the normal modelling workflow, in particular the model validation and interpretation. This is addressed in Exercise 2.</p>
+<p>This practical has two exercises, as well as optional supplementary questions. Note that exercise 1 omits important steps of the normal modelling workflow, in particular the model validation and interpretation. This is addressed in Exercise 2.</p>
 <p> </p>
 <div id="exercise-1-linear-model-with-interaction-between-continuous-and-categorical-predictors-explanatory-variables" class="section level2">
 <h2>Exercise 1: Linear model with interaction between continuous and categorical predictors (= explanatory variables)</h2>
@@ -769,7 +769,7 @@ $(document).ready(function () {
 <span id="cb12-12"><a href="#cb12-12"></a><span class="co"># Some observations are poorly predicted (fitted) using the current set</span></span>
 <span id="cb12-13"><a href="#cb12-13"></a><span class="co"># of predictors.</span></span></code></pre></div>
 <p> </p>
-<p>End of the Linear model with additive continuous and categorical predictors exercise</p>
+<p>End of the Linear model with interactive continuous and categorical predictors exercise</p>
 <p> </p>
 </div>
 <div id="exercise-2-model-selection" class="section level2">
@@ -1059,7 +1059,7 @@ $(document).ready(function () {
 <span id="cb21-43"><a href="#cb21-43"></a><span class="co"># By applying &#39;drop1&#39; we have effectively tested the effect of the interaction,</span></span>
 <span id="cb21-44"><a href="#cb21-44"></a><span class="co"># i.e. the hypothesis that the effect of grazing level depends on patch size (or vice versa).</span></span></code></pre></div>
 <p> </p>
-<p>18. Let’s simplify the model anyway, considering the additive-only model <code>lm(ABUND ~ LOGAREA + FGRAZE)</code>. Although we could have validated models at each step the model selection procedure, this can become impractical. However, you really should validate your candidate models at least in the final stages of model selection, by creating plots of the residuals for the candidate final model (I say “candidate” because should the model fail the validation, it may need revisiting irrespective of what the model selection procedure suggested). Remember that you can split your plotting device into 2 rows and 2 columns using the <code>par()</code> function before you create the plots. Check each of the assumptions of the model using these plots and report if these assumptions are acceptable.</p>
+<p>18. Let’s simplify the model anyway, considering the additive-only model <code>lm(ABUND ~ LOGAREA + FGRAZE)</code>. Although we could have validated models at each step the model selection procedure, this can become impractical. However, you really should validate your models at least in the final stages of model selection, by creating plots of the residuals for the candidate final model (I say “candidate” because should the model fail the validation, it may need revisiting irrespective of what the model selection procedure suggested). Remember that you can split your plotting device into 2 rows and 2 columns using the <code>par()</code> function before you create the plots. Check each of the assumptions of the model using these plots and report if these assumptions are acceptable.</p>
 <p> </p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>M6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>LOGAREA <span class="op">+</span><span class="st"> </span>FGRAZE, <span class="dt">data =</span> loyn) </span>
 <span id="cb22-2"><a href="#cb22-2"></a><span class="co"># first split the plotting device into 2 rows and 2 columns</span></span>
@@ -1086,293 +1086,291 @@ $(document).ready(function () {
 <span id="cb23-16"><a href="#cb23-16"></a></span>
 <span id="cb23-17"><a href="#cb23-17"></a><span class="co"># The observations with the highest leverage don&#39;t appear to be overly</span></span>
 <span id="cb23-18"><a href="#cb23-18"></a><span class="co"># influential, according to the Cook&#39;s distances in the Residuals vs</span></span>
-<span id="cb23-19"><a href="#cb23-19"></a><span class="co"># Leverage plot.  </span></span>
-<span id="cb23-20"><a href="#cb23-20"></a></span>
-<span id="cb23-21"><a href="#cb23-21"></a><span class="co"># ABUND being bounded by zero, it wouldn&#39;t be too surprising if the variance increases with the mean abundance.</span></span>
-<span id="cb23-22"><a href="#cb23-22"></a><span class="co"># This is often improved by log-transforming the response</span></span>
-<span id="cb23-23"><a href="#cb23-23"></a>loyn<span class="op">$</span>logABUND&lt;-<span class="st"> </span><span class="kw">log</span>(loyn<span class="op">$</span>ABUND <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># here the natural log</span></span>
-<span id="cb23-24"><a href="#cb23-24"></a>M6log &lt;-<span class="st"> </span><span class="kw">lm</span>(logABUND <span class="op">~</span><span class="st"> </span>LOGAREA <span class="op">+</span><span class="st"> </span>FGRAZE, <span class="dt">data =</span> loyn)</span>
-<span id="cb23-25"><a href="#cb23-25"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb23-26"><a href="#cb23-26"></a><span class="kw">plot</span>(M6log)</span></code></pre></div>
-<p><img src="LM_3_multiple_exercise_solutions_files/figure-html/Q18-2.png" width="672" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="co"># Not this time! Lots of extreme negative residuals generated.</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co"># Back to `M6`, then. The other issue was the extreme residuals.</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="co"># This could be due to missing important predictors from the model, either</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co"># unknown predictors, or interactions.</span></span></code></pre></div>
+<span id="cb23-19"><a href="#cb23-19"></a><span class="co"># Leverage plot.  </span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># (Extra)</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co"># ABUND being bounded by zero, it wouldn&#39;t be too surprising if the variance increases with the mean abundance.</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co"># This is often improved by log-transforming the response</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>loyn<span class="op">$</span>logABUND&lt;-<span class="st"> </span><span class="kw">log</span>(loyn<span class="op">$</span>ABUND <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># here the natural log</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>M6log &lt;-<span class="st"> </span><span class="kw">lm</span>(logABUND <span class="op">~</span><span class="st"> </span>LOGAREA <span class="op">+</span><span class="st"> </span>FGRAZE, <span class="dt">data =</span> loyn)</span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="kw">plot</span>(M6log)</span></code></pre></div>
+<p><img src="LM_3_multiple_exercise_solutions_files/figure-html/Q18extra-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="co"># Not this time! Lots of extreme negative residuals generated.</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="co"># Back to `M6`, then. The other issue was the extreme residuals.</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="co"># This could be due to missing important predictors from the model, either</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="co"># unknown predictors, or interactions.</span></span></code></pre></div>
 <p> </p>
 <p>19. Obtain summaries of the model output using the <code>anova()</code> and <code>summary()</code> functions. Make sure you understand the difference between these two summaries (e.g. what specific hypotheses are being tested for each of them), and the interpretation of the coefficients in the summary table: a good test of your understanding is to reconstruct the model formula in writing (on paper or in your script), to be able to make predictions by hand (see optional questions ‘A2’ and ‘A3’ at the end). In doubt, try it and seek assistance!</p>
 <p> </p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">anova</span>(M6)</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="co">## Analysis of Variance Table</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="co">## </span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="co">## Response: ABUND</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="co">##           Df Sum Sq Mean Sq  F value    Pr(&gt;F)    </span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="co">## LOGAREA    1 3471.0  3471.0 100.2944 1.530e-13 ***</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="co">## FGRAZE     4 1136.5   284.1   8.2101 3.598e-05 ***</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="co">## Residuals 50 1730.4    34.6                       </span></span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="co">## ---</span></span>
-<span id="cb25-10"><a href="#cb25-10"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb25-11"><a href="#cb25-11"></a><span class="co"># null hypothesis 1: There is no effect of LOGAREA on ABUND</span></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="co"># (the proportion of variation explained by LOGAREA is zero)</span></span>
-<span id="cb25-13"><a href="#cb25-13"></a><span class="co"># null hypothesis 2: There is no effect of FGRAZE on ABUND</span></span>
-<span id="cb25-14"><a href="#cb25-14"></a><span class="co"># (no significant proportion of variation explained by grazing</span></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co"># levels *after* the effect of LOGAREA)</span></span>
-<span id="cb25-16"><a href="#cb25-16"></a><span class="co"># the p values are all very small therefore reject both null hypotheses.</span></span>
-<span id="cb25-17"><a href="#cb25-17"></a></span>
-<span id="cb25-18"><a href="#cb25-18"></a><span class="co"># (Supplement)</span></span>
-<span id="cb25-19"><a href="#cb25-19"></a><span class="co"># You can work out the proportions of variation explained by each predictor</span></span>
-<span id="cb25-20"><a href="#cb25-20"></a><span class="co"># we can extract the Sums of squares like this:</span></span>
-<span id="cb25-21"><a href="#cb25-21"></a><span class="kw">str</span>(<span class="kw">anova</span>(M6)) <span class="co"># examine the structure of the returned object</span></span>
-<span id="cb25-22"><a href="#cb25-22"></a><span class="co">## Classes &#39;anova&#39; and &#39;data.frame&#39;:    3 obs. of  5 variables:</span></span>
-<span id="cb25-23"><a href="#cb25-23"></a><span class="co">##  $ Df     : int  1 4 50</span></span>
-<span id="cb25-24"><a href="#cb25-24"></a><span class="co">##  $ Sum Sq : num  3471 1137 1730</span></span>
-<span id="cb25-25"><a href="#cb25-25"></a><span class="co">##  $ Mean Sq: num  3471 284.1 34.6</span></span>
-<span id="cb25-26"><a href="#cb25-26"></a><span class="co">##  $ F value: num  100.29 8.21 NA</span></span>
-<span id="cb25-27"><a href="#cb25-27"></a><span class="co">##  $ Pr(&gt;F) : num  1.53e-13 3.60e-05 NA</span></span>
-<span id="cb25-28"><a href="#cb25-28"></a><span class="co">##  - attr(*, &quot;heading&quot;)= chr [1:2] &quot;Analysis of Variance Table\n&quot; &quot;Response: ABUND&quot;</span></span>
-<span id="cb25-29"><a href="#cb25-29"></a>M6.SS&lt;-<span class="st"> </span><span class="kw">anova</span>(M6)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span> <span class="co"># store values of interest</span></span>
-<span id="cb25-30"><a href="#cb25-30"></a>M6.SS <span class="co"># checking that we have extracted the Sums of squares as intended</span></span>
-<span id="cb25-31"><a href="#cb25-31"></a><span class="co">## [1] 3470.985 1136.545 1730.399</span></span>
-<span id="cb25-32"><a href="#cb25-32"></a></span>
-<span id="cb25-33"><a href="#cb25-33"></a><span class="co"># compute SST (total sums of squares):</span></span>
-<span id="cb25-34"><a href="#cb25-34"></a>M6.SST&lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">anova</span>(M6)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span>) </span>
-<span id="cb25-35"><a href="#cb25-35"></a></span>
-<span id="cb25-36"><a href="#cb25-36"></a><span class="co"># proportion of variation in the data explained by the model:</span></span>
-<span id="cb25-37"><a href="#cb25-37"></a>(M6.SST <span class="op">-</span><span class="st"> </span>M6.SS[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span>M6.SST <span class="co"># 0.7269773</span></span>
-<span id="cb25-38"><a href="#cb25-38"></a><span class="co">## [1] 0.7269773</span></span>
-<span id="cb25-39"><a href="#cb25-39"></a></span>
-<span id="cb25-40"><a href="#cb25-40"></a><span class="co"># proportion of variation in the data explained by predictors:</span></span>
-<span id="cb25-41"><a href="#cb25-41"></a>(M6.SS[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">/</span><span class="st"> </span>M6.SST <span class="co"># 0.5476530 0.1793243</span></span>
-<span id="cb25-42"><a href="#cb25-42"></a><span class="co">## [1] 0.5476530 0.1793243</span></span>
-<span id="cb25-43"><a href="#cb25-43"></a></span>
-<span id="cb25-44"><a href="#cb25-44"></a><span class="co"># So that&#39;s 55% of variation in the data explained by LOGAREA and 18% for FGRAZE after LOGAREA</span></span>
-<span id="cb25-45"><a href="#cb25-45"></a></span>
-<span id="cb25-46"><a href="#cb25-46"></a></span>
-<span id="cb25-47"><a href="#cb25-47"></a><span class="kw">summary</span>(M6)</span>
-<span id="cb25-48"><a href="#cb25-48"></a><span class="co">## </span></span>
-<span id="cb25-49"><a href="#cb25-49"></a><span class="co">## Call:</span></span>
-<span id="cb25-50"><a href="#cb25-50"></a><span class="co">## lm(formula = ABUND ~ LOGAREA + FGRAZE, data = loyn)</span></span>
-<span id="cb25-51"><a href="#cb25-51"></a><span class="co">## </span></span>
-<span id="cb25-52"><a href="#cb25-52"></a><span class="co">## Residuals:</span></span>
-<span id="cb25-53"><a href="#cb25-53"></a><span class="co">##      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb25-54"><a href="#cb25-54"></a><span class="co">## -16.0849  -2.4793  -0.0817   2.6486  11.6344 </span></span>
-<span id="cb25-55"><a href="#cb25-55"></a><span class="co">## </span></span>
-<span id="cb25-56"><a href="#cb25-56"></a><span class="co">## Coefficients:</span></span>
-<span id="cb25-57"><a href="#cb25-57"></a><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb25-58"><a href="#cb25-58"></a><span class="co">## (Intercept)  15.7164     2.7674   5.679 6.87e-07 ***</span></span>
-<span id="cb25-59"><a href="#cb25-59"></a><span class="co">## LOGAREA       7.2472     1.2551   5.774 4.90e-07 ***</span></span>
-<span id="cb25-60"><a href="#cb25-60"></a><span class="co">## FGRAZE2       0.3826     2.9123   0.131 0.895993    </span></span>
-<span id="cb25-61"><a href="#cb25-61"></a><span class="co">## FGRAZE3      -0.1893     2.5498  -0.074 0.941119    </span></span>
-<span id="cb25-62"><a href="#cb25-62"></a><span class="co">## FGRAZE4      -1.5916     2.9762  -0.535 0.595182    </span></span>
-<span id="cb25-63"><a href="#cb25-63"></a><span class="co">## FGRAZE5     -11.8938     2.9311  -4.058 0.000174 ***</span></span>
-<span id="cb25-64"><a href="#cb25-64"></a><span class="co">## ---</span></span>
-<span id="cb25-65"><a href="#cb25-65"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb25-66"><a href="#cb25-66"></a><span class="co">## </span></span>
-<span id="cb25-67"><a href="#cb25-67"></a><span class="co">## Residual standard error: 5.883 on 50 degrees of freedom</span></span>
-<span id="cb25-68"><a href="#cb25-68"></a><span class="co">## Multiple R-squared:  0.727,  Adjusted R-squared:  0.6997 </span></span>
-<span id="cb25-69"><a href="#cb25-69"></a><span class="co">## F-statistic: 26.63 on 5 and 50 DF,  p-value: 5.148e-13</span></span>
-<span id="cb25-70"><a href="#cb25-70"></a></span>
-<span id="cb25-71"><a href="#cb25-71"></a><span class="co"># From the summary table, the model equation is</span></span>
-<span id="cb25-72"><a href="#cb25-72"></a><span class="co"># ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3</span></span>
-<span id="cb25-73"><a href="#cb25-73"></a><span class="co"># - 1.59*FGRAZE4 - 11.89*FGRAZE5</span></span>
-<span id="cb25-74"><a href="#cb25-74"></a><span class="co"># Note that (Intercept) = 1 always</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">anova</span>(M6)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co">## Analysis of Variance Table</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co">## </span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co">## Response: ABUND</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="co">##           Df Sum Sq Mean Sq  F value    Pr(&gt;F)    </span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co">## LOGAREA    1 3471.0  3471.0 100.2944 1.530e-13 ***</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">## FGRAZE     4 1136.5   284.1   8.2101 3.598e-05 ***</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">## Residuals 50 1730.4    34.6                       </span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">## ---</span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co"># null hypothesis 1: There is no effect of LOGAREA on ABUND</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co"># (the proportion of variation explained by LOGAREA is zero)</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co"># null hypothesis 2: There is no effect of FGRAZE on ABUND</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co"># (no significant proportion of variation explained by grazing</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co"># levels *after* the effect of LOGAREA)</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co"># the p values are all very small therefore reject both null hypotheses.</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co"># (Supplement)</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="co"># You can work out the proportions of variation explained by each predictor</span></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="co"># we can extract the Sums of squares like this:</span></span>
+<span id="cb26-21"><a href="#cb26-21"></a><span class="kw">str</span>(<span class="kw">anova</span>(M6)) <span class="co"># examine the structure of the returned object</span></span>
+<span id="cb26-22"><a href="#cb26-22"></a><span class="co">## Classes &#39;anova&#39; and &#39;data.frame&#39;:    3 obs. of  5 variables:</span></span>
+<span id="cb26-23"><a href="#cb26-23"></a><span class="co">##  $ Df     : int  1 4 50</span></span>
+<span id="cb26-24"><a href="#cb26-24"></a><span class="co">##  $ Sum Sq : num  3471 1137 1730</span></span>
+<span id="cb26-25"><a href="#cb26-25"></a><span class="co">##  $ Mean Sq: num  3471 284.1 34.6</span></span>
+<span id="cb26-26"><a href="#cb26-26"></a><span class="co">##  $ F value: num  100.29 8.21 NA</span></span>
+<span id="cb26-27"><a href="#cb26-27"></a><span class="co">##  $ Pr(&gt;F) : num  1.53e-13 3.60e-05 NA</span></span>
+<span id="cb26-28"><a href="#cb26-28"></a><span class="co">##  - attr(*, &quot;heading&quot;)= chr [1:2] &quot;Analysis of Variance Table\n&quot; &quot;Response: ABUND&quot;</span></span>
+<span id="cb26-29"><a href="#cb26-29"></a>M6.SS&lt;-<span class="st"> </span><span class="kw">anova</span>(M6)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span> <span class="co"># store values of interest</span></span>
+<span id="cb26-30"><a href="#cb26-30"></a>M6.SS <span class="co"># checking that we have extracted the Sums of squares as intended</span></span>
+<span id="cb26-31"><a href="#cb26-31"></a><span class="co">## [1] 3470.985 1136.545 1730.399</span></span>
+<span id="cb26-32"><a href="#cb26-32"></a></span>
+<span id="cb26-33"><a href="#cb26-33"></a><span class="co"># compute SST (total sums of squares):</span></span>
+<span id="cb26-34"><a href="#cb26-34"></a>M6.SST&lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">anova</span>(M6)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span>) </span>
+<span id="cb26-35"><a href="#cb26-35"></a></span>
+<span id="cb26-36"><a href="#cb26-36"></a><span class="co"># proportion of variation in the data explained by the model:</span></span>
+<span id="cb26-37"><a href="#cb26-37"></a>(M6.SST <span class="op">-</span><span class="st"> </span>M6.SS[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span>M6.SST <span class="co"># 0.7269773</span></span>
+<span id="cb26-38"><a href="#cb26-38"></a><span class="co">## [1] 0.7269773</span></span>
+<span id="cb26-39"><a href="#cb26-39"></a></span>
+<span id="cb26-40"><a href="#cb26-40"></a><span class="co"># proportion of variation in the data explained by predictors:</span></span>
+<span id="cb26-41"><a href="#cb26-41"></a>(M6.SS[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">/</span><span class="st"> </span>M6.SST <span class="co"># 0.5476530 0.1793243</span></span>
+<span id="cb26-42"><a href="#cb26-42"></a><span class="co">## [1] 0.5476530 0.1793243</span></span>
+<span id="cb26-43"><a href="#cb26-43"></a></span>
+<span id="cb26-44"><a href="#cb26-44"></a><span class="co"># So that&#39;s 55% of variation in the data explained by LOGAREA and 18% for FGRAZE after LOGAREA</span></span>
+<span id="cb26-45"><a href="#cb26-45"></a></span>
+<span id="cb26-46"><a href="#cb26-46"></a></span>
+<span id="cb26-47"><a href="#cb26-47"></a><span class="kw">summary</span>(M6)</span>
+<span id="cb26-48"><a href="#cb26-48"></a><span class="co">## </span></span>
+<span id="cb26-49"><a href="#cb26-49"></a><span class="co">## Call:</span></span>
+<span id="cb26-50"><a href="#cb26-50"></a><span class="co">## lm(formula = ABUND ~ LOGAREA + FGRAZE, data = loyn)</span></span>
+<span id="cb26-51"><a href="#cb26-51"></a><span class="co">## </span></span>
+<span id="cb26-52"><a href="#cb26-52"></a><span class="co">## Residuals:</span></span>
+<span id="cb26-53"><a href="#cb26-53"></a><span class="co">##      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb26-54"><a href="#cb26-54"></a><span class="co">## -16.0849  -2.4793  -0.0817   2.6486  11.6344 </span></span>
+<span id="cb26-55"><a href="#cb26-55"></a><span class="co">## </span></span>
+<span id="cb26-56"><a href="#cb26-56"></a><span class="co">## Coefficients:</span></span>
+<span id="cb26-57"><a href="#cb26-57"></a><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb26-58"><a href="#cb26-58"></a><span class="co">## (Intercept)  15.7164     2.7674   5.679 6.87e-07 ***</span></span>
+<span id="cb26-59"><a href="#cb26-59"></a><span class="co">## LOGAREA       7.2472     1.2551   5.774 4.90e-07 ***</span></span>
+<span id="cb26-60"><a href="#cb26-60"></a><span class="co">## FGRAZE2       0.3826     2.9123   0.131 0.895993    </span></span>
+<span id="cb26-61"><a href="#cb26-61"></a><span class="co">## FGRAZE3      -0.1893     2.5498  -0.074 0.941119    </span></span>
+<span id="cb26-62"><a href="#cb26-62"></a><span class="co">## FGRAZE4      -1.5916     2.9762  -0.535 0.595182    </span></span>
+<span id="cb26-63"><a href="#cb26-63"></a><span class="co">## FGRAZE5     -11.8938     2.9311  -4.058 0.000174 ***</span></span>
+<span id="cb26-64"><a href="#cb26-64"></a><span class="co">## ---</span></span>
+<span id="cb26-65"><a href="#cb26-65"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb26-66"><a href="#cb26-66"></a><span class="co">## </span></span>
+<span id="cb26-67"><a href="#cb26-67"></a><span class="co">## Residual standard error: 5.883 on 50 degrees of freedom</span></span>
+<span id="cb26-68"><a href="#cb26-68"></a><span class="co">## Multiple R-squared:  0.727,  Adjusted R-squared:  0.6997 </span></span>
+<span id="cb26-69"><a href="#cb26-69"></a><span class="co">## F-statistic: 26.63 on 5 and 50 DF,  p-value: 5.148e-13</span></span>
+<span id="cb26-70"><a href="#cb26-70"></a></span>
+<span id="cb26-71"><a href="#cb26-71"></a><span class="co"># From the summary table, the model equation is</span></span>
+<span id="cb26-72"><a href="#cb26-72"></a><span class="co"># ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3</span></span>
+<span id="cb26-73"><a href="#cb26-73"></a><span class="co"># - 1.59*FGRAZE4 - 11.89*FGRAZE5</span></span>
+<span id="cb26-74"><a href="#cb26-74"></a><span class="co"># Note that (Intercept) = 1 always</span></span></code></pre></div>
 <p> </p>
 <p>20. What inference can you make from this model? What are the biological interpretations, and the statistical lessons you take away from this analysis of the Loyn data?</p>
 <p> </p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Biologically: confirming what we already found out in the previous LM exercises:</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="co"># There is a significant effect of grazing levels, especially the highest</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="co"># level with a negative effect on bird abundance</span></span>
-<span id="cb26-4"><a href="#cb26-4"></a></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="co"># There is a significant positive effect of patch area, too.</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co"># The relative importance of patch area and grazing is not entirely clear, </span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="co"># as these are correlated, with smaller patches also having higher grazing</span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co"># intensity on average, and larger patches lower grazing intensity.</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="co"># Some observations are poorly predicted (fitted) using the set of</span></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="co"># available predictors.</span></span>
-<span id="cb26-13"><a href="#cb26-13"></a></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="co"># Interpretation: </span></span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="co"># Bird abundance may increase with patch area due to populations being more</span></span>
-<span id="cb26-16"><a href="#cb26-16"></a><span class="co"># viable in large patches (e.g. less prone to extinction), </span></span>
-<span id="cb26-17"><a href="#cb26-17"></a><span class="co"># or perhaps because there is proportionally less edge effect in larger</span></span>
-<span id="cb26-18"><a href="#cb26-18"></a><span class="co"># patches, and this in turn provides more high quality habitat for species </span></span>
-<span id="cb26-19"><a href="#cb26-19"></a><span class="co"># associated with these habitat patches</span></span>
-<span id="cb26-20"><a href="#cb26-20"></a></span>
-<span id="cb26-21"><a href="#cb26-21"></a><span class="co"># The negative effect of grazing may be due to grazing decreasing resource</span></span>
-<span id="cb26-22"><a href="#cb26-22"></a><span class="co"># availability for birds, for example plants or seeds directly, or insects</span></span>
-<span id="cb26-23"><a href="#cb26-23"></a><span class="co"># associated with the grazed plants.</span></span>
-<span id="cb26-24"><a href="#cb26-24"></a></span>
-<span id="cb26-25"><a href="#cb26-25"></a></span>
-<span id="cb26-26"><a href="#cb26-26"></a><span class="co"># Methodologically:</span></span>
-<span id="cb26-27"><a href="#cb26-27"></a><span class="co"># Doing model selection is difficult without an intrinsic / expert knowledge</span></span>
-<span id="cb26-28"><a href="#cb26-28"></a><span class="co"># of the system, to guide what variables to include.</span></span>
-<span id="cb26-29"><a href="#cb26-29"></a><span class="co"># Even with this dataset, many more models could have been formulated.</span></span>
-<span id="cb26-30"><a href="#cb26-30"></a><span class="co"># For example, for me, theory would have suggested to test an interaction </span></span>
-<span id="cb26-31"><a href="#cb26-31"></a><span class="co"># between YR.ISOL and LOGDIST (or LOGLDIST?), </span></span>
-<span id="cb26-32"><a href="#cb26-32"></a><span class="co"># because LOGDIST will affect the dispersal of birds between patches </span></span>
-<span id="cb26-33"><a href="#cb26-33"></a><span class="co"># (hence the colonisation rate), </span></span>
-<span id="cb26-34"><a href="#cb26-34"></a><span class="co"># and the time since isolation of the patch may affect how important</span></span>
-<span id="cb26-35"><a href="#cb26-35"></a><span class="co"># dispersal has been to maintain or rescue populations </span></span>
-<span id="cb26-36"><a href="#cb26-36"></a><span class="co"># (for recently isolated patches, dispersal, and hence distance to nearest</span></span>
-<span id="cb26-37"><a href="#cb26-37"></a><span class="co"># patches may have a less important effect)</span></span></code></pre></div>
-<p> </p>
-<p>21. Had we not been aiming to test the effect of the LOGAREA * FGRAZE interaction statistically, we could also have used AIC to perform the model selection. Let’s try this (taking the AIC values returned by drop1 or using the function stepAIC in the MASS package), and summarize the performance of the alternative models in a table.</p>
-<p> </p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># This time, we are not doing any specific hypothesis testing, so there&#39;s</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="co"># no need to force the LOGAREA * FGRAZE into the model until the</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="co"># end of the model selection.</span></span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="co"># But we should still start with a &quot;most complex model considered&quot; </span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="co"># which we deem plausible.</span></span>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Biologically: confirming what we already found out in the previous LM exercises:</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="co"># There is a significant effect of grazing levels, especially the highest</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="co"># level with a negative effect on bird abundance</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="co"># There is a significant positive effect of patch area, too.</span></span>
 <span id="cb27-6"><a href="#cb27-6"></a></span>
-<span id="cb27-7"><a href="#cb27-7"></a><span class="kw">library</span>(MASS)</span>
-<span id="cb27-8"><a href="#cb27-8"></a></span>
-<span id="cb27-9"><a href="#cb27-9"></a>M.start&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>LOGLDIST <span class="op">+</span><span class="st"> </span>YR.ISOL <span class="op">+</span><span class="st"> </span>ALT <span class="op">+</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="co"># The relative importance of patch area and grazing is not entirely clear, </span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="co"># as these are correlated, with smaller patches also having higher grazing</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="co"># intensity on average, and larger patches lower grazing intensity.</span></span>
 <span id="cb27-10"><a href="#cb27-10"></a></span>
-<span id="cb27-11"><a href="#cb27-11"></a><span class="kw">stepAIC</span>(M.start)</span>
-<span id="cb27-12"><a href="#cb27-12"></a><span class="co">## Start:  AIC=208.3</span></span>
-<span id="cb27-13"><a href="#cb27-13"></a><span class="co">## ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb27-14"><a href="#cb27-14"></a><span class="co">## </span></span>
-<span id="cb27-15"><a href="#cb27-15"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-16"><a href="#cb27-16"></a><span class="co">## - LOGLDIST        1     3.499 1455.5 206.43</span></span>
-<span id="cb27-17"><a href="#cb27-17"></a><span class="co">## - YR.ISOL         1     7.717 1459.7 206.59</span></span>
-<span id="cb27-18"><a href="#cb27-18"></a><span class="co">## - ALT             1    10.332 1462.3 206.69</span></span>
-<span id="cb27-19"><a href="#cb27-19"></a><span class="co">## &lt;none&gt;                        1452.0 208.30</span></span>
-<span id="cb27-20"><a href="#cb27-20"></a><span class="co">## - LOGAREA:FGRAZE  4   263.004 1715.0 209.62</span></span>
-<span id="cb27-21"><a href="#cb27-21"></a><span class="co">## </span></span>
-<span id="cb27-22"><a href="#cb27-22"></a><span class="co">## Step:  AIC=206.43</span></span>
-<span id="cb27-23"><a href="#cb27-23"></a><span class="co">## ABUND ~ YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE</span></span>
-<span id="cb27-24"><a href="#cb27-24"></a><span class="co">## </span></span>
-<span id="cb27-25"><a href="#cb27-25"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-26"><a href="#cb27-26"></a><span class="co">## - YR.ISOL         1     7.547 1463.0 204.72</span></span>
-<span id="cb27-27"><a href="#cb27-27"></a><span class="co">## - ALT             1     7.954 1463.4 204.74</span></span>
-<span id="cb27-28"><a href="#cb27-28"></a><span class="co">## &lt;none&gt;                        1455.5 206.43</span></span>
-<span id="cb27-29"><a href="#cb27-29"></a><span class="co">## - LOGAREA:FGRAZE  4   268.077 1723.5 207.90</span></span>
-<span id="cb27-30"><a href="#cb27-30"></a><span class="co">## </span></span>
-<span id="cb27-31"><a href="#cb27-31"></a><span class="co">## Step:  AIC=204.72</span></span>
-<span id="cb27-32"><a href="#cb27-32"></a><span class="co">## ABUND ~ ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE</span></span>
-<span id="cb27-33"><a href="#cb27-33"></a><span class="co">## </span></span>
-<span id="cb27-34"><a href="#cb27-34"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-35"><a href="#cb27-35"></a><span class="co">## - ALT             1    13.608 1476.6 203.24</span></span>
-<span id="cb27-36"><a href="#cb27-36"></a><span class="co">## &lt;none&gt;                        1463.0 204.72</span></span>
-<span id="cb27-37"><a href="#cb27-37"></a><span class="co">## - LOGAREA:FGRAZE  4   262.007 1725.0 205.95</span></span>
-<span id="cb27-38"><a href="#cb27-38"></a><span class="co">## </span></span>
-<span id="cb27-39"><a href="#cb27-39"></a><span class="co">## Step:  AIC=203.24</span></span>
-<span id="cb27-40"><a href="#cb27-40"></a><span class="co">## ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE</span></span>
-<span id="cb27-41"><a href="#cb27-41"></a><span class="co">## </span></span>
-<span id="cb27-42"><a href="#cb27-42"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-43"><a href="#cb27-43"></a><span class="co">## &lt;none&gt;                        1476.6 203.24</span></span>
-<span id="cb27-44"><a href="#cb27-44"></a><span class="co">## - LOGAREA:FGRAZE  4    253.77 1730.4 204.12</span></span>
-<span id="cb27-45"><a href="#cb27-45"></a><span class="co">## </span></span>
-<span id="cb27-46"><a href="#cb27-46"></a><span class="co">## Call:</span></span>
-<span id="cb27-47"><a href="#cb27-47"></a><span class="co">## lm(formula = ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE, data = loyn)</span></span>
-<span id="cb27-48"><a href="#cb27-48"></a><span class="co">## </span></span>
-<span id="cb27-49"><a href="#cb27-49"></a><span class="co">## Coefficients:</span></span>
-<span id="cb27-50"><a href="#cb27-50"></a><span class="co">##     (Intercept)          LOGAREA          FGRAZE2          FGRAZE3          FGRAZE4          FGRAZE5  LOGAREA:FGRAZE2  LOGAREA:FGRAZE3  </span></span>
-<span id="cb27-51"><a href="#cb27-51"></a><span class="co">##          21.243            4.144           -6.165           -7.215          -17.910          -17.043            4.368            4.989  </span></span>
-<span id="cb27-52"><a href="#cb27-52"></a><span class="co">## LOGAREA:FGRAZE4  LOGAREA:FGRAZE5  </span></span>
-<span id="cb27-53"><a href="#cb27-53"></a><span class="co">##          15.235            1.996</span></span>
-<span id="cb27-54"><a href="#cb27-54"></a></span>
-<span id="cb27-55"><a href="#cb27-55"></a><span class="co"># or </span></span>
-<span id="cb27-56"><a href="#cb27-56"></a></span>
-<span id="cb27-57"><a href="#cb27-57"></a><span class="kw">drop1</span>(M.start)</span>
-<span id="cb27-58"><a href="#cb27-58"></a><span class="co">## Single term deletions</span></span>
-<span id="cb27-59"><a href="#cb27-59"></a><span class="co">## </span></span>
-<span id="cb27-60"><a href="#cb27-60"></a><span class="co">## Model:</span></span>
-<span id="cb27-61"><a href="#cb27-61"></a><span class="co">## ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb27-62"><a href="#cb27-62"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-63"><a href="#cb27-63"></a><span class="co">## &lt;none&gt;                      1452.0 208.30</span></span>
-<span id="cb27-64"><a href="#cb27-64"></a><span class="co">## LOGLDIST        1     3.499 1455.5 206.43</span></span>
-<span id="cb27-65"><a href="#cb27-65"></a><span class="co">## YR.ISOL         1     7.717 1459.7 206.59</span></span>
-<span id="cb27-66"><a href="#cb27-66"></a><span class="co">## ALT             1    10.332 1462.3 206.69</span></span>
-<span id="cb27-67"><a href="#cb27-67"></a><span class="co">## LOGAREA:FGRAZE  4   263.004 1715.0 209.62</span></span>
-<span id="cb27-68"><a href="#cb27-68"></a><span class="co"># lowest AIC would be obtained by removing LOGLDIST</span></span>
-<span id="cb27-69"><a href="#cb27-69"></a></span>
-<span id="cb27-70"><a href="#cb27-70"></a>M.step2&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>YR.ISOL <span class="op">+</span><span class="st"> </span>ALT <span class="op">+</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
-<span id="cb27-71"><a href="#cb27-71"></a><span class="kw">drop1</span>(M.step2)</span>
-<span id="cb27-72"><a href="#cb27-72"></a><span class="co">## Single term deletions</span></span>
-<span id="cb27-73"><a href="#cb27-73"></a><span class="co">## </span></span>
-<span id="cb27-74"><a href="#cb27-74"></a><span class="co">## Model:</span></span>
-<span id="cb27-75"><a href="#cb27-75"></a><span class="co">## ABUND ~ YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb27-76"><a href="#cb27-76"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-77"><a href="#cb27-77"></a><span class="co">## &lt;none&gt;                      1455.5 206.43</span></span>
-<span id="cb27-78"><a href="#cb27-78"></a><span class="co">## YR.ISOL         1     7.547 1463.0 204.72</span></span>
-<span id="cb27-79"><a href="#cb27-79"></a><span class="co">## ALT             1     7.954 1463.4 204.74</span></span>
-<span id="cb27-80"><a href="#cb27-80"></a><span class="co">## LOGAREA:FGRAZE  4   268.077 1723.5 207.90</span></span>
-<span id="cb27-81"><a href="#cb27-81"></a><span class="co"># lowest AIC would be obtained by removing YR.ISOL</span></span>
-<span id="cb27-82"><a href="#cb27-82"></a></span>
-<span id="cb27-83"><a href="#cb27-83"></a>M.step3&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>ALT <span class="op">+</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
-<span id="cb27-84"><a href="#cb27-84"></a><span class="kw">drop1</span>(M.step3)</span>
-<span id="cb27-85"><a href="#cb27-85"></a><span class="co">## Single term deletions</span></span>
-<span id="cb27-86"><a href="#cb27-86"></a><span class="co">## </span></span>
-<span id="cb27-87"><a href="#cb27-87"></a><span class="co">## Model:</span></span>
-<span id="cb27-88"><a href="#cb27-88"></a><span class="co">## ABUND ~ ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb27-89"><a href="#cb27-89"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-90"><a href="#cb27-90"></a><span class="co">## &lt;none&gt;                      1463.0 204.72</span></span>
-<span id="cb27-91"><a href="#cb27-91"></a><span class="co">## ALT             1    13.608 1476.6 203.24</span></span>
-<span id="cb27-92"><a href="#cb27-92"></a><span class="co">## LOGAREA:FGRAZE  4   262.007 1725.0 205.95</span></span>
-<span id="cb27-93"><a href="#cb27-93"></a><span class="co"># lowest AIC would be obtained by removing ALT</span></span>
-<span id="cb27-94"><a href="#cb27-94"></a></span>
-<span id="cb27-95"><a href="#cb27-95"></a>M.step4&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
-<span id="cb27-96"><a href="#cb27-96"></a><span class="kw">drop1</span>(M.step4)</span>
-<span id="cb27-97"><a href="#cb27-97"></a><span class="co">## Single term deletions</span></span>
-<span id="cb27-98"><a href="#cb27-98"></a><span class="co">## </span></span>
-<span id="cb27-99"><a href="#cb27-99"></a><span class="co">## Model:</span></span>
-<span id="cb27-100"><a href="#cb27-100"></a><span class="co">## ABUND ~ LOGAREA * FGRAZE</span></span>
-<span id="cb27-101"><a href="#cb27-101"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb27-102"><a href="#cb27-102"></a><span class="co">## &lt;none&gt;                      1476.6 203.24</span></span>
-<span id="cb27-103"><a href="#cb27-103"></a><span class="co">## LOGAREA:FGRAZE  4    253.77 1730.4 204.12</span></span>
-<span id="cb27-104"><a href="#cb27-104"></a><span class="co"># lowest AIC is the current model, including the interaction.</span></span>
-<span id="cb27-105"><a href="#cb27-105"></a><span class="co"># unlike the F-test, the AIC favors retaining the interaction</span></span>
-<span id="cb27-106"><a href="#cb27-106"></a></span>
-<span id="cb27-107"><a href="#cb27-107"></a></span>
-<span id="cb27-108"><a href="#cb27-108"></a><span class="co"># one way of constructing a summary table, for reporting the results:</span></span>
-<span id="cb27-109"><a href="#cb27-109"></a><span class="co"># (we could include the model without interaction, for reference)</span></span>
-<span id="cb27-110"><a href="#cb27-110"></a>Model.formulas&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb27-111"><a href="#cb27-111"></a>    <span class="st">&quot;YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb27-112"><a href="#cb27-112"></a>    <span class="st">&quot;ALT + LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb27-113"><a href="#cb27-113"></a>    <span class="st">&quot;LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb27-114"><a href="#cb27-114"></a>    <span class="st">&quot;LOGAREA + FGRAZE&quot;</span>)</span>
-<span id="cb27-115"><a href="#cb27-115"></a>Model.AIC&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">AIC</span>(M.start),</span>
-<span id="cb27-116"><a href="#cb27-116"></a>    <span class="kw">AIC</span>(M.step2),</span>
-<span id="cb27-117"><a href="#cb27-117"></a>    <span class="kw">AIC</span>(M.step3),</span>
-<span id="cb27-118"><a href="#cb27-118"></a>    <span class="kw">AIC</span>(M.step4),</span>
-<span id="cb27-119"><a href="#cb27-119"></a>    <span class="kw">AIC</span>(M6))</span>
-<span id="cb27-120"><a href="#cb27-120"></a></span>
-<span id="cb27-121"><a href="#cb27-121"></a>summary.table&lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Model=</span> Model.formulas,</span>
-<span id="cb27-122"><a href="#cb27-122"></a>    <span class="dt">AIC=</span> <span class="kw">round</span>(Model.AIC, <span class="dv">2</span>))</span>
-<span id="cb27-123"><a href="#cb27-123"></a></span>
-<span id="cb27-124"><a href="#cb27-124"></a><span class="co"># Sorting models from lowest AIC (preferred) to highest (least preferred):</span></span>
-<span id="cb27-125"><a href="#cb27-125"></a>summary.table&lt;-<span class="st"> </span>summary.table[<span class="kw">order</span>(summary.table<span class="op">$</span>AIC), ]</span>
-<span id="cb27-126"><a href="#cb27-126"></a></span>
-<span id="cb27-127"><a href="#cb27-127"></a><span class="co"># Adding AIC differences with respect to best model:</span></span>
-<span id="cb27-128"><a href="#cb27-128"></a>summary.table<span class="op">$</span>deltaAIC&lt;-<span class="st"> </span>summary.table<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span>summary.table<span class="op">$</span>AIC[<span class="dv">1</span>]</span>
-<span id="cb27-129"><a href="#cb27-129"></a></span>
-<span id="cb27-130"><a href="#cb27-130"></a>summary.table</span>
-<span id="cb27-131"><a href="#cb27-131"></a><span class="co">##                                         Model    AIC deltaAIC</span></span>
-<span id="cb27-132"><a href="#cb27-132"></a><span class="co">## 4                            LOGAREA * FGRAZE 364.16     0.00</span></span>
-<span id="cb27-133"><a href="#cb27-133"></a><span class="co">## 5                            LOGAREA + FGRAZE 365.04     0.88</span></span>
-<span id="cb27-134"><a href="#cb27-134"></a><span class="co">## 3                      ALT + LOGAREA * FGRAZE 365.64     1.48</span></span>
-<span id="cb27-135"><a href="#cb27-135"></a><span class="co">## 2            YR.ISOL + ALT + LOGAREA * FGRAZE 367.35     3.19</span></span>
-<span id="cb27-136"><a href="#cb27-136"></a><span class="co">## 1 LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE 369.22     5.06</span></span>
-<span id="cb27-137"><a href="#cb27-137"></a></span>
-<span id="cb27-138"><a href="#cb27-138"></a><span class="co"># Note that this rather automatic way of doing model selection</span></span>
-<span id="cb27-139"><a href="#cb27-139"></a><span class="co"># misses a number of plausible combinations of the terms of </span></span>
-<span id="cb27-140"><a href="#cb27-140"></a><span class="co"># interest. This is somewhat arbitrary and there is a chance to</span></span>
-<span id="cb27-141"><a href="#cb27-141"></a><span class="co"># miss the &quot;best&quot; model in that way.</span></span>
-<span id="cb27-142"><a href="#cb27-142"></a></span>
-<span id="cb27-143"><a href="#cb27-143"></a><span class="co"># The function `stepAIC` tries to reduce this problem with the</span></span>
-<span id="cb27-144"><a href="#cb27-144"></a><span class="co"># options `direction= &quot;both&quot;`. This means that after achieving a</span></span>
-<span id="cb27-145"><a href="#cb27-145"></a><span class="co"># minimal model by applying &quot;backwards&quot; steps of model</span></span>
-<span id="cb27-146"><a href="#cb27-146"></a><span class="co"># reduction, `stepAIC` will eventually apply one or more</span></span>
-<span id="cb27-147"><a href="#cb27-147"></a><span class="co"># &quot;forward&quot; steps, where previously deleted terms are added</span></span>
-<span id="cb27-148"><a href="#cb27-148"></a><span class="co"># again in case they lead to an improvement of the minimal model.</span></span>
-<span id="cb27-149"><a href="#cb27-149"></a></span>
-<span id="cb27-150"><a href="#cb27-150"></a><span class="co"># However, this is no replacement for a fully manual and </span></span>
-<span id="cb27-151"><a href="#cb27-151"></a><span class="co"># thought-through model selection, informed by the understanding </span></span>
-<span id="cb27-152"><a href="#cb27-152"></a><span class="co"># of theory in the research area, and of the research questions.</span></span></code></pre></div>
+<span id="cb27-11"><a href="#cb27-11"></a><span class="co"># Some observations are poorly predicted (fitted) using the set of</span></span>
+<span id="cb27-12"><a href="#cb27-12"></a><span class="co"># available predictors.</span></span>
+<span id="cb27-13"><a href="#cb27-13"></a></span>
+<span id="cb27-14"><a href="#cb27-14"></a><span class="co"># Interpretation: </span></span>
+<span id="cb27-15"><a href="#cb27-15"></a><span class="co"># Bird abundance may increase with patch area due to populations being more</span></span>
+<span id="cb27-16"><a href="#cb27-16"></a><span class="co"># viable in large patches (e.g. less prone to extinction), </span></span>
+<span id="cb27-17"><a href="#cb27-17"></a><span class="co"># or perhaps because there is proportionally less edge effect in larger</span></span>
+<span id="cb27-18"><a href="#cb27-18"></a><span class="co"># patches, and this in turn provides more high quality habitat for species </span></span>
+<span id="cb27-19"><a href="#cb27-19"></a><span class="co"># associated with these habitat patches</span></span>
+<span id="cb27-20"><a href="#cb27-20"></a></span>
+<span id="cb27-21"><a href="#cb27-21"></a><span class="co"># The negative effect of grazing may be due to grazing decreasing resource</span></span>
+<span id="cb27-22"><a href="#cb27-22"></a><span class="co"># availability for birds, for example plants or seeds directly, or insects</span></span>
+<span id="cb27-23"><a href="#cb27-23"></a><span class="co"># associated with the grazed plants.</span></span>
+<span id="cb27-24"><a href="#cb27-24"></a></span>
+<span id="cb27-25"><a href="#cb27-25"></a></span>
+<span id="cb27-26"><a href="#cb27-26"></a><span class="co"># Methodologically:</span></span>
+<span id="cb27-27"><a href="#cb27-27"></a><span class="co"># Doing model selection is difficult without an intrinsic / expert knowledge</span></span>
+<span id="cb27-28"><a href="#cb27-28"></a><span class="co"># of the system, to guide what variables to include.</span></span>
+<span id="cb27-29"><a href="#cb27-29"></a><span class="co"># Even with this dataset, many more models could have been formulated.</span></span>
+<span id="cb27-30"><a href="#cb27-30"></a><span class="co"># For example, for me, theory would have suggested to test an interaction </span></span>
+<span id="cb27-31"><a href="#cb27-31"></a><span class="co"># between YR.ISOL and LOGDIST (or LOGLDIST?), </span></span>
+<span id="cb27-32"><a href="#cb27-32"></a><span class="co"># because LOGDIST will affect the dispersal of birds between patches </span></span>
+<span id="cb27-33"><a href="#cb27-33"></a><span class="co"># (hence the colonisation rate), </span></span>
+<span id="cb27-34"><a href="#cb27-34"></a><span class="co"># and the time since isolation of the patch may affect how important</span></span>
+<span id="cb27-35"><a href="#cb27-35"></a><span class="co"># dispersal has been to maintain or rescue populations </span></span>
+<span id="cb27-36"><a href="#cb27-36"></a><span class="co"># (for recently isolated patches, dispersal, and hence distance to nearest</span></span>
+<span id="cb27-37"><a href="#cb27-37"></a><span class="co"># patches may have a less important effect)</span></span></code></pre></div>
+<p> </p>
+<p>21. Had we not been aiming to test the effect of the <code>LOGAREA * FGRAZE</code> interaction statistically, we could also have used AIC to perform the model selection. Let’s try this (taking the AIC values returned by <code>drop1</code> or using the function <code>step</code>), and summarize the performance of the alternative models in a table.</p>
+<p> </p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># This time, we are not doing any specific hypothesis testing, so there&#39;s</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="co"># no need to force the LOGAREA * FGRAZE into the model until the</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co"># end of the model selection.</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="co"># But we should still start with a &quot;most complex model considered&quot; </span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="co"># which we deem plausible.</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a></span>
+<span id="cb28-7"><a href="#cb28-7"></a>M.start&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>LOGLDIST <span class="op">+</span><span class="st"> </span>YR.ISOL <span class="op">+</span><span class="st"> </span>ALT <span class="op">+</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
+<span id="cb28-8"><a href="#cb28-8"></a></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="kw">step</span>(M.start)</span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="co">## Start:  AIC=208.3</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="co">## ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a><span class="co">## </span></span>
+<span id="cb28-13"><a href="#cb28-13"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a><span class="co">## - LOGLDIST        1     3.499 1455.5 206.43</span></span>
+<span id="cb28-15"><a href="#cb28-15"></a><span class="co">## - YR.ISOL         1     7.717 1459.7 206.59</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a><span class="co">## - ALT             1    10.332 1462.3 206.69</span></span>
+<span id="cb28-17"><a href="#cb28-17"></a><span class="co">## &lt;none&gt;                        1452.0 208.30</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a><span class="co">## - LOGAREA:FGRAZE  4   263.004 1715.0 209.62</span></span>
+<span id="cb28-19"><a href="#cb28-19"></a><span class="co">## </span></span>
+<span id="cb28-20"><a href="#cb28-20"></a><span class="co">## Step:  AIC=206.43</span></span>
+<span id="cb28-21"><a href="#cb28-21"></a><span class="co">## ABUND ~ YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE</span></span>
+<span id="cb28-22"><a href="#cb28-22"></a><span class="co">## </span></span>
+<span id="cb28-23"><a href="#cb28-23"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-24"><a href="#cb28-24"></a><span class="co">## - YR.ISOL         1     7.547 1463.0 204.72</span></span>
+<span id="cb28-25"><a href="#cb28-25"></a><span class="co">## - ALT             1     7.954 1463.4 204.74</span></span>
+<span id="cb28-26"><a href="#cb28-26"></a><span class="co">## &lt;none&gt;                        1455.5 206.43</span></span>
+<span id="cb28-27"><a href="#cb28-27"></a><span class="co">## - LOGAREA:FGRAZE  4   268.077 1723.5 207.90</span></span>
+<span id="cb28-28"><a href="#cb28-28"></a><span class="co">## </span></span>
+<span id="cb28-29"><a href="#cb28-29"></a><span class="co">## Step:  AIC=204.72</span></span>
+<span id="cb28-30"><a href="#cb28-30"></a><span class="co">## ABUND ~ ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE</span></span>
+<span id="cb28-31"><a href="#cb28-31"></a><span class="co">## </span></span>
+<span id="cb28-32"><a href="#cb28-32"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-33"><a href="#cb28-33"></a><span class="co">## - ALT             1    13.608 1476.6 203.24</span></span>
+<span id="cb28-34"><a href="#cb28-34"></a><span class="co">## &lt;none&gt;                        1463.0 204.72</span></span>
+<span id="cb28-35"><a href="#cb28-35"></a><span class="co">## - LOGAREA:FGRAZE  4   262.007 1725.0 205.95</span></span>
+<span id="cb28-36"><a href="#cb28-36"></a><span class="co">## </span></span>
+<span id="cb28-37"><a href="#cb28-37"></a><span class="co">## Step:  AIC=203.24</span></span>
+<span id="cb28-38"><a href="#cb28-38"></a><span class="co">## ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE</span></span>
+<span id="cb28-39"><a href="#cb28-39"></a><span class="co">## </span></span>
+<span id="cb28-40"><a href="#cb28-40"></a><span class="co">##                  Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-41"><a href="#cb28-41"></a><span class="co">## &lt;none&gt;                        1476.6 203.24</span></span>
+<span id="cb28-42"><a href="#cb28-42"></a><span class="co">## - LOGAREA:FGRAZE  4    253.77 1730.4 204.12</span></span>
+<span id="cb28-43"><a href="#cb28-43"></a><span class="co">## </span></span>
+<span id="cb28-44"><a href="#cb28-44"></a><span class="co">## Call:</span></span>
+<span id="cb28-45"><a href="#cb28-45"></a><span class="co">## lm(formula = ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE, data = loyn)</span></span>
+<span id="cb28-46"><a href="#cb28-46"></a><span class="co">## </span></span>
+<span id="cb28-47"><a href="#cb28-47"></a><span class="co">## Coefficients:</span></span>
+<span id="cb28-48"><a href="#cb28-48"></a><span class="co">##     (Intercept)          LOGAREA          FGRAZE2          FGRAZE3          FGRAZE4          FGRAZE5  LOGAREA:FGRAZE2  LOGAREA:FGRAZE3  </span></span>
+<span id="cb28-49"><a href="#cb28-49"></a><span class="co">##          21.243            4.144           -6.165           -7.215          -17.910          -17.043            4.368            4.989  </span></span>
+<span id="cb28-50"><a href="#cb28-50"></a><span class="co">## LOGAREA:FGRAZE4  LOGAREA:FGRAZE5  </span></span>
+<span id="cb28-51"><a href="#cb28-51"></a><span class="co">##          15.235            1.996</span></span>
+<span id="cb28-52"><a href="#cb28-52"></a></span>
+<span id="cb28-53"><a href="#cb28-53"></a><span class="co"># or </span></span>
+<span id="cb28-54"><a href="#cb28-54"></a></span>
+<span id="cb28-55"><a href="#cb28-55"></a><span class="kw">drop1</span>(M.start)</span>
+<span id="cb28-56"><a href="#cb28-56"></a><span class="co">## Single term deletions</span></span>
+<span id="cb28-57"><a href="#cb28-57"></a><span class="co">## </span></span>
+<span id="cb28-58"><a href="#cb28-58"></a><span class="co">## Model:</span></span>
+<span id="cb28-59"><a href="#cb28-59"></a><span class="co">## ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-60"><a href="#cb28-60"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-61"><a href="#cb28-61"></a><span class="co">## &lt;none&gt;                      1452.0 208.30</span></span>
+<span id="cb28-62"><a href="#cb28-62"></a><span class="co">## LOGLDIST        1     3.499 1455.5 206.43</span></span>
+<span id="cb28-63"><a href="#cb28-63"></a><span class="co">## YR.ISOL         1     7.717 1459.7 206.59</span></span>
+<span id="cb28-64"><a href="#cb28-64"></a><span class="co">## ALT             1    10.332 1462.3 206.69</span></span>
+<span id="cb28-65"><a href="#cb28-65"></a><span class="co">## LOGAREA:FGRAZE  4   263.004 1715.0 209.62</span></span>
+<span id="cb28-66"><a href="#cb28-66"></a><span class="co"># lowest AIC would be obtained by removing LOGLDIST</span></span>
+<span id="cb28-67"><a href="#cb28-67"></a></span>
+<span id="cb28-68"><a href="#cb28-68"></a>M.step2&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>YR.ISOL <span class="op">+</span><span class="st"> </span>ALT <span class="op">+</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
+<span id="cb28-69"><a href="#cb28-69"></a><span class="kw">drop1</span>(M.step2)</span>
+<span id="cb28-70"><a href="#cb28-70"></a><span class="co">## Single term deletions</span></span>
+<span id="cb28-71"><a href="#cb28-71"></a><span class="co">## </span></span>
+<span id="cb28-72"><a href="#cb28-72"></a><span class="co">## Model:</span></span>
+<span id="cb28-73"><a href="#cb28-73"></a><span class="co">## ABUND ~ YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-74"><a href="#cb28-74"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-75"><a href="#cb28-75"></a><span class="co">## &lt;none&gt;                      1455.5 206.43</span></span>
+<span id="cb28-76"><a href="#cb28-76"></a><span class="co">## YR.ISOL         1     7.547 1463.0 204.72</span></span>
+<span id="cb28-77"><a href="#cb28-77"></a><span class="co">## ALT             1     7.954 1463.4 204.74</span></span>
+<span id="cb28-78"><a href="#cb28-78"></a><span class="co">## LOGAREA:FGRAZE  4   268.077 1723.5 207.90</span></span>
+<span id="cb28-79"><a href="#cb28-79"></a><span class="co"># lowest AIC would be obtained by removing YR.ISOL</span></span>
+<span id="cb28-80"><a href="#cb28-80"></a></span>
+<span id="cb28-81"><a href="#cb28-81"></a>M.step3&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>ALT <span class="op">+</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
+<span id="cb28-82"><a href="#cb28-82"></a><span class="kw">drop1</span>(M.step3)</span>
+<span id="cb28-83"><a href="#cb28-83"></a><span class="co">## Single term deletions</span></span>
+<span id="cb28-84"><a href="#cb28-84"></a><span class="co">## </span></span>
+<span id="cb28-85"><a href="#cb28-85"></a><span class="co">## Model:</span></span>
+<span id="cb28-86"><a href="#cb28-86"></a><span class="co">## ABUND ~ ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-87"><a href="#cb28-87"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-88"><a href="#cb28-88"></a><span class="co">## &lt;none&gt;                      1463.0 204.72</span></span>
+<span id="cb28-89"><a href="#cb28-89"></a><span class="co">## ALT             1    13.608 1476.6 203.24</span></span>
+<span id="cb28-90"><a href="#cb28-90"></a><span class="co">## LOGAREA:FGRAZE  4   262.007 1725.0 205.95</span></span>
+<span id="cb28-91"><a href="#cb28-91"></a><span class="co"># lowest AIC would be obtained by removing ALT</span></span>
+<span id="cb28-92"><a href="#cb28-92"></a></span>
+<span id="cb28-93"><a href="#cb28-93"></a>M.step4&lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>LOGAREA <span class="op">*</span><span class="st"> </span>FGRAZE, <span class="dt">data=</span> loyn)</span>
+<span id="cb28-94"><a href="#cb28-94"></a><span class="kw">drop1</span>(M.step4)</span>
+<span id="cb28-95"><a href="#cb28-95"></a><span class="co">## Single term deletions</span></span>
+<span id="cb28-96"><a href="#cb28-96"></a><span class="co">## </span></span>
+<span id="cb28-97"><a href="#cb28-97"></a><span class="co">## Model:</span></span>
+<span id="cb28-98"><a href="#cb28-98"></a><span class="co">## ABUND ~ LOGAREA * FGRAZE</span></span>
+<span id="cb28-99"><a href="#cb28-99"></a><span class="co">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-100"><a href="#cb28-100"></a><span class="co">## &lt;none&gt;                      1476.6 203.24</span></span>
+<span id="cb28-101"><a href="#cb28-101"></a><span class="co">## LOGAREA:FGRAZE  4    253.77 1730.4 204.12</span></span>
+<span id="cb28-102"><a href="#cb28-102"></a><span class="co"># lowest AIC is the current model, including the interaction.</span></span>
+<span id="cb28-103"><a href="#cb28-103"></a><span class="co"># unlike the F-test, the AIC favors retaining the interaction</span></span>
+<span id="cb28-104"><a href="#cb28-104"></a></span>
+<span id="cb28-105"><a href="#cb28-105"></a></span>
+<span id="cb28-106"><a href="#cb28-106"></a><span class="co"># one way of constructing a summary table, for reporting the results:</span></span>
+<span id="cb28-107"><a href="#cb28-107"></a><span class="co"># (we could include the model without interaction, for reference)</span></span>
+<span id="cb28-108"><a href="#cb28-108"></a>Model.formulas&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-109"><a href="#cb28-109"></a>    <span class="st">&quot;YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-110"><a href="#cb28-110"></a>    <span class="st">&quot;ALT + LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-111"><a href="#cb28-111"></a>    <span class="st">&quot;LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-112"><a href="#cb28-112"></a>    <span class="st">&quot;LOGAREA + FGRAZE&quot;</span>)</span>
+<span id="cb28-113"><a href="#cb28-113"></a>Model.AIC&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">AIC</span>(M.start),</span>
+<span id="cb28-114"><a href="#cb28-114"></a>    <span class="kw">AIC</span>(M.step2),</span>
+<span id="cb28-115"><a href="#cb28-115"></a>    <span class="kw">AIC</span>(M.step3),</span>
+<span id="cb28-116"><a href="#cb28-116"></a>    <span class="kw">AIC</span>(M.step4),</span>
+<span id="cb28-117"><a href="#cb28-117"></a>    <span class="kw">AIC</span>(M6))</span>
+<span id="cb28-118"><a href="#cb28-118"></a></span>
+<span id="cb28-119"><a href="#cb28-119"></a>summary.table&lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Model=</span> Model.formulas,</span>
+<span id="cb28-120"><a href="#cb28-120"></a>    <span class="dt">AIC=</span> <span class="kw">round</span>(Model.AIC, <span class="dv">2</span>))</span>
+<span id="cb28-121"><a href="#cb28-121"></a></span>
+<span id="cb28-122"><a href="#cb28-122"></a><span class="co"># Sorting models from lowest AIC (preferred) to highest (least preferred):</span></span>
+<span id="cb28-123"><a href="#cb28-123"></a>summary.table&lt;-<span class="st"> </span>summary.table[<span class="kw">order</span>(summary.table<span class="op">$</span>AIC), ]</span>
+<span id="cb28-124"><a href="#cb28-124"></a></span>
+<span id="cb28-125"><a href="#cb28-125"></a><span class="co"># Adding AIC differences with respect to best model:</span></span>
+<span id="cb28-126"><a href="#cb28-126"></a>summary.table<span class="op">$</span>deltaAIC&lt;-<span class="st"> </span>summary.table<span class="op">$</span>AIC <span class="op">-</span><span class="st"> </span>summary.table<span class="op">$</span>AIC[<span class="dv">1</span>]</span>
+<span id="cb28-127"><a href="#cb28-127"></a></span>
+<span id="cb28-128"><a href="#cb28-128"></a>summary.table</span>
+<span id="cb28-129"><a href="#cb28-129"></a><span class="co">##                                         Model    AIC deltaAIC</span></span>
+<span id="cb28-130"><a href="#cb28-130"></a><span class="co">## 4                            LOGAREA * FGRAZE 364.16     0.00</span></span>
+<span id="cb28-131"><a href="#cb28-131"></a><span class="co">## 5                            LOGAREA + FGRAZE 365.04     0.88</span></span>
+<span id="cb28-132"><a href="#cb28-132"></a><span class="co">## 3                      ALT + LOGAREA * FGRAZE 365.64     1.48</span></span>
+<span id="cb28-133"><a href="#cb28-133"></a><span class="co">## 2            YR.ISOL + ALT + LOGAREA * FGRAZE 367.35     3.19</span></span>
+<span id="cb28-134"><a href="#cb28-134"></a><span class="co">## 1 LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE 369.22     5.06</span></span>
+<span id="cb28-135"><a href="#cb28-135"></a></span>
+<span id="cb28-136"><a href="#cb28-136"></a><span class="co"># Note that this rather automatic way of doing model selection</span></span>
+<span id="cb28-137"><a href="#cb28-137"></a><span class="co"># misses a number of plausible combinations of the terms of </span></span>
+<span id="cb28-138"><a href="#cb28-138"></a><span class="co"># interest. This is somewhat arbitrary and there is a chance to</span></span>
+<span id="cb28-139"><a href="#cb28-139"></a><span class="co"># miss the &quot;best&quot; model in that way.</span></span>
+<span id="cb28-140"><a href="#cb28-140"></a></span>
+<span id="cb28-141"><a href="#cb28-141"></a><span class="co"># The function `step` tries to reduce this problem with the</span></span>
+<span id="cb28-142"><a href="#cb28-142"></a><span class="co"># options `direction= &quot;both&quot;`. This means that after achieving a</span></span>
+<span id="cb28-143"><a href="#cb28-143"></a><span class="co"># minimal model by applying &quot;backwards&quot; steps of model</span></span>
+<span id="cb28-144"><a href="#cb28-144"></a><span class="co"># reduction, `step` will eventually apply one or more</span></span>
+<span id="cb28-145"><a href="#cb28-145"></a><span class="co"># &quot;forward&quot; steps, where previously deleted terms are added</span></span>
+<span id="cb28-146"><a href="#cb28-146"></a><span class="co"># again in case they lead to an improvement of the minimal model.</span></span>
+<span id="cb28-147"><a href="#cb28-147"></a></span>
+<span id="cb28-148"><a href="#cb28-148"></a><span class="co"># However, this is no replacement for a fully manual and </span></span>
+<span id="cb28-149"><a href="#cb28-149"></a><span class="co"># thought-through model selection, informed by the understanding </span></span>
+<span id="cb28-150"><a href="#cb28-150"></a><span class="co"># of theory in the research area, and of the research questions.</span></span></code></pre></div>
 <p> </p>
 <p>End of the model selection exercise</p>
 <p> </p>
@@ -1380,139 +1378,142 @@ $(document).ready(function () {
 <div id="optional-questions-if-youre-fast-or-want-to-take-it-further" class="section level2">
 <h2>Optional questions, if you’re fast or want to take it further</h2>
 <p> </p>
-<p>A1. Taking the final additive model from Exercise 2: Since the <code>anova()</code> function does sequential tests of the effects, the results could be different if we put <code>FGRAZE</code> first. Run the corresponding model and its analysis of variance. What null hypotheses are being tested? Do you reject or fail to reject the null hypotheses? What percentage of variation does the model explain overall? Hint: (SST-SSE)/SST. How much variation do <code>LOGAREA</code> and <code>FGRAZE</code> explain respectively?</p>
+<p>A1. Taking the final additive model from Exercise 2: Since the <code>anova</code> function does sequential tests of the effects, the results could be different if we put <code>FGRAZE</code> first. Run the corresponding model and its analysis of variance. What null hypotheses are being tested? Do you reject or fail to reject the null hypotheses? What percentage of variation does the model explain overall? Hint: (SST-SSE)/SST. How much variation do <code>LOGAREA</code> and <code>FGRAZE</code> explain respectively?</p>
 <p> </p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>birds.add<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>FGRAZE <span class="op">+</span><span class="st"> </span>LOGAREA, <span class="dt">data =</span> loyn)</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="kw">anova</span>(birds.add<span class="fl">.2</span>)</span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="co">## Analysis of Variance Table</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="co">## </span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="co">## Response: ABUND</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="co">##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="co">## FGRAZE     4 3453.7  863.42  24.949 2.156e-11 ***</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="co">## LOGAREA    1 1153.8 1153.85  33.340 4.901e-07 ***</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="co">## Residuals 50 1730.4   34.61                      </span></span>
-<span id="cb28-10"><a href="#cb28-10"></a><span class="co">## ---</span></span>
-<span id="cb28-11"><a href="#cb28-11"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb28-12"><a href="#cb28-12"></a></span>
-<span id="cb28-13"><a href="#cb28-13"></a><span class="co"># null hypothesis 1: There is no effect of FGRAZE on ABUND</span></span>
-<span id="cb28-14"><a href="#cb28-14"></a><span class="co"># (no difference between grazing levels)</span></span>
-<span id="cb28-15"><a href="#cb28-15"></a><span class="co"># null hypothesis 2: There is no effect of LOGAREA on ABUND</span></span>
-<span id="cb28-16"><a href="#cb28-16"></a><span class="co"># (the coefficient for LOGAREA is zero *after* the effect of FGRAZE)</span></span>
-<span id="cb28-17"><a href="#cb28-17"></a><span class="co"># the p values are all very small therefore reject both null hypotheses.</span></span>
-<span id="cb28-18"><a href="#cb28-18"></a></span>
-<span id="cb28-19"><a href="#cb28-19"></a><span class="co"># we can also extract the Sums of squares like this:</span></span>
-<span id="cb28-20"><a href="#cb28-20"></a>birds.add.<span class="fl">2.</span>SS&lt;-<span class="st"> </span><span class="kw">anova</span>(birds.add<span class="fl">.2</span>)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span> <span class="co"># store values of interest</span></span>
-<span id="cb28-21"><a href="#cb28-21"></a>birds.add.<span class="fl">2.</span>SST&lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">anova</span>(birds.add<span class="fl">.2</span>)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span>) <span class="co"># compute SST</span></span>
-<span id="cb28-22"><a href="#cb28-22"></a></span>
-<span id="cb28-23"><a href="#cb28-23"></a><span class="co"># proportion of variation in the data explained by the model:</span></span>
-<span id="cb28-24"><a href="#cb28-24"></a>(birds.add.<span class="fl">2.</span>SST <span class="op">-</span><span class="st"> </span>birds.add.<span class="fl">2.</span>SS[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span>birds.add.<span class="fl">2.</span>SST</span>
-<span id="cb28-25"><a href="#cb28-25"></a><span class="co">## [1] 0.7269773</span></span>
-<span id="cb28-26"><a href="#cb28-26"></a><span class="co"># the same as the previous model</span></span>
-<span id="cb28-27"><a href="#cb28-27"></a></span>
-<span id="cb28-28"><a href="#cb28-28"></a><span class="co"># proportion of variation in the data explained by predictors:</span></span>
-<span id="cb28-29"><a href="#cb28-29"></a>(birds.add.<span class="fl">2.</span>SS[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">/</span><span class="st"> </span>birds.add.<span class="fl">2.</span>SST <span class="co"># 0.5449233 0.1820540</span></span>
-<span id="cb28-30"><a href="#cb28-30"></a><span class="co">## [1] 0.5449233 0.1820540</span></span>
-<span id="cb28-31"><a href="#cb28-31"></a></span>
-<span id="cb28-32"><a href="#cb28-32"></a><span class="co"># So that&#39;s 54% for LOGAREA and 18% for FGRAZE after LOGAREA,</span></span>
-<span id="cb28-33"><a href="#cb28-33"></a><span class="co"># essentially reversing the contributions found in the first model.</span></span>
-<span id="cb28-34"><a href="#cb28-34"></a><span class="co"># Conclusion: here the order matters a lot. This is not too surprising since</span></span>
-<span id="cb28-35"><a href="#cb28-35"></a><span class="co"># the design is unbalanced and FGRAZE and LOGAREA covary (they are correlated)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>birds.add<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(ABUND <span class="op">~</span><span class="st"> </span>FGRAZE <span class="op">+</span><span class="st"> </span>LOGAREA, <span class="dt">data =</span> loyn)</span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="kw">anova</span>(birds.add<span class="fl">.2</span>)</span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="co">## Analysis of Variance Table</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="co">## </span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="co">## Response: ABUND</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="co">##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="co">## FGRAZE     4 3453.7  863.42  24.949 2.156e-11 ***</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="co">## LOGAREA    1 1153.8 1153.85  33.340 4.901e-07 ***</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="co">## Residuals 50 1730.4   34.61                      </span></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="co">## ---</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a><span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a></span>
+<span id="cb29-13"><a href="#cb29-13"></a><span class="co"># null hypothesis 1: There is no effect of FGRAZE on ABUND</span></span>
+<span id="cb29-14"><a href="#cb29-14"></a><span class="co"># (no difference between grazing levels)</span></span>
+<span id="cb29-15"><a href="#cb29-15"></a><span class="co"># null hypothesis 2: There is no effect of LOGAREA on ABUND</span></span>
+<span id="cb29-16"><a href="#cb29-16"></a><span class="co"># (the proportion of variation in ABUND explained by LOGAREA is</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a><span class="co"># zero *after* accounting for the effect of FGRAZE)</span></span>
+<span id="cb29-18"><a href="#cb29-18"></a><span class="co"># the p values are all very small therefore reject both null hypotheses.</span></span>
+<span id="cb29-19"><a href="#cb29-19"></a></span>
+<span id="cb29-20"><a href="#cb29-20"></a><span class="co"># we can also extract the Sums of squares like this:</span></span>
+<span id="cb29-21"><a href="#cb29-21"></a>birds.add.<span class="fl">2.</span>SS&lt;-<span class="st"> </span><span class="kw">anova</span>(birds.add<span class="fl">.2</span>)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span> <span class="co"># store values of interest</span></span>
+<span id="cb29-22"><a href="#cb29-22"></a>birds.add.<span class="fl">2.</span>SST&lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">anova</span>(birds.add<span class="fl">.2</span>)<span class="op">$</span><span class="st">&#39;Sum Sq&#39;</span>) <span class="co"># compute SST</span></span>
+<span id="cb29-23"><a href="#cb29-23"></a></span>
+<span id="cb29-24"><a href="#cb29-24"></a><span class="co"># proportion of variation in the data explained by the model:</span></span>
+<span id="cb29-25"><a href="#cb29-25"></a>(birds.add.<span class="fl">2.</span>SST <span class="op">-</span><span class="st"> </span>birds.add.<span class="fl">2.</span>SS[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span>birds.add.<span class="fl">2.</span>SST</span>
+<span id="cb29-26"><a href="#cb29-26"></a><span class="co">## [1] 0.7269773</span></span>
+<span id="cb29-27"><a href="#cb29-27"></a><span class="co"># the same as the previous model</span></span>
+<span id="cb29-28"><a href="#cb29-28"></a></span>
+<span id="cb29-29"><a href="#cb29-29"></a><span class="co"># proportion of variation in the data explained by predictors:</span></span>
+<span id="cb29-30"><a href="#cb29-30"></a>(birds.add.<span class="fl">2.</span>SS[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">/</span><span class="st"> </span>birds.add.<span class="fl">2.</span>SST <span class="co"># 0.5449233 0.1820540</span></span>
+<span id="cb29-31"><a href="#cb29-31"></a><span class="co">## [1] 0.5449233 0.1820540</span></span>
+<span id="cb29-32"><a href="#cb29-32"></a></span>
+<span id="cb29-33"><a href="#cb29-33"></a><span class="co"># So that&#39;s 54% for FGRAZE and 18% for LOGAREA after FGRAZE,</span></span>
+<span id="cb29-34"><a href="#cb29-34"></a><span class="co"># essentially reversing the contributions found in the first</span></span>
+<span id="cb29-35"><a href="#cb29-35"></a><span class="co"># model (for reference, see the solution code chunk for Question 19).</span></span>
+<span id="cb29-36"><a href="#cb29-36"></a></span>
+<span id="cb29-37"><a href="#cb29-37"></a><span class="co"># Conclusion: here the order matters a lot. This is not too surprising since</span></span>
+<span id="cb29-38"><a href="#cb29-38"></a><span class="co"># the design is unbalanced and FGRAZE and LOGAREA covary (they are correlated)</span></span></code></pre></div>
 <p> </p>
 <p>A2. Looking at the summary table of the additive model, interpret all the coefficients, in terms of what they measure and how they affect the predictions of the model. Let’s then check that it all fits together: write down the equation of the model with the appropriate parameter estimates from the summary. By hand, calculate the predicted bird abundance (A) for a patch with <code>LOGAREA</code>= -0.5 and <code>GRAZE</code>= 1, and (B) for a patch with <code>LOGAREA</code>= -0.5 and <code>GRAZE</code>= 3. Can you predict the difference in expected abundance between (A) and (B) before doing the calculation? Hint: the difference between <code>GRAZE3</code> and <code>GRAZE1</code> for a given patch area. Now, predict (C) for <code>LOGAREA</code>= 0.5 and <code>GRAZE</code>= 3. What does the difference between (C) and (B) correspond to?</p>
 <p> </p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="co"># - 1.59*FGRAZE4 - 11.89*FGRAZE5</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="co"># Note that (Intercept) = 1 always</span></span>
-<span id="cb29-4"><a href="#cb29-4"></a></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="co"># expected abundance for (A): replace LOGAREA by -0.5, and all FGRAZE2...5 by 0</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a><span class="fl">15.72</span><span class="op">*</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.25</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.38</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.19</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.59</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">11.89</span><span class="op">*</span><span class="dv">0</span> <span class="co"># 12.095</span></span>
-<span id="cb29-7"><a href="#cb29-7"></a><span class="co">## [1] 12.095</span></span>
-<span id="cb29-8"><a href="#cb29-8"></a></span>
-<span id="cb29-9"><a href="#cb29-9"></a><span class="co"># could also extract the model coefficients like this:</span></span>
-<span id="cb29-10"><a href="#cb29-10"></a>M6.coef&lt;-<span class="st"> </span><span class="kw">coef</span>(M6)</span>
-<span id="cb29-11"><a href="#cb29-11"></a>M6.coef</span>
-<span id="cb29-12"><a href="#cb29-12"></a><span class="co">## (Intercept)     LOGAREA     FGRAZE2     FGRAZE3     FGRAZE4     FGRAZE5 </span></span>
-<span id="cb29-13"><a href="#cb29-13"></a><span class="co">##  15.7163938   7.2472294   0.3826488  -0.1892869  -1.5915795 -11.8938327</span></span>
-<span id="cb29-14"><a href="#cb29-14"></a><span class="co"># and multiply by the predictor values to obtain the equivalent prediction</span></span>
-<span id="cb29-15"><a href="#cb29-15"></a><span class="co"># (difference due to my own roundings of estimates above)</span></span>
-<span id="cb29-16"><a href="#cb29-16"></a><span class="kw">sum</span>(M6.coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 12.09278 </span></span>
-<span id="cb29-17"><a href="#cb29-17"></a><span class="co">## [1] 12.09278</span></span>
-<span id="cb29-18"><a href="#cb29-18"></a></span>
-<span id="cb29-19"><a href="#cb29-19"></a><span class="co"># expected abundance for (B): input 1 for the GRAZE3 variable</span></span>
-<span id="cb29-20"><a href="#cb29-20"></a><span class="fl">15.72</span><span class="op">*</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.25</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.38</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.19</span><span class="op">*</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.59</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">11.89</span><span class="op">*</span><span class="dv">0</span> <span class="co"># 11.905</span></span>
-<span id="cb29-21"><a href="#cb29-21"></a><span class="co">## [1] 11.905</span></span>
-<span id="cb29-22"><a href="#cb29-22"></a><span class="co"># or</span></span>
-<span id="cb29-23"><a href="#cb29-23"></a><span class="kw">sum</span>(M6.coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 11.90349</span></span>
-<span id="cb29-24"><a href="#cb29-24"></a><span class="co">## [1] 11.90349</span></span>
-<span id="cb29-25"><a href="#cb29-25"></a></span>
-<span id="cb29-26"><a href="#cb29-26"></a><span class="co"># the difference (B) 11.90349 - (A) 12.09278 should correspond to</span></span>
-<span id="cb29-27"><a href="#cb29-27"></a><span class="co"># the estimate for the GRAZE3 coefficient</span></span>
-<span id="cb29-28"><a href="#cb29-28"></a></span>
-<span id="cb29-29"><a href="#cb29-29"></a><span class="co"># expected abundance for (C)</span></span>
-<span id="cb29-30"><a href="#cb29-30"></a><span class="kw">sum</span>(M6.coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 19.15072</span></span>
-<span id="cb29-31"><a href="#cb29-31"></a><span class="co">## [1] 19.15072</span></span>
-<span id="cb29-32"><a href="#cb29-32"></a></span>
-<span id="cb29-33"><a href="#cb29-33"></a><span class="co"># the difference (C) 19.15072 - (B) 11.90349 should coincide with the</span></span>
-<span id="cb29-34"><a href="#cb29-34"></a><span class="co"># estimate of the slope for the LOGAREA effect, since there is just one</span></span>
-<span id="cb29-35"><a href="#cb29-35"></a><span class="co"># LOGAREA unit of difference and the slope is the change in expected</span></span>
-<span id="cb29-36"><a href="#cb29-36"></a><span class="co"># abundance for a 1-unit increase in the predictor.</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="co"># - 1.59*FGRAZE4 - 11.89*FGRAZE5</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="co"># Note that (Intercept) = 1 always</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a></span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="co"># expected abundance for (A): replace LOGAREA by -0.5, and all FGRAZE2...5 by 0</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a><span class="fl">15.72</span><span class="op">*</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.25</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.38</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.19</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.59</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">11.89</span><span class="op">*</span><span class="dv">0</span> <span class="co"># 12.095</span></span>
+<span id="cb30-7"><a href="#cb30-7"></a><span class="co">## [1] 12.095</span></span>
+<span id="cb30-8"><a href="#cb30-8"></a></span>
+<span id="cb30-9"><a href="#cb30-9"></a><span class="co"># could also extract the model coefficients like this:</span></span>
+<span id="cb30-10"><a href="#cb30-10"></a>M6.coef&lt;-<span class="st"> </span><span class="kw">coef</span>(M6)</span>
+<span id="cb30-11"><a href="#cb30-11"></a>M6.coef</span>
+<span id="cb30-12"><a href="#cb30-12"></a><span class="co">## (Intercept)     LOGAREA     FGRAZE2     FGRAZE3     FGRAZE4     FGRAZE5 </span></span>
+<span id="cb30-13"><a href="#cb30-13"></a><span class="co">##  15.7163938   7.2472294   0.3826488  -0.1892869  -1.5915795 -11.8938327</span></span>
+<span id="cb30-14"><a href="#cb30-14"></a><span class="co"># and multiply by the predictor values to obtain the equivalent prediction</span></span>
+<span id="cb30-15"><a href="#cb30-15"></a><span class="co"># (difference due to my own roundings of estimates above)</span></span>
+<span id="cb30-16"><a href="#cb30-16"></a><span class="kw">sum</span>(M6.coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 12.09278 </span></span>
+<span id="cb30-17"><a href="#cb30-17"></a><span class="co">## [1] 12.09278</span></span>
+<span id="cb30-18"><a href="#cb30-18"></a></span>
+<span id="cb30-19"><a href="#cb30-19"></a><span class="co"># expected abundance for (B): input 1 for the GRAZE3 variable</span></span>
+<span id="cb30-20"><a href="#cb30-20"></a><span class="fl">15.72</span><span class="op">*</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">7.25</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="fl">0.38</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.19</span><span class="op">*</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.59</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">11.89</span><span class="op">*</span><span class="dv">0</span> <span class="co"># 11.905</span></span>
+<span id="cb30-21"><a href="#cb30-21"></a><span class="co">## [1] 11.905</span></span>
+<span id="cb30-22"><a href="#cb30-22"></a><span class="co"># or</span></span>
+<span id="cb30-23"><a href="#cb30-23"></a><span class="kw">sum</span>(M6.coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 11.90349</span></span>
+<span id="cb30-24"><a href="#cb30-24"></a><span class="co">## [1] 11.90349</span></span>
+<span id="cb30-25"><a href="#cb30-25"></a></span>
+<span id="cb30-26"><a href="#cb30-26"></a><span class="co"># the difference (B) 11.90349 - (A) 12.09278 should correspond to</span></span>
+<span id="cb30-27"><a href="#cb30-27"></a><span class="co"># the estimate for the GRAZE3 coefficient</span></span>
+<span id="cb30-28"><a href="#cb30-28"></a></span>
+<span id="cb30-29"><a href="#cb30-29"></a><span class="co"># expected abundance for (C)</span></span>
+<span id="cb30-30"><a href="#cb30-30"></a><span class="kw">sum</span>(M6.coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 19.15072</span></span>
+<span id="cb30-31"><a href="#cb30-31"></a><span class="co">## [1] 19.15072</span></span>
+<span id="cb30-32"><a href="#cb30-32"></a></span>
+<span id="cb30-33"><a href="#cb30-33"></a><span class="co"># the difference (C) 19.15072 - (B) 11.90349 should coincide with the</span></span>
+<span id="cb30-34"><a href="#cb30-34"></a><span class="co"># estimate of the slope for the LOGAREA effect, since there is just one</span></span>
+<span id="cb30-35"><a href="#cb30-35"></a><span class="co"># LOGAREA unit of difference and the slope is the change in expected</span></span>
+<span id="cb30-36"><a href="#cb30-36"></a><span class="co"># abundance for a 1-unit increase in the predictor.</span></span></code></pre></div>
 <p> </p>
 <p>A3. Check if you can make sense of the interactive model structure (Model <code>birds.inter.1</code> in exercise 1), by writing down the equation of the model with the appropriate parameter estimates from the summary. Then, calculate again the predicted bird abundance (A) for a patch with LOGAREA= 2.5 and GRAZE= 1, and (B) for a patch with LOGAREA= -0.5 and GRAZE= 5.</p>
 <p> </p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># ABUND = 21.243*(Intercept) - 6.165*FGRAZE2 - 7.215*FGRAZE3 - 17.910*FGRAZE4</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="co"># - 17.043*FGRAZE5 + 4.144*LOGAREA + 4.368*FGRAZE2:LOGAREA</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="co"># + 4.989*FGRAZE3:LOGAREA + 15.235*FGRAZE4:LOGAREA + 1.996*FGRAZE5:LOGAREA</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a><span class="co"># Note that (Intercept) = 1 always</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a></span>
-<span id="cb30-6"><a href="#cb30-6"></a><span class="co"># expected abundance for (A): replace LOGAREA by 2.5, and all terms involving</span></span>
-<span id="cb30-7"><a href="#cb30-7"></a><span class="co"># FGRAZE2...5 by 0</span></span>
-<span id="cb30-8"><a href="#cb30-8"></a><span class="fl">21.243</span><span class="op">*</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">6.165</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.215</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.910</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.043</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.144</span><span class="op">*</span><span class="fl">2.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.368</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.989</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">15.235</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.996</span><span class="op">*</span><span class="dv">0</span> <span class="co"># 31.603</span></span>
-<span id="cb30-9"><a href="#cb30-9"></a><span class="co">## [1] 31.603</span></span>
-<span id="cb30-10"><a href="#cb30-10"></a></span>
-<span id="cb30-11"><a href="#cb30-11"></a><span class="co"># much lower risk of error by extracting the model coefficients like this:</span></span>
-<span id="cb30-12"><a href="#cb30-12"></a>birds.inter.<span class="fl">1.</span>coef&lt;-<span class="st"> </span><span class="kw">coef</span>(birds.inter<span class="fl">.1</span>)</span>
-<span id="cb30-13"><a href="#cb30-13"></a>birds.inter.<span class="fl">1.</span>coef <span class="co"># check coefficients and their order</span></span>
-<span id="cb30-14"><a href="#cb30-14"></a><span class="co">##     (Intercept)         FGRAZE2         FGRAZE3         FGRAZE4         FGRAZE5         LOGAREA FGRAZE2:LOGAREA FGRAZE3:LOGAREA </span></span>
-<span id="cb30-15"><a href="#cb30-15"></a><span class="co">##       21.243012       -6.165390       -7.214949      -17.909983      -17.042997        4.143979        4.368422        4.989490 </span></span>
-<span id="cb30-16"><a href="#cb30-16"></a><span class="co">## FGRAZE4:LOGAREA FGRAZE5:LOGAREA </span></span>
-<span id="cb30-17"><a href="#cb30-17"></a><span class="co">##       15.235284        1.995647</span></span>
-<span id="cb30-18"><a href="#cb30-18"></a><span class="co"># and multiply by the predictor values to obtain the equivalent prediction</span></span>
-<span id="cb30-19"><a href="#cb30-19"></a><span class="kw">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 31.60296 </span></span>
-<span id="cb30-20"><a href="#cb30-20"></a><span class="co">## [1] 31.60296</span></span>
-<span id="cb30-21"><a href="#cb30-21"></a></span>
-<span id="cb30-22"><a href="#cb30-22"></a><span class="co"># expected abundance for (B): input 1 for the GRAZE5 variable and -0.5 for</span></span>
-<span id="cb30-23"><a href="#cb30-23"></a><span class="co"># variables LOGAREA and FGRAZE5:LOGAREA</span></span>
-<span id="cb30-24"><a href="#cb30-24"></a><span class="fl">21.243</span><span class="op">*</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">6.165</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.215</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.910</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.043</span><span class="op">*</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.144</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="fl">4.368</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.989</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">15.235</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.996</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="co"># 1.13</span></span>
-<span id="cb30-25"><a href="#cb30-25"></a><span class="co">## [1] 1.13</span></span>
-<span id="cb30-26"><a href="#cb30-26"></a><span class="co"># or</span></span>
-<span id="cb30-27"><a href="#cb30-27"></a><span class="kw">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">-0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">-0.5</span>)) <span class="co"># 1.130203 </span></span>
-<span id="cb30-28"><a href="#cb30-28"></a><span class="co">## [1] 1.130203</span></span>
-<span id="cb30-29"><a href="#cb30-29"></a></span>
-<span id="cb30-30"><a href="#cb30-30"></a><span class="co"># Well done if you got there!</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># ABUND = 21.243*(Intercept) - 6.165*FGRAZE2 - 7.215*FGRAZE3 - 17.910*FGRAZE4</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="co"># - 17.043*FGRAZE5 + 4.144*LOGAREA + 4.368*FGRAZE2:LOGAREA</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co"># + 4.989*FGRAZE3:LOGAREA + 15.235*FGRAZE4:LOGAREA + 1.996*FGRAZE5:LOGAREA</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># Note that (Intercept) = 1 always</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="co"># expected abundance for (A): replace LOGAREA by 2.5, and all terms involving</span></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="co"># FGRAZE2...5 by 0</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="fl">21.243</span><span class="op">*</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">6.165</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.215</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.910</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.043</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.144</span><span class="op">*</span><span class="fl">2.5</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.368</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.989</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">15.235</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.996</span><span class="op">*</span><span class="dv">0</span> <span class="co"># 31.603</span></span>
+<span id="cb31-9"><a href="#cb31-9"></a><span class="co">## [1] 31.603</span></span>
+<span id="cb31-10"><a href="#cb31-10"></a></span>
+<span id="cb31-11"><a href="#cb31-11"></a><span class="co"># much lower risk of error by extracting the model coefficients like this:</span></span>
+<span id="cb31-12"><a href="#cb31-12"></a>birds.inter.<span class="fl">1.</span>coef&lt;-<span class="st"> </span><span class="kw">coef</span>(birds.inter<span class="fl">.1</span>)</span>
+<span id="cb31-13"><a href="#cb31-13"></a>birds.inter.<span class="fl">1.</span>coef <span class="co"># check coefficients and their order</span></span>
+<span id="cb31-14"><a href="#cb31-14"></a><span class="co">##     (Intercept)         FGRAZE2         FGRAZE3         FGRAZE4         FGRAZE5         LOGAREA FGRAZE2:LOGAREA FGRAZE3:LOGAREA FGRAZE4:LOGAREA </span></span>
+<span id="cb31-15"><a href="#cb31-15"></a><span class="co">##       21.243012       -6.165390       -7.214949      -17.909983      -17.042997        4.143979        4.368422        4.989490       15.235284 </span></span>
+<span id="cb31-16"><a href="#cb31-16"></a><span class="co">## FGRAZE5:LOGAREA </span></span>
+<span id="cb31-17"><a href="#cb31-17"></a><span class="co">##        1.995647</span></span>
+<span id="cb31-18"><a href="#cb31-18"></a><span class="co"># and multiply by the predictor values to obtain the equivalent prediction</span></span>
+<span id="cb31-19"><a href="#cb31-19"></a><span class="kw">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 31.60296 </span></span>
+<span id="cb31-20"><a href="#cb31-20"></a><span class="co">## [1] 31.60296</span></span>
+<span id="cb31-21"><a href="#cb31-21"></a></span>
+<span id="cb31-22"><a href="#cb31-22"></a><span class="co"># expected abundance for (B): input 1 for the GRAZE5 variable and -0.5 for</span></span>
+<span id="cb31-23"><a href="#cb31-23"></a><span class="co"># variables LOGAREA and FGRAZE5:LOGAREA</span></span>
+<span id="cb31-24"><a href="#cb31-24"></a><span class="fl">21.243</span><span class="op">*</span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">6.165</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">7.215</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.910</span><span class="op">*</span><span class="dv">0</span> <span class="op">-</span><span class="st"> </span><span class="fl">17.043</span><span class="op">*</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.144</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="fl">4.368</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">4.989</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">15.235</span><span class="op">*</span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.996</span><span class="op">*</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="co"># 1.13</span></span>
+<span id="cb31-25"><a href="#cb31-25"></a><span class="co">## [1] 1.13</span></span>
+<span id="cb31-26"><a href="#cb31-26"></a><span class="co"># or</span></span>
+<span id="cb31-27"><a href="#cb31-27"></a><span class="kw">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">-0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">-0.5</span>)) <span class="co"># 1.130203 </span></span>
+<span id="cb31-28"><a href="#cb31-28"></a><span class="co">## [1] 1.130203</span></span>
+<span id="cb31-29"><a href="#cb31-29"></a></span>
+<span id="cb31-30"><a href="#cb31-30"></a><span class="co"># Well done if you got there!</span></span></code></pre></div>
 <p> </p>
 <p>A4. Let’s compare the residuals diagnostics of the interactive model structure (Model <code>birds.inter.1</code> in exercise 1) with those of the additive model (final model from exercise 2). Remember, that you can split your plotting device into 2 rows and 2 columns using the <code>par()</code> function before you create the plots. Does the additional complexity of the interaction make a big difference?</p>
 <p> </p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># first split the plotting device into 2 rows and 2 columns</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># create the residuals plots for the additive model</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="kw">plot</span>(M6)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># first split the plotting device into 2 rows and 2 columns</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co"># create the residuals plots for the additive model</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="kw">plot</span>(M6)</span></code></pre></div>
 <p><img src="LM_3_multiple_exercise_solutions_files/figure-html/A4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="co"># create the residuals plots for the interactive model</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="kw">plot</span>(birds.inter<span class="fl">.1</span>)</span></code></pre></div>
-<p><img src="LM_3_multiple_exercise_solutions_files/figure-html/A4-2.png" width="672" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="co"># Not a great deal of an improvement! Just marginally better in every respect,</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="co"># thanks to increasing the fit slightly by throwing lots of </span></span>
-<span id="cb33-4"><a href="#cb33-4"></a><span class="co"># (unnecessary?) new model parameters at the data.</span></span>
-<span id="cb33-5"><a href="#cb33-5"></a></span>
-<span id="cb33-6"><a href="#cb33-6"></a><span class="co"># By increasing the complexity of the model, we have improved</span></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="co"># the fit, but there is little evidence that what we have</span></span>
-<span id="cb33-8"><a href="#cb33-8"></a><span class="co"># additionally captured is of biological interest. It most</span></span>
-<span id="cb33-9"><a href="#cb33-9"></a><span class="co"># likely is just noise in the data, because the sample size is</span></span>
-<span id="cb33-10"><a href="#cb33-10"></a><span class="co"># too low for the model (and us) to be able to distinguish true</span></span>
-<span id="cb33-11"><a href="#cb33-11"></a><span class="co"># patterns from noise.</span></span></code></pre></div>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="co"># create the residuals plots for the interactive model</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="kw">plot</span>(birds.inter<span class="fl">.1</span>)</span></code></pre></div>
+<p><img src="LM_3_multiple_exercise_solutions_files/figure-html/A4-2.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="co"># Not a great deal of an improvement! Just marginally better in every respect,</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="co"># thanks to increasing the fit slightly by throwing lots of </span></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="co"># (unnecessary?) new model parameters at the data.</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="co"># By increasing the complexity of the model, we have improved</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="co"># the fit, but there is little evidence that what we have</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="co"># additionally captured is of biological interest. It most</span></span>
+<span id="cb34-9"><a href="#cb34-9"></a><span class="co"># likely is just noise in the data, because the sample size is</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a><span class="co"># too low for the model (and us) to be able to distinguish true</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a><span class="co"># patterns from noise (See plots from Question 8).</span></span></code></pre></div>
 </div>
 
 
