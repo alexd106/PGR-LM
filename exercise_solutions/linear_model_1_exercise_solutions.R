@@ -101,8 +101,8 @@ plot(loyn.lm, which = 4)
 # to predict bird abundance if AREA == 100
 
 # if you log base 10 transformed the AREA variable
-10.4 + (9.78 * log10(100))
-
+bird_abundance100 = 10.4 + (9.78 * log10(100))
+bird_abundance100
 # if you used the natural log (i.e. log()) then you would use log()
 # not log10()
 
