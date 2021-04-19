@@ -11,7 +11,7 @@
 
 
 
-<title>Data</title>
+<title>Exercise</title>
 
 <script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -21,6 +21,7 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
@@ -243,6 +244,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -414,60 +418,95 @@ $(document).ready(function () {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
 
 
-<h1 class="title toc-ignore">Data</h1>
+
+<h1 class="title toc-ignore">Exercise</h1>
 
 </div>
 
 
 <p> </p>
-<p><strong>Option 1: Download all the data at once.</strong></p>
-<ul>
-<li><p>Create a new RStudio project for this course (call it ‘pgr_stats’ if your imagination fails you!). If you’re not sure how to create a new Project then see <a href="https://intro2r.com/rsprojs.html">Section 1.6</a> of our Introduction to R book or watch <a href="https://alexd106.github.io/QUADstatR/howto.html#rstudio_proj-vid">this short video</a>.</p></li>
-<li><p>Once you’re working in your RStudio project create a new directory in your Project directory called <code>data</code> (all lowercase). You can easily create this new directory by clicking on the ‘New Folder’ button in the ‘Files’ tab in RStudio (see <a href="https://intro2r.com/dir-struct.html">Section 1.8</a> of our Introduction to R book for a set-by-step guide how to do this).</p></li>
-<li><p>Download and extract <strong><a href="data/all_data.zip">this zip file <i class="fa fa-file-archive-o" aria-hidden="true"></i></a></strong> (0.21 Mb) with all the data for the entire workshop in the new <code>data</code> directory you just made. Note: this file may include additional datasets that we won’t use. You will need to uncompress this zip file using your favourite software (most operating systems now have at least one built-in (un)compression tool).</p></li>
-</ul>
+<div id="exercise-poisson-glm---predicting-species-richness" class="section level1">
+<h1>Exercise: Poisson GLM - predicting species richness</h1>
 <p> </p>
-<p><strong>Option 2: Download individual datasets as needed.</strong></p>
+<p>The data for this exercise were collected during an experiment which investigated the relationship between the number of plant species and plant biomass grown in plots with 3 controlled pH treatments: low, medium and high pH. The research seeks to find out if increasing biomass has an effect on species richness, and if this effect could be modulated by pH. Therefore, <code>Species</code> is the response variable and <code>pH</code> and <code>Biomass</code> are explanatory variables. Because the number of species is a count (positive and integer), we will attempt to fit a Poisson distribution to these data.</p>
+<p> </p>
+<p>1. As in previous exercises, either create a new R script (perhaps call it GLM_Poisson) or continue with your previous R script in your RStudio Project. Again, make sure you include any metadata you feel is appropriate (title, description of task, date of creation etc) and don’t forget to comment out your metadata with a <code>#</code> at the beginning of the line.</p>
+<p> </p>
+<p>2. Import the data file ‘species.txt’ into R and take a look at the structure of this dataframe. Start with an initial data exploration (using <code>pairs()</code> and <code>coplot()</code>?). Do you see any imbalance of concern between the predictors? Do you foresee any problem for the model to answer the initial question?</p>
 <ul>
-<li><p>Create a new RStudio project for this course (call it ‘pgr_stats’ if your imagination fails you!). If you’re not sure how to create a new Project then see <a href="https://intro2r.com/rsprojs.html">Section 1.6</a> of our Introduction to R book or watch <a href="https://alexd106.github.io/QUADstatR/howto.html#rstudio_proj-vid">this short video</a>.</p></li>
-<li><p>Once you’re working in your RStudio project create a new directory in your Project directory called <code>data</code> (all lowercase). You can easily create this new directory by clicking on the ‘New Folder’ button in the ‘Files’ tab in RStudio (see <a href="https://intro2r.com/dir-struct.html">Section 1.8</a> of our Introduction to R book for a set-by-step guide how to do this).</p></li>
-<li><p>Download individual data files as needed, saving them to the new <code>data</code> folder you just made. Right click on the data file link below and select <em>Save link as…</em> (or similar) to save to the desired location.</p>
+<li>Hints:
 <ul>
-<li><a href="data/anscombe.txt">anscombe.txt</a></li>
-<li><a href="data/atmosphere.txt">atmosphere.txt</a></li>
-<li><a href="data/Boar.txt">Boar.txt</a></li>
-<li><a href="data/boar.xls">boar.xls</a></li>
-<li><a href="data/cars.txt">cars.txt</a></li>
-<li><a href="data/children.txt">children.txt</a></li>
-<li><a href="data/dolphin.csv">dolphin.csv</a></li>
-<li><a href="data/DrugsMites.txt">DrugsMites.txt</a></li>
-<li><a href="data/flower.xls">flower.xls</a></li>
-<li><a href="data/Galton_cm.csv">Galton_cm.csv</a></li>
-<li><a href="data/Gigartina.CSV">Gigartina.CSV</a></li>
-<li><a href="data/IslandBirds.txt">IslandBirds.txt</a></li>
-<li><a href="data/isthereasanta.txt">isthereasanta.txt</a></li>
-<li><a href="data/leprosy.txt">leprosy.txt</a></li>
-<li><a href="data/limpets.xls">limpets.xls</a></li>
-<li><a href="data/loyn.txt">loyn.txt</a></li>
-<li><a href="data/loyn.xlsx">loyn.xlsx</a></li>
-<li><a href="data/pollution.txt">pollution.txt</a></li>
-<li><a href="data/prawnGR.CSV">prawnGR.CSV</a></li>
-<li><a href="data/RIKZRichness.txt">RIKZRichness.txt</a></li>
-<li><a href="data/RIKZRichness.xls">RIKZRichness.xls</a></li>
-<li><a href="data/Roadkills.txt">Roadkills.txt</a></li>
-<li><a href="data/Roadkills.xls">Roadkills.xls</a></li>
-<li><a href="data/seeds.xls">seeds.xls</a></li>
-<li><a href="data/smoking.txt">smoking.txt</a></li>
-<li><a href="data/species.txt">species.txt</a></li>
-<li><a href="data/squid1.xlsx">squid1.xlsx</a></li>
-<li><a href="data/TemoraBR.CSV">TemoraBR.CSV</a></li>
-<li><a href="data/wedgeclamII.xlsx">wedgeclamII.xlsx</a></li>
-<li><a href="data/whaledata.xlsx">whaledata.xlsx</a></li>
-<li><a href="data/yields2.txt">yields2.txt</a></li>
+<li>the Poisson model uses a log-link, therefore the equation of the model (the linear predictor) will predict the expected number of plant species on the log scale.</li>
+<li>for a corresponding data exploration it would make sense to use the log of the response.</li>
+<li>check that the format of pH is appropriate and that the reference level is what you want.</li>
+<li>restrict the plot to the variables you actually need</li>
+<li>an effective way of doing this is to store the names of the variables of interest in a vector <code>VOI&lt;- c("Var1", "Var2", ...)</code></li>
+<li>and then use the naming method for subsetting the data set <code>Mydata[, VOI]</code></li>
 </ul></li>
 </ul>
+<p> </p>
+<p><img src="GLM_1_Poisson_exercise_v2_files/figure-html/Q2-1.png" width="672" /><img src="GLM_1_Poisson_exercise_v2_files/figure-html/Q2-2.png" width="672" /></p>
+<p> </p>
+<p>3. To warm up, let’s start with a simple Poisson GLM (using <code>glm</code>) including only <code>Biomass</code> as a predictor. Hints: + take some time to think what the appropriate response variable is! + if in doubt, make sure to ask someone to help clear this with you. + remember to specify the assumed distribution of the data in <code>glm()</code></p>
+<p> </p>
+<p> </p>
+<p>4. Obtain summaries of the model output using the <code>summary()</code> function. Make sure you understand the mathematical and biological interpretation of the model, by writing down the complete model on paper.</p>
+<p> </p>
+<p> </p>
+<p>5. According to this model, what would be the predicted value (by hand) on the link scale log(mu) when Biomass= 5? What would this become on the response scale, i.e. the number of species?</p>
+<p> </p>
+<p> </p>
+<p>6. Now, specify a more useful Poisson GLM (using <code>glm</code>) to match the stated research questions.</p>
+<p> </p>
+<p> </p>
+<p>7. Obtain summaries of the model output using the <code>summary()</code> and the ANOVA of the model. Which of the <code>drop1()</code> or <code>anova()</code> functions would you choose to use if you wanted (A) to look at deviance components or (B) to do model simplification? Is the effect of the interaction significant?</p>
+<p> </p>
+<p> </p>
+<p>8. Make sure you understand the individual components of the two types of summaries, null hypotheses, and the mathematical and biological interpretation of the different coefficients (i.e. would you be able to reconstruct and to use the model formula to make predictions? In doubt, try it and seek assistance!). Any indication of overdispersion (Hint: check residual deviance and degrees of freedom)</p>
+<p> </p>
+<p>9. Is everything significant? Which of the summaries above do you prefer to use, if you would like to explain the predictions, or test hypotheses, or perform model selection?</p>
+<p> </p>
+<p>10. Check for collinearity using the <code>vif()</code> function in the <code>car</code> package. What do you think?</p>
+<p> </p>
+<p> </p>
+<p>11. Validate the model using the standard residuals diagnostic plots</p>
+<p> </p>
+<p> </p>
+<p>12. Use <code>predict()</code> with the argument <code>type= "response"</code> to obtain the fitted values on the original (response) scale. Plot a fitted line for the relationship between number of species and biomass for each level of pH. Why are the lines not straight?</p>
+<p> </p>
+<p> </p>
+<p>13. (Optional) Use <code>predict</code> again, but this time obtain the fitted values on the scale of the linear predictor <code>type= "link"</code>. Plot again and compare with the previous graph: what is happening? How would you back-transform these values predicted on the link scale to plot them on the response scale again?</p>
+<p> </p>
+<p> </p>
+<p>14. (Optional but recommended) Use <code>predict</code> again, but this time obtain the fitted values and their standard errors on the scale of the linear predictor. From these, calculate confidence intervals for the fitted values, and plot them together with the data, after back-transforming the fitted values and intervals on the response scale.</p>
+<ul>
+<li>Suggested approach:
+<ul>
+<li>plot the raw data (one colour per pH)</li>
+<li>create a <code>data.frame</code> called <code>X</code> containing the data to predict for: as sequence of increasing Biomass and the pH of your choice</li>
+<li>use <code>predict()</code> with the appropriate options <code>type= "link", se.fit= TRUE</code> to obtain the fitted values on the link scale and for being able to calculate the confidence intervals later. Store in object <code>Z</code>.</li>
+<li>plot fitted values, extracted using <code>Z$fit</code>, against the Biomass sequence. Do not forget to back-transform on the response scale.</li>
+<li>plot the upper bound of the 95% CI (fitted values + 1.96*se), extracted using <code>Z$fit</code> and <code>Z$se.fit</code>, against the Biomass sequence. Do not forget to back-transform on the response scale.</li>
+<li>plot the lower bound of the 95% CI (fitted values - 1.96*se), extracted using <code>Z$fit</code> and <code>Z$se.fit</code>, against the Biomass sequence. Do not forget to back-transform on the response scale.</li>
+<li>repeat for other pH values.</li>
+</ul></li>
+</ul>
+<p> </p>
+<p> </p>
+<p>15. Looking at the data and model fits, any idea why expected species richness for the largest values of biomass tends to be biased high? How satisfied are you with the model? Have we learned anything from it, about species diversity in relation to pH and biomass?</p>
+<p> </p>
+<p> </p>
+<p>End of the Poisson GLM - predicting species richness exercise</p>
+</div>
 
 
 
@@ -502,6 +541,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
