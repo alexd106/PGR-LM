@@ -1,12 +1,8 @@
 ---
-title: 'Exercise'
-# author: TCornulier
+title: "Exercises"
 output: 
   html_document:
-    toc: false
-    code_folding: hide
-editor_options: 
-  chunk_output_type: console
+   toc: false
 ---
 
 

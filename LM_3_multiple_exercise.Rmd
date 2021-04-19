@@ -1,14 +1,8 @@
 ---
-title: "Exercise"
-# author: "TCornulier"
-output:
+title: "Exercises"
+output: 
   html_document:
-    toc: no
-    code_folding: hide
-  pdf_document:
-    toc: no
-editor_options:
-  chunk_output_type: console
+   toc: false
 ---
 
 

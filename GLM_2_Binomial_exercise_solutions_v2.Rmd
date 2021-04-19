@@ -1,14 +1,9 @@
 ---
-title: "Exercise Solutions"
-# author: TCornulier
-output:
+title: 'Exercise Solutions'
+output: 
   html_document:
-    toc: no
+    toc: false
     code_folding: hide
-  pdf_document:
-    toc: no
-editor_options:
-  chunk_output_type: console
 ---
 
 
