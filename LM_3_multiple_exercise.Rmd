@@ -158,12 +158,13 @@ summary(birds.inter.1)
 \  
 
 8\. Let's now plot the predictions of your initial model to figure out how it really fits the data. Here's a recipe, using the `predict()` function.
-  + plot the raw data, using a different colour per `FGRAZE` level
-  + for each `FGRAZE` level in turn,
-  + create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values)
-  + store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so it requires double quotes.
-  + add a predicted column containing the predictions of the model for the new data frame, using `predict()`
-  + plot the predictions with the appropriate colours
+
+* plot the raw data, using a different colour per `FGRAZE` level
+* for each `FGRAZE` level in turn,
+* create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values)
+* store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so it requires double quotes.
+* add a predicted column containing the predictions of the model for the new data frame, using `predict()`
+* plot the predictions with the appropriate colours
   
 See the script below, for one of many ways of doing this.
 
@@ -338,7 +339,9 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 
 \  
 
-12\. It's useful to start with a graphical exploration of the relationships between predictors and between predictors and response. A pair-plot with `pairs()` is a very effective way of doing this when the number of variables is not too large. Hints:
+12\. It's useful to start with a graphical exploration of the relationships between predictors and between predictors and response. A pair-plot with `pairs()` is a very effective way of doing this when the number of variables is not too large. 
+
+* Hints:
   + restrict the plot to the variables you actually need
   + an effective way of doing this is to store the names of the variables of interest in a vector `VOI<- c("Var1", "Var2", ...)`
   + and then use the naming method for subsetting the data set `Mydata[, VOI]`
