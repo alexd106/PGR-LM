@@ -704,14 +704,14 @@ $(document).ready(function () {
 <p> </p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Vanilla pairs plot</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">pairs</span>(loyn[,<span class="kw">c</span>(<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>,<span class="st">&quot;DIST&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>               <span class="st">&quot;YR.ISOL&quot;</span>,<span class="st">&quot;ALT&quot;</span>,<span class="st">&quot;GRAZE&quot;</span>)])</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="kw">pairs</span>(loyn[,<span class="kw">c</span>(<span class="st">&quot;LOGAREA&quot;</span>, <span class="st">&quot;LOGDIST&quot;</span>, <span class="st">&quot;LDIST&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>               <span class="st">&quot;YR.ISOL&quot;</span>, <span class="st">&quot;ALT&quot;</span>, <span class="st">&quot;GRAZE&quot;</span>)])</span>
 <span id="cb7-5"><a href="#cb7-5"></a></span>
 <span id="cb7-6"><a href="#cb7-6"></a><span class="co"># or first create a new dataframe and then use this </span></span>
 <span id="cb7-7"><a href="#cb7-7"></a><span class="co"># data frame with the pairs function</span></span>
 <span id="cb7-8"><a href="#cb7-8"></a></span>
-<span id="cb7-9"><a href="#cb7-9"></a>explan_vars &lt;-<span class="st"> </span>loyn[,<span class="kw">c</span>(<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>,<span class="st">&quot;DIST&quot;</span>,</span>
-<span id="cb7-10"><a href="#cb7-10"></a>               <span class="st">&quot;YR.ISOL&quot;</span>,<span class="st">&quot;ALT&quot;</span>,<span class="st">&quot;GRAZE&quot;</span>)]</span>
+<span id="cb7-9"><a href="#cb7-9"></a>explan_vars &lt;-<span class="st"> </span>loyn[,<span class="kw">c</span>(<span class="st">&quot;LOGAREA&quot;</span>, <span class="st">&quot;LOGDIST&quot;</span>, <span class="st">&quot;LDIST&quot;</span>,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>               <span class="st">&quot;YR.ISOL&quot;</span>, <span class="st">&quot;ALT&quot;</span>, <span class="st">&quot;GRAZE&quot;</span>)]</span>
 <span id="cb7-11"><a href="#cb7-11"></a><span class="kw">pairs</span>(explan_vars)</span></code></pre></div>
 <p><img src="graphical_data_exploration_exercise_solutions_files/figure-html/Q9a-1.png" width="672" /></p>
 <p> </p>
@@ -729,14 +729,14 @@ $(document).ready(function () {
 <span id="cb8-12"><a href="#cb8-12"></a>}</span>
 <span id="cb8-13"><a href="#cb8-13"></a></span>
 <span id="cb8-14"><a href="#cb8-14"></a><span class="co"># then use the panel.cor function when we use pairs</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="kw">pairs</span>(loyn[,<span class="kw">c</span>(<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>,<span class="st">&quot;DIST&quot;</span>,</span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="kw">pairs</span>(loyn[,<span class="kw">c</span>(<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>, <span class="st">&quot;LDIST&quot;</span>,</span>
 <span id="cb8-16"><a href="#cb8-16"></a>               <span class="st">&quot;YR.ISOL&quot;</span>,<span class="st">&quot;ALT&quot;</span>,<span class="st">&quot;GRAZE&quot;</span>)],</span>
 <span id="cb8-17"><a href="#cb8-17"></a>      <span class="dt">upper.panel =</span> panel.cor)</span></code></pre></div>
 <p><img src="graphical_data_exploration_exercise_solutions_files/figure-html/Q9b-1.png" width="672" /></p>
 <p> </p>
 <p>10. Are there any clear relationships between the response variable (<code>ABUND</code>) and individual explanatory variables? Use the appropriate plotting functions (<code>plot()</code>, <code>boxplot()</code>, <code>pairs()</code>) to visualise these relationships.</p>
 <p> </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">pairs</span>(loyn[,<span class="kw">c</span>(<span class="st">&quot;ABUND&quot;</span>,<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>,<span class="st">&quot;DIST&quot;</span>,</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">pairs</span>(loyn[,<span class="kw">c</span>(<span class="st">&quot;ABUND&quot;</span>,<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>, <span class="st">&quot;LDIST&quot;</span>,</span>
 <span id="cb9-2"><a href="#cb9-2"></a>        <span class="st">&quot;YR.ISOL&quot;</span>,<span class="st">&quot;ALT&quot;</span>,<span class="st">&quot;GRAZE&quot;</span>)],</span>
 <span id="cb9-3"><a href="#cb9-3"></a>        <span class="dt">lower.panel =</span> panel.cor)</span></code></pre></div>
 <p><img src="graphical_data_exploration_exercise_solutions_files/figure-html/Q10a-1.png" width="672" /></p>
