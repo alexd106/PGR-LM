@@ -1,63 +1,23 @@
-## ----Q2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----Q2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 loyn <- read.table("./data/loyn.txt", header = TRUE)
 str(loyn)
 
 
-## ----Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 loyn$LOGAREA <- log10(loyn$AREA)
 # create factor GRAZE as it was originally coded as an integer
 loyn$FGRAZE <- factor(loyn$GRAZE)
 
 
-## ----Q4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------
-## coplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
-## 
-## # or
-## library(lattice)
-## xyplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
-## 
-## # There is a lot of variation in there, but:
-## # The mean abundance seems to decrease as grazing levels increase.
-## # This is most noticeable in the highest grazing level.
-## # Within a grazing level, abundance seems to increase with the log-patch area.
-## # It is unclear from this if the slope of the log-area effect is
-## # different between grazing levels
 
 
-## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 birds.inter.1 <- lm(ABUND ~ FGRAZE * LOGAREA , data = loyn)
 
 
-## ----Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------
-## # first split the plotting device into 2 rows and 2 columns
-## par(mfrow = c(2,2))
-## 
-## # now create the residuals plots
-## plot(birds.inter.1)
-## 
-## # To test the normality of residuals assumption we use the Normal Q-Q plot.
-## # The central residuals are not too far from the Q-Q line but the extremes
-## # are too extreme (the tails of the distribution are too long). Some
-## # observations, both high and low, are poorly explained by the model.
-## 
-## # The plot of the residuals against the fitted values suggests these
-## # extreme residuals happen for intermediate fitted values.
-## 
-## # Looking at the homogeneity of variance assumption (Residuals vs
-## # Fitted and Scale-Location plot),
-## # the graphs are mostly messy, with no clear pattern emerging. There is
-## # a hint of smaller variance with the lowest fitted values, which is not ideal.
-## # This could mean that the homogeneity of variance assumption is not met
-## # (i.e. the variances are not the same), but with this amount of data we
-## # can't tell. ABUND being bounded by zero, it wouldn't be too
-## # surprising that the variance increases with the mean abundance.
-## 
-## # The observations with the highest leverage don't appear to be overly
-## # influential, according to the Cook's distances in the Residuals vs
-## # Leverage plot.
 
 
-## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 summary(birds.inter.1)
 
 # Here the intercept (baseline) is the predicted `ABUND` for LOGAREA = 0,
@@ -83,7 +43,7 @@ summary(birds.inter.1)
 # model, i.e. nearly doubled its complexity
 
 
-## ----Q8a, eval=TRUE, echo=TRUE, collapse=FALSE----------------------------------------------------------------------------
+## ----Q8a, eval=TRUE, echo=TRUE, collapse=FALSE---------------------------------------------------------------------
 par(mfrow= c(1, 1))
 plot(ABUND ~ LOGAREA, data= loyn, col= GRAZE, pch= 16)
 # Note: # color 1 means black in R
@@ -143,7 +103,7 @@ legend("topleft",
  lwd= c(1, 1, 1))
 
 
-## ----Q8b, eval=TRUE, echo=TRUE, collapse=FALSE----------------------------------------------------------------------------
+## ----Q8b, eval=TRUE, echo=TRUE, collapse=FALSE---------------------------------------------------------------------
 # Okay, that was a long-winded way of doing this.
 # If, like me, you prefer more compact code and less risks of errors,
 # you can use a loop, to save repeating the sequence 5 times:
@@ -165,30 +125,15 @@ legend("topleft",
  lwd= c(1, 1, 1))
 
 
-## ----Q9, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE--------------------------------------------------------------------
-## # INTERACTIVE MODEL
-## # The slopes of the LOGAREA effect across grazing levels are all over the
-## # place, without any coherent pattern (for instance, they could have been
-## # increasing or decreasing gradually from low to high grazing intensity).
-## # From a model like this, it is challenging to learn anything general about
-## # the nature of the relationships between birds, patch size and grazing.
-## 
-## # The interaction is non-significant, so isn't supported statistically either.
-## 
-## # Time to revert to the simpler, or a different model? More on this in the next exercise!
-## 
-## # Some observations are poorly predicted (fitted) using the current set
-## # of predictors.
-## 
 
 
-## ----Q10, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q10, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 str(loyn)
 loyn$LOGDIST <- log10(loyn$DIST)
 loyn$LOGLDIST <- log10(loyn$LDIST)
 
 
-## ----Q11, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q11, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 # Example:
 
 # Rank	|	Predictor	|	Biological effect
@@ -206,31 +151,15 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 # study system and area, of course.
 
 
-## ----Q12, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------
-## VOI<- c("ABUND", "LOGAREA", "LOGDIST", "LOGLDIST", "YR.ISOL", "ALT", "FGRAZE")
-## pairs(loyn[, VOI])
-## 
-## # There is variable degrees of imbalance (correlation) between predictors
-## # such as:
-## # LOGAREA and FGRAZE,
-## # LOGDIST and LOGLDIST (quite expected),
-## # YR.ISOL and other variables like LOGAREA or FGRAZE,
-## # LOGAREA and ALT,
-## # but overall a decent spread of observations across these pairs of predictors.
-## 
-## # The relationship between the response variable ABUND and all the predictors
-## # is visible in the top row:
-## #  Some potential correlations present like with LOGAREA (positive),
-## # YR.ISOl (positive), maybe ALT (positive) and FGRAZE (negative).
 
 
-## ----Q13, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q13, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 M1 <- lm(ABUND ~ LOGDIST + LOGLDIST +
                  YR.ISOL + ALT + LOGAREA * FGRAZE,
          data = loyn)
 
 
-## ----Q14, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q14, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 library(car)
 vif(M1)
 
@@ -242,7 +171,7 @@ vif(M1)
 # interaction is expected and can be ignored.
 
 
-## ----Q15, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q15, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 # Wait: why did we not use 'summary' or 'anova' for this?
 summary(M1)
 anova(M1)
@@ -272,7 +201,7 @@ drop1(M1, test = "F")
 # multiple hypotheses at once)
 
 
-## ----Q16, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q16, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 M2 <- lm(ABUND ~ LOGLDIST + # removing LOGDIST here
                  YR.ISOL + ALT + LOGAREA * FGRAZE,
          data = loyn)
@@ -305,7 +234,7 @@ drop1(M5, test = "F")
 # familiar version of the model!
 
 
-## ----Q17, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q17, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 # If the goal of the study is simply to test the FGRAZE * LOGAREA interaction, then all we need is the associated significance test.
 # If the model is intended to be used for further inference (like
 # prediction), then we will try to simplify it as much as is justifiable to do.
@@ -335,7 +264,7 @@ drop1(M5, test= "F")
 # i.e. the hypothesis that the effect of grazing level depends on patch size (or vice versa).
 
 
-## ----Q18, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q18, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 M6 <- lm(ABUND ~ LOGAREA + FGRAZE, data = loyn) 
 # first split the plotting device into 2 rows and 2 columns
 par(mfrow = c(2,2))
@@ -363,23 +292,9 @@ plot(M6)
 # Leverage plot.  
 
 
-## ----Q18extra, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------
-## # (Extra)
-## # ABUND being bounded by zero, it wouldn't be too surprising if the variance increases with the mean abundance.
-## # This is often improved by log-transforming the response
-## loyn$logABUND<- log(loyn$ABUND + 1) # here the natural log
-## M6log <- lm(logABUND ~ LOGAREA + FGRAZE, data = loyn)
-## par(mfrow = c(2,2))
-## plot(M6log)
-## 
-## # Not this time! Lots of extreme negative residuals generated.
-## 
-## # Back to `M6`, then. The other issue was the extreme residuals.
-## # This could be due to missing important predictors from the model, either
-## # unknown predictors, or interactions.
 
 
-## ----Q19, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q19, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 anova(M6)
 # null hypothesis 1: There is no effect of LOGAREA on ABUND
 # (the proportion of variation explained by LOGAREA is zero)
@@ -415,7 +330,7 @@ summary(M6)
 # Note that (Intercept) = 1 always
 
 
-## ----Q20, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q20, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 # Biologically: confirming what we already found out in the previous LM exercises:
 # There is a significant effect of grazing levels, especially the highest
 # level with a negative effect on bird abundance
@@ -455,7 +370,7 @@ summary(M6)
 # patches may have a less important effect)
 
 
-## ----Q21, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q21, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------
 # This time, we are not doing any specific hypothesis testing, so there's
 # no need to force the LOGAREA * FGRAZE into the model until the
 # end of the model selection.
@@ -526,7 +441,7 @@ summary.table
 # of theory in the research area, and of the research questions.
 
 
-## ----A1, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----A1, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 birds.add.2 <- lm(ABUND ~ FGRAZE + LOGAREA, data = loyn)
 anova(birds.add.2)
 
@@ -556,7 +471,7 @@ birds.add.2.SST<- sum(anova(birds.add.2)$'Sum Sq') # compute SST
 # the design is unbalanced and FGRAZE and LOGAREA covary (they are correlated)
 
 
-## ----A2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----A2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 # ABUND = 15.72*(Intercept) + 7.25*LOGAREA + 0.38*FGRAZE2 - 0.19*FGRAZE3
 # - 1.59*FGRAZE4 - 11.89*FGRAZE5
 # Note that (Intercept) = 1 always
@@ -588,7 +503,7 @@ sum(M6.coef * c(1, 0.5, 0, 1, 0, 0)) # 19.15072
 # abundance for a 1-unit increase in the predictor.
 
 
-## ----A3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------
+## ----A3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------
 # ABUND = 21.243*(Intercept) - 6.165*FGRAZE2 - 7.215*FGRAZE3 - 17.910*FGRAZE4
 # - 17.043*FGRAZE5 + 4.144*LOGAREA + 4.368*FGRAZE2:LOGAREA
 # + 4.989*FGRAZE3:LOGAREA + 15.235*FGRAZE4:LOGAREA + 1.996*FGRAZE5:LOGAREA
@@ -611,26 +526,4 @@ sum(birds.inter.1.coef * c(1, 0, 0, 0, 0, 2.5, 0, 0, 0, 0)) # 31.60296
 sum(birds.inter.1.coef * c(1, 0, 0, 0, 1, -0.5, 0, 0, 0, -0.5)) # 1.130203 
 
 # Well done if you got there!
-
-
-## ----A4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------
-## # first split the plotting device into 2 rows and 2 columns
-## par(mfrow = c(2,2))
-## 
-## # create the residuals plots for the additive model
-## plot(M6)
-## 
-## # create the residuals plots for the interactive model
-## plot(birds.inter.1)
-## 
-## # Not a great deal of an improvement! Just marginally better in every respect,
-## # thanks to increasing the fit slightly by throwing lots of
-## # (unnecessary?) new model parameters at the data.
-## 
-## # By increasing the complexity of the model, we have improved
-## # the fit, but there is little evidence that what we have
-## # additionally captured is of biological interest. It most
-## # likely is just noise in the data, because the sample size is
-## # too low for the model (and us) to be able to distinguish true
-## # patterns from noise (See plots from Question 8).
 
