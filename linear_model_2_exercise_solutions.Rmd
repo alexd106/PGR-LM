@@ -212,7 +212,7 @@ plot(birds.lm.sqrt)
 # Sadly this doesn't seemed to have improved things!
 
 # Or finally, you can relax the assumption of equal variance and estimate a separate variance for each group using 
-# generalised least squares. This is not something we will do on this course but will cover in BI5302!
+# generalised least squares. This is not something we will do on this course but will cover in a more advanced statistics course!
 ```
 
 \  
