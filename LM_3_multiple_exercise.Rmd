@@ -1,8 +1,9 @@
 ---
-title: "Exercises"
+title: 'Exercise'
 output: 
   html_document:
-   toc: false
+    toc: false
+    code_folding: hide
 ---
 
 
@@ -254,7 +255,7 @@ legend("topleft",
 
 \  
 
-Take some time to observe the predictions from the model, and how the lines have different intercepts but the same slope (as assumed by the model with additive effects only)
+Take some time to observe the predictions from the model, and how the lines have different intercepts and slopes (as assumed by the model with interactive effects).
 
 \  
 
@@ -442,26 +443,25 @@ M2 <- lm(ABUND ~ LOGLDIST + # removing LOGDIST here
 M2<- update(M1, formula = . ~ . - LOGDIST) # "." means all previous variables
 drop1(M2, test = "F")
 
-# YR.ISOL is now the least significant, hence makes the least 
+# LOGLDIST is now the least significant, hence makes the least 
 # contribution to the variability explained by the model, 
 # with respect to the number of degrees of freedom it uses (1)
 
-M3 <- update(M2, formula = . ~ . - YR.ISOL)
+M3 <- update(M2, formula = . ~ . - LOGLDIST)
 drop1(M3, test = "F")
 
-# LOGLDIST and ALT now the least significant. Choosing on the basis of
+# YR.ISOL and ALT now the least significant. Choosing on the basis of
 # p-values this similar is really quite arbitrary, so would be best guided
 # by expert knowledge if we have it.
-# in the absence of strong a-priori expertise, we'll go for LOGLDIST
+# in the absence of strong a-priori expertise, we'll go for YR.ISOL
 
-M4 <- update(M3, formula = . ~ . - LOGLDIST)
+M4 <- update(M3, formula = . ~ . - YR.ISOL)
 drop1(M4, test = "F")
 
 # and finally drop ALT from the model
 # I am writing the model in full for more clarity:
 M5 <- lm(ABUND ~ LOGAREA * FGRAZE, data = loyn) 
-drop1(M5, test = "F")
-# All significant: no more terms to drop. Here we are, back to a
+# Here we are, back to a
 # familiar version of the model!
 ```
 
@@ -628,7 +628,7 @@ summary(M6)
 # Methodologically:
 # Doing model selection is difficult without an intrinsic / expert knowledge
 # of the system, to guide what variables to include.
-# Even with this dataset, many more models could have been formulated.
+# Even with this data set, many more models could have been formulated.
 # For example, for me, theory would have suggested to test an interaction 
 # between YR.ISOL and LOGDIST (or LOGLDIST?), 
 # because LOGDIST will affect the dispersal of birds between patches 
