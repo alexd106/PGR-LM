@@ -75,10 +75,6 @@ cat(sep="\n\n")
 
 \  
 
-#### PDF versions of exercise solutions
-
-\  
-
 [Offline R scripts](course_code.html)
 
 ```{r code-out, include = FALSE}
