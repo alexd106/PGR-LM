@@ -67,4 +67,12 @@ rmarkdown::render("LM_3_multiple_exercise.Rmd", output_format = "pdf_document", 
 
 ### Day 4
 
- - [Linear model with multiple explanatory variables and model selection exercise](LM_3_multiple_exercise.html)
+ - [Linear model with categorical and continuous explanatory variables](#PLACEHOLDER)
+ 
+ \  
+ 
+### Day 4
+
+- [Linear model selection exercise](#PLACEHOLDER)
+
+\  
