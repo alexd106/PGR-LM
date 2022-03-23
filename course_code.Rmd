@@ -50,8 +50,18 @@ cat(sep="\n\n")
 ### Day 4
 
 ```{r sol_lm3, results='asis', eval = isTRUE(show_text_lm3)}
-link_name <- "Linear model with multiple explanatory variables and model selection exercise"
-file_name <- "exercise_solutions/LM_3_multiple_exercise_solutions.R"
+link_name <- "Linear model with categorical and continuous explanatory variables exercise"
+file_name <- "exercise_solutions/linear_model_3_exercise_solutions.R"
 paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
 ```
+
+### Day 5
+
+```{r sol_lm4, results='asis', eval = isTRUE(show_text_lm4)}
+link_name <- "Linear model selection exercise"
+file_name <- "exercise_solutions/linear_model_4_exercise_solutions.R"
+paste0("- [", link_name, "](", file_name, ")") %>%
+cat(sep="\n\n")
+```
+

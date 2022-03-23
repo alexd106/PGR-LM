@@ -42,7 +42,8 @@ cat("Exercises will be released as the course progresses")
 rmarkdown::render("graphical_data_exploration_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/graphical_data_exploration_exercise.pdf", quiet = TRUE)
 rmarkdown::render("linear_model_1_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_1_exercise.pdf", quiet = TRUE)
 rmarkdown::render("linear_model_2_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_2_exercise.pdf", quiet = TRUE)
-rmarkdown::render("LM_3_multiple_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/LM_3_multiple_exercise.pdf", quiet = TRUE)
+rmarkdown::render("linear_model_3_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_3_exercise.pdf", quiet = TRUE)
+rmarkdown::render("linear_model_4_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_4_exercise.pdf", quiet = TRUE)
 ```
 
 \  
@@ -67,12 +68,12 @@ rmarkdown::render("LM_3_multiple_exercise.Rmd", output_format = "pdf_document", 
 
 ### Day 4
 
- - [Linear model with categorical and continuous explanatory variables](#PLACEHOLDER)
+ - [Linear model with categorical and continuous explanatory variables](linear_model_3_exercise.html)
  
  \  
  
-### Day 4
+### Day 5
 
-- [Linear model selection exercise](#PLACEHOLDER)
+- [Linear model selection exercise](linear_model_4_exercise.html)
 
 \  

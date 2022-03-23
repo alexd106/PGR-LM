@@ -52,4 +52,12 @@ cat("Exercises will be released as the course progresses")
 
 \  
 
-- [Linear model with multiple explanatory variables and model selection exercise](./exercises/LM_3_multiple_exercise.pdf)
+- [Linear model with categorical and continuous explanatory variables](./exercises/linear_model_3_exercise.pdf)
+
+\  
+
+### Day 5
+
+\  
+
+- [Linear model selection exercise](./exercises/linear_model_4_exercise.pdf)
