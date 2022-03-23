@@ -1241,107 +1241,109 @@ $(document).ready(function () {
 <span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE, data = loyn)</span></span>
 <span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="do">##     (Intercept)          LOGAREA          FGRAZE2          FGRAZE3          FGRAZE4          FGRAZE5  LOGAREA:FGRAZE2  LOGAREA:FGRAZE3  LOGAREA:FGRAZE4  LOGAREA:FGRAZE5  </span></span>
-<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a><span class="do">##          21.243            4.144           -6.165           -7.215          -17.910          -17.043            4.368            4.989           15.235            1.996</span></span>
-<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a><span class="do">##     (Intercept)          LOGAREA          FGRAZE2          FGRAZE3          FGRAZE4          FGRAZE5  LOGAREA:FGRAZE2  LOGAREA:FGRAZE3  </span></span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a><span class="do">##          21.243            4.144           -6.165           -7.215          -17.910          -17.043            4.368            4.989  </span></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE4  LOGAREA:FGRAZE5  </span></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="do">##          15.235            1.996</span></span>
 <span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.start)</span>
-<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
-<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
-<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1452.0 208.30</span></span>
-<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGLDIST        1     3.499 1455.5 206.43</span></span>
-<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a><span class="do">## YR.ISOL         1     7.717 1459.7 206.59</span></span>
-<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1    10.332 1462.3 206.69</span></span>
-<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4   263.004 1715.0 209.62</span></span>
-<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC would be obtained by removing LOGLDIST</span></span>
-<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>M.step2<span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">*</span> FGRAZE, <span class="at">data=</span> loyn)</span>
-<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.step2)</span>
-<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
-<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
-<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1455.5 206.43</span></span>
-<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a><span class="do">## YR.ISOL         1     7.547 1463.0 204.72</span></span>
-<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1     7.954 1463.4 204.74</span></span>
-<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4   268.077 1723.5 207.90</span></span>
-<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC would be obtained by removing YR.ISOL</span></span>
-<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a>M.step3<span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">*</span> FGRAZE, <span class="at">data=</span> loyn)</span>
-<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.step3)</span>
-<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
-<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
-<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ ALT + LOGAREA * FGRAZE</span></span>
-<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1463.0 204.72</span></span>
-<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1    13.608 1476.6 203.24</span></span>
-<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4   262.007 1725.0 205.95</span></span>
-<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC would be obtained by removing ALT</span></span>
-<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a>M.step4<span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> LOGAREA <span class="sc">*</span> FGRAZE, <span class="at">data=</span> loyn)</span>
-<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.step4)</span>
-<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
-<span id="cb28-94"><a href="#cb28-94" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
-<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ LOGAREA * FGRAZE</span></span>
-<span id="cb28-97"><a href="#cb28-97" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
-<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1476.6 203.24</span></span>
-<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4    253.77 1730.4 204.12</span></span>
-<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC is the current model, including the interaction.</span></span>
-<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a><span class="co"># unlike the F-test, the AIC favors retaining the interaction</span></span>
-<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a><span class="co"># one way of constructing a summary table, for reporting the results:</span></span>
-<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a><span class="co"># (we could include the model without interaction, for reference)</span></span>
-<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a>Model.formulas<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ALT + LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;LOGAREA * FGRAZE&quot;</span>,</span>
-<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;LOGAREA + FGRAZE&quot;</span>)</span>
-<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a>Model.AIC<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">AIC</span>(M.start),</span>
-<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step2),</span>
-<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step3),</span>
-<span id="cb28-114"><a href="#cb28-114" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step4),</span>
-<span id="cb28-115"><a href="#cb28-115" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M6))</span>
-<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Model=</span> Model.formulas,</span>
-<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC=</span> <span class="fu">round</span>(Model.AIC, <span class="dv">2</span>))</span>
-<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorting models from lowest AIC (preferred) to highest (least preferred):</span></span>
-<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> summary.table[<span class="fu">order</span>(summary.table<span class="sc">$</span>AIC), ]</span>
-<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding AIC differences with respect to best model:</span></span>
-<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a>summary.table<span class="sc">$</span>deltaAIC<span class="ot">&lt;-</span> summary.table<span class="sc">$</span>AIC <span class="sc">-</span> summary.table<span class="sc">$</span>AIC[<span class="dv">1</span>]</span>
-<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-126"><a href="#cb28-126" aria-hidden="true" tabindex="-1"></a>summary.table</span>
-<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a><span class="do">##                                         Model    AIC deltaAIC</span></span>
-<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a><span class="do">## 4                            LOGAREA * FGRAZE 364.16     0.00</span></span>
-<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a><span class="do">## 5                            LOGAREA + FGRAZE 365.04     0.88</span></span>
-<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a><span class="do">## 3                      ALT + LOGAREA * FGRAZE 365.64     1.48</span></span>
-<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a><span class="do">## 2            YR.ISOL + ALT + LOGAREA * FGRAZE 367.35     3.19</span></span>
-<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE 369.22     5.06</span></span>
-<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that this rather automatic way of doing model selection</span></span>
-<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a><span class="co"># misses a number of plausible combinations of the terms of </span></span>
-<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a><span class="co"># interest. This is somewhat arbitrary and there is a chance to</span></span>
-<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a><span class="co"># miss the &quot;best&quot; model in that way.</span></span>
-<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a><span class="co"># The function `step` tries to reduce this problem with the</span></span>
-<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a><span class="co"># options `direction= &quot;both&quot;`. This means that after achieving a</span></span>
-<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a><span class="co"># minimal model by applying &quot;backwards&quot; steps of model</span></span>
-<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a><span class="co"># reduction, `step` will eventually apply one or more</span></span>
-<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;forward&quot; steps, where previously deleted terms are added</span></span>
-<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a><span class="co"># again in case they lead to an improvement of the minimal model.</span></span>
-<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a><span class="co"># However, this is no replacement for a fully manual and </span></span>
-<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a><span class="co"># thought-through model selection, informed by the understanding </span></span>
-<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a><span class="co"># of theory in the research area, and of the research questions.</span></span></code></pre></div>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.start)</span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1452.0 208.30</span></span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGLDIST        1     3.499 1455.5 206.43</span></span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a><span class="do">## YR.ISOL         1     7.717 1459.7 206.59</span></span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1    10.332 1462.3 206.69</span></span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4   263.004 1715.0 209.62</span></span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC would be obtained by removing LOGLDIST</span></span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>M.step2<span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">*</span> FGRAZE, <span class="at">data=</span> loyn)</span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.step2)</span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ YR.ISOL + ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1455.5 206.43</span></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a><span class="do">## YR.ISOL         1     7.547 1463.0 204.72</span></span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1     7.954 1463.4 204.74</span></span>
+<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4   268.077 1723.5 207.90</span></span>
+<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC would be obtained by removing YR.ISOL</span></span>
+<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a>M.step3<span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">*</span> FGRAZE, <span class="at">data=</span> loyn)</span>
+<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.step3)</span>
+<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
+<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
+<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ ALT + LOGAREA * FGRAZE</span></span>
+<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1463.0 204.72</span></span>
+<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1    13.608 1476.6 203.24</span></span>
+<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4   262.007 1725.0 205.95</span></span>
+<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC would be obtained by removing ALT</span></span>
+<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a>M.step4<span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> LOGAREA <span class="sc">*</span> FGRAZE, <span class="at">data=</span> loyn)</span>
+<span id="cb28-94"><a href="#cb28-94" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M.step4)</span>
+<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
+<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb28-97"><a href="#cb28-97" aria-hidden="true" tabindex="-1"></a><span class="do">## Model:</span></span>
+<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a><span class="do">## ABUND ~ LOGAREA * FGRAZE</span></span>
+<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a><span class="do">##                Df Sum of Sq    RSS    AIC</span></span>
+<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;none&gt;                      1476.6 203.24</span></span>
+<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4    253.77 1730.4 204.12</span></span>
+<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest AIC is the current model, including the interaction.</span></span>
+<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a><span class="co"># unlike the F-test, the AIC favors retaining the interaction</span></span>
+<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a><span class="co"># one way of constructing a summary table, for reporting the results:</span></span>
+<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a><span class="co"># (we could include the model without interaction, for reference)</span></span>
+<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a>Model.formulas<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;YR.ISOL + ALT + LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ALT + LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;LOGAREA * FGRAZE&quot;</span>,</span>
+<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;LOGAREA + FGRAZE&quot;</span>)</span>
+<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a>Model.AIC<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">AIC</span>(M.start),</span>
+<span id="cb28-114"><a href="#cb28-114" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step2),</span>
+<span id="cb28-115"><a href="#cb28-115" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step3),</span>
+<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step4),</span>
+<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AIC</span>(M6))</span>
+<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Model=</span> Model.formulas,</span>
+<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">AIC=</span> <span class="fu">round</span>(Model.AIC, <span class="dv">2</span>))</span>
+<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorting models from lowest AIC (preferred) to highest (least preferred):</span></span>
+<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> summary.table[<span class="fu">order</span>(summary.table<span class="sc">$</span>AIC), ]</span>
+<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding AIC differences with respect to best model:</span></span>
+<span id="cb28-126"><a href="#cb28-126" aria-hidden="true" tabindex="-1"></a>summary.table<span class="sc">$</span>deltaAIC<span class="ot">&lt;-</span> summary.table<span class="sc">$</span>AIC <span class="sc">-</span> summary.table<span class="sc">$</span>AIC[<span class="dv">1</span>]</span>
+<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a>summary.table</span>
+<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a><span class="do">##                                         Model    AIC deltaAIC</span></span>
+<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a><span class="do">## 4                            LOGAREA * FGRAZE 364.16     0.00</span></span>
+<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a><span class="do">## 5                            LOGAREA + FGRAZE 365.04     0.88</span></span>
+<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a><span class="do">## 3                      ALT + LOGAREA * FGRAZE 365.64     1.48</span></span>
+<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a><span class="do">## 2            YR.ISOL + ALT + LOGAREA * FGRAZE 367.35     3.19</span></span>
+<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 LOGLDIST + YR.ISOL + ALT + LOGAREA * FGRAZE 369.22     5.06</span></span>
+<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that this rather automatic way of doing model selection</span></span>
+<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a><span class="co"># misses a number of plausible combinations of the terms of </span></span>
+<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a><span class="co"># interest. This is somewhat arbitrary and there is a chance to</span></span>
+<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a><span class="co"># miss the &quot;best&quot; model in that way.</span></span>
+<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a><span class="co"># The function `step` tries to reduce this problem with the</span></span>
+<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a><span class="co"># options `direction= &quot;both&quot;`. This means that after achieving a</span></span>
+<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a><span class="co"># minimal model by applying &quot;backwards&quot; steps of model</span></span>
+<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a><span class="co"># reduction, `step` will eventually apply one or more</span></span>
+<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;forward&quot; steps, where previously deleted terms are added</span></span>
+<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a><span class="co"># again in case they lead to an improvement of the minimal model.</span></span>
+<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a><span class="co"># However, this is no replacement for a fully manual and </span></span>
+<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a><span class="co"># thought-through model selection, informed by the understanding </span></span>
+<span id="cb28-150"><a href="#cb28-150" aria-hidden="true" tabindex="-1"></a><span class="co"># of theory in the research area, and of the research questions.</span></span></code></pre></div>
 <p> </p>
 <p>End of the model selection exercise</p>
 <p> </p>
@@ -1444,21 +1446,23 @@ $(document).ready(function () {
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># much lower risk of error by extracting the model coefficients like this:</span></span>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>birds.inter.<span class="fl">1.</span>coef<span class="ot">&lt;-</span> <span class="fu">coef</span>(birds.inter<span class="fl">.1</span>)</span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>birds.inter.<span class="fl">1.</span>coef <span class="co"># check coefficients and their order</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="do">##     (Intercept)         FGRAZE2         FGRAZE3         FGRAZE4         FGRAZE5         LOGAREA FGRAZE2:LOGAREA FGRAZE3:LOGAREA FGRAZE4:LOGAREA FGRAZE5:LOGAREA </span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       21.243012       -6.165390       -7.214949      -17.909983      -17.042997        4.143979        4.368422        4.989490       15.235284        1.995647</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># and multiply by the predictor values to obtain the equivalent prediction</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 31.60296 </span></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 31.60296</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="co"># expected abundance for (B): input 1 for the GRAZE5 variable and -0.5 for</span></span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co"># variables LOGAREA and FGRAZE5:LOGAREA</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="fl">21.243</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">-</span> <span class="fl">6.165</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">-</span> <span class="fl">7.215</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">-</span> <span class="fl">17.910</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">-</span> <span class="fl">17.043</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">4.144</span><span class="sc">*</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fl">4.368</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">4.989</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">15.235</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">1.996</span><span class="sc">*</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="co"># 1.13</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.13</span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.5</span>)) <span class="co"># 1.130203 </span></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.130203</span></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Well done if you got there!</span></span></code></pre></div>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="do">##     (Intercept)         FGRAZE2         FGRAZE3         FGRAZE4         FGRAZE5         LOGAREA FGRAZE2:LOGAREA FGRAZE3:LOGAREA FGRAZE4:LOGAREA </span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       21.243012       -6.165390       -7.214949      -17.909983      -17.042997        4.143979        4.368422        4.989490       15.235284 </span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="do">## FGRAZE5:LOGAREA </span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="do">##        1.995647</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co"># and multiply by the predictor values to obtain the equivalent prediction</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="co"># 31.60296 </span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 31.60296</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># expected abundance for (B): input 1 for the GRAZE5 variable and -0.5 for</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co"># variables LOGAREA and FGRAZE5:LOGAREA</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fl">21.243</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">-</span> <span class="fl">6.165</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">-</span> <span class="fl">7.215</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">-</span> <span class="fl">17.910</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">-</span> <span class="fl">17.043</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">4.144</span><span class="sc">*</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fl">4.368</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">4.989</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">15.235</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">1.996</span><span class="sc">*</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="co"># 1.13</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.13</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(birds.inter.<span class="fl">1.</span>coef <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.5</span>)) <span class="co"># 1.130203 </span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.130203</span></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Well done if you got there!</span></span></code></pre></div>
 <p> </p>
 <p>A4. Let’s compare the residuals diagnostics of the interactive model structure (Model <code>birds.inter.1</code> in exercise 1) with those of the additive model (final model from exercise 2). Remember, that you can split your plotting device into 2 rows and 2 columns using the <code>par()</code> function before you create the plots. Does the additional complexity of the interaction make a big difference?</p>
 <p> </p>

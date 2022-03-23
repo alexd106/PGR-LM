@@ -16,7 +16,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Tuesday 20^th^ April 2021
+#### Monday 18^th^ April 2022
 
 \  
 
@@ -28,7 +28,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Wednesday 21^st^ April 2021 
+#### Tuesday 19^th^ April 2022 
 
 \  
 
@@ -40,23 +40,33 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Thursday 22^nd^ April 2021
+#### Wednesday 20^th^ April 2022
 
 \  
 
-|09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 16:30    | 16:30 - 17:00      |
+|09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 16:00    | 16:00 - 17:00      |
 |:--------------------------|:-----------------|:-------------|:---------------|:------------------|
-|Linear models theory – single categorical explanatory variable (recorded AD) | Linear models live practical (AD) – single categorical explanatory variable | LUNCH |Linear models live practical (AD) – single continuous explanatory variable, Live review session| Linear models theory - categorical and continuous explanatory variables (recorded TC)|
+|Linear models theory – single categorical explanatory variable (recorded AD) | Linear models live practical (AD) – single categorical explanatory variable | LUNCH |Linear models live practical (AD) – single categorical explanatory variable, Live review session| Linear models theory - categorical and continuous explanatory variables (recorded TC)|
 
 \  
 
-#### Friday 23^rd^ April 2021
+#### Thursday 21^st^ April 2022
 
 \  
 
-|09:30 - 11:00               | 11:00 - 12:30     | 12:30 - 13:30 |13:30 - 16:00    | 16:00 - 17:00      |
-|:--------------------------|:-----------------|:-------------|:---------------|:------------------|
-|Linear models theory - model selection (recorded TC)| Linear models live practical (TC) – multiple explanatory variables | LUNCH | Linear models live practical (TC) – model selection, Live review session (TC) | Catchup/course close (ALL - LIVE)|
+|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 15:00    | 16:30 - 17:00      |
+|:--------------------------|:-------------|:---------------|:------------------|
+|Linear models live practical (TC) – categorical and continuous explanatory variable| LUNCH |Live exercise review session (TC)| Linear models theory - model selection (recorded TC)|
+
+\  
+
+#### Friday 22^nd^ April 2022
+
+\  
+
+|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 15:00    | 15:00 - 15:30| 15:30 - 16:30      |
+|:--------------------------|:-------------|:---------------|:---------------|:------------------|
+|Linear models live practical (TC) – model selection| LUNCH | Live review session (TC) | General discussion| Catchup/course close (ALL - LIVE)|
 
 \  
 
