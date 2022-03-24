@@ -54,7 +54,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 15:00    | 16:30 - 17:00      |
+|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 15:00    | 15:00 - 17:00      |
 |:--------------------------|:-------------|:---------------|:------------------|
 |Linear models live practical (TC) – categorical and continuous explanatory variable| LUNCH |Live exercise review session (TC)| Linear models theory - model selection (recorded TC)|
 
