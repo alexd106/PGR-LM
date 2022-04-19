@@ -696,70 +696,96 @@ $(document).ready(function () {
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals, <span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="linear_model_1_exercise_solutions_files/figure-html/Q11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for those of you who are into plotting using the ggplot2 package,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># this is one of those occasions where things are a little simpler!</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Don&#39;t forget, you will need to install the ggplot2 package if</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># you&#39;ve never used it before</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;ggplot2&#39;)</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> LOGAREA, <span class="at">y =</span> ABUND), <span class="at">data =</span> loyn) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Log10 Patch Area&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Bird Abundance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="linear_model_1_exercise_solutions_files/figure-html/Q11-2.png" width="672" /></p>
 <p> </p>
 <p>12. OK, this is an optional question so feel free to skip if you’ve had enough! (you can find the R code for this question in the exercise solutions if you want to refer to it at a later date). Let’s recreate the plot you made in Question 11, but this time we’ll add the 95% confidence intervals in addition to the fitted values. Remember, you will need to use the <code>predict()</code> function again but this time include the<code>se.fit = TRUE</code> argument (store these new values in a new object called <code>pred.vals.se</code>). When you use the <code>se.fit = TRUE</code> argument with the <code>predict()</code> function the returned object will have a slightly different structure compared to when you used it before. Use the <code>str()</code> function on the <code>pred.vals.se</code> to take a look at the structure. See if you can figure out how to access the fitted values and the standard errors. Once you’ve got your head around this you can now use the <code>lines()</code> function three times to add the fitted values (as before) and also the upper and lower 95% confidence intervals. Don’t forget, if you want the 95% confidence intervals then you will need to multiply your standard error values by the critical value of 1.96. Take a look at the video on confidence intervals if you are unclear why you need to do this.</p>
 <p> </p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pred.vals.se <span class="ot">&lt;-</span> <span class="fu">predict</span>(loyn.lm, <span class="at">newdata =</span> my.data, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) <span class="co"># note the use of the se.fit argument</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># check out the structure of pred.vals.se</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># you can see we now have 4 vectors in this object</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># $fit = fitted values</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># $se.fit = standard error of fitted values</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $df = degrees of freedom</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># $residual.scale = residual standard error</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># so we will need to access our fitted values and standard errors using </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># pred.val.se$fit and pred.vals.se$se.fit respectively</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pred.vals.se)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## List of 4</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ fit           : Named num [1:50] 0.623 1.471 2.319 3.166 4.014 ...</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ se.fit        : Named num [1:50] 2.53 2.43 2.34 2.24 2.15 ...</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ df            : int 54</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ residual.scale: num 7.29</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># now create the plot</span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> loyn<span class="sc">$</span>LOGAREA, <span class="at">y =</span> loyn<span class="sc">$</span>ABUND,</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Log10 Patch Area&quot;</span>,</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Bird abundance&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">55</span>))</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="co"># add the fitted values as before but now we need to use </span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co"># pred.vals.se$fit</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals.se<span class="sc">$</span>fit, <span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="dv">1</span>)</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="co"># add the upper 95% confidence interval</span></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals.se<span class="sc">$</span>fit <span class="sc">+</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co"># add the lower 95% confidence interval</span></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals.se<span class="sc">$</span>fit <span class="sc">-</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pred.vals.se <span class="ot">&lt;-</span> <span class="fu">predict</span>(loyn.lm, <span class="at">newdata =</span> my.data, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) <span class="co"># note the use of the se.fit argument</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># check out the structure of pred.vals.se</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># you can see we now have 4 vectors in this object</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># $fit = fitted values</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># $se.fit = standard error of fitted values</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $df = degrees of freedom</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># $residual.scale = residual standard error</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># so we will need to access our fitted values and standard errors using </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># pred.val.se$fit and pred.vals.se$se.fit respectively</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pred.vals.se)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="do">## List of 4</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ fit           : Named num [1:50] 0.623 1.471 2.319 3.166 4.014 ...</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ se.fit        : Named num [1:50] 2.53 2.43 2.34 2.24 2.15 ...</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;names&quot;)= chr [1:50] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ df            : int 54</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ residual.scale: num 7.29</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># now create the plot</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> loyn<span class="sc">$</span>LOGAREA, <span class="at">y =</span> loyn<span class="sc">$</span>ABUND,</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Log10 Patch Area&quot;</span>,</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Bird abundance&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">55</span>))</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co"># add the fitted values as before but now we need to use </span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co"># pred.vals.se$fit</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals.se<span class="sc">$</span>fit, <span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="dv">1</span>)</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co"># add the upper 95% confidence interval</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals.se<span class="sc">$</span>fit <span class="sc">+</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co"># add the lower 95% confidence interval</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(my.data<span class="sc">$</span>LOGAREA, pred.vals.se<span class="sc">$</span>fit <span class="sc">-</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="linear_model_1_exercise_solutions_files/figure-html/Q12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># And the ggplot way of doing things</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> LOGAREA, <span class="at">y =</span> ABUND), <span class="at">data =</span> loyn) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Log10 Patch Area&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Bird Abundance&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="linear_model_1_exercise_solutions_files/figure-html/Q12-2.png" width="672" /></p>
 <p> </p>
 <p>13. And another optional question (honestly, it’s optional!). This time plot the relationship between bird abundance (<code>ABUND</code>) and the original untransformed <code>AREA</code> variable. Now back-transform your fitted values (remember you got these with the <code>predict()</code> function) to the original scale and add these to the plot as a line. Hint 1: you don’t need to reuse the <code>predict()</code> function, you just need to back-transform your <code>my.data$LOGAREA</code> values. Hint 2: remember if you used a log<sub>10</sub> transformation (<code>log10()</code>) then you can back-transform using <code>10^my.data$LOGAREA</code> and if you used a natural log transformation then use <code>exp(my.data$LOGAREA)</code> to back-transform. Comment on the differences between the plot on the transformed (log) scale and the plot on the back-transformed scale in your R script.</p>
 <p> </p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># back transformed LOGAREA and 95% confidence intervals</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># re-plot but this time use the original untransformed AREA variable</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> loyn<span class="sc">$</span>AREA, <span class="at">y =</span> loyn<span class="sc">$</span>ABUND, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">55</span>),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Patch Area&quot;</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Bird abundance&quot;</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># now add the fitted lines and upper and lower 95% confidence intervals</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># remember we only log10 transformed the LOGAREA variable so this is the only</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># variable that we need to back-transform</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my.data<span class="sc">$</span>LOGAREA), pred.vals.se<span class="sc">$</span>fit, <span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="dv">1</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my.data<span class="sc">$</span>LOGAREA), pred.vals.se<span class="sc">$</span>fit <span class="sc">+</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my.data<span class="sc">$</span>LOGAREA), pred.vals.se<span class="sc">$</span>fit <span class="sc">-</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># back transformed LOGAREA and 95% confidence intervals</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># re-plot but this time use the original untransformed AREA variable</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> loyn<span class="sc">$</span>AREA, <span class="at">y =</span> loyn<span class="sc">$</span>ABUND, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">55</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Patch Area&quot;</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Bird abundance&quot;</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># now add the fitted lines and upper and lower 95% confidence intervals</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># remember we only log10 transformed the LOGAREA variable so this is the only</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># variable that we need to back-transform</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my.data<span class="sc">$</span>LOGAREA), pred.vals.se<span class="sc">$</span>fit, <span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="dv">1</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my.data<span class="sc">$</span>LOGAREA), pred.vals.se<span class="sc">$</span>fit <span class="sc">+</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my.data<span class="sc">$</span>LOGAREA), pred.vals.se<span class="sc">$</span>fit <span class="sc">-</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred.vals.se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="linear_model_1_exercise_solutions_files/figure-html/Q13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the model doesn&#39;t look too great now! Technically, if we transform variables in our model</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># then we should only really interpret the model on the scale of the transformation.</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If we interpret on the back transformed scale, you can see the model doesn&#39;t really fit the </span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># data very well, especially for the two large forest patch AREAs and also those patches with</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># high bird abundance.</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the model doesn&#39;t look too great now! Technically, if we transform variables in our model</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># then we should only really interpret the model on the scale of the transformation.</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If we interpret on the back transformed scale, you can see the model doesn&#39;t really fit the </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># data very well, especially for the two large forest patch AREAs and also those patches with</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># high bird abundance.</span></span></code></pre></div>
 <p> </p>
 <p>End of the linear model with single continuous explanatory variable exercise</p>
 </div>

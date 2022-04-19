@@ -212,6 +212,21 @@ plot(loyn$LOGAREA, loyn$ABUND, xlab = "Log10 Patch Area",
      ylab = "Bird Abundance", ylim = c(0, 55))
 
 lines(my.data$LOGAREA, pred.vals, lty = 1,col = 2)
+
+# for those of you who are into plotting using the ggplot2 package,
+# this is one of those occasions where things are a little simpler!
+# Don't forget, you will need to install the ggplot2 package if
+# you've never used it before
+
+# install.packages('ggplot2')
+
+library(ggplot2)
+ggplot(mapping = aes(x = LOGAREA, y = ABUND), data = loyn) +
+    geom_point() +
+    xlab("Log10 Patch Area") +
+    ylab("Bird Abundance") +
+    geom_smooth(method = "lm", se = FALSE, colour = "red") +
+    theme_classic()
 ```
 
 \  
@@ -249,6 +264,15 @@ lines(my.data$LOGAREA, pred.vals.se$fit + (1.96 * pred.vals.se$se.fit), lty = 2,
 
 # add the lower 95% confidence interval
 lines(my.data$LOGAREA, pred.vals.se$fit - (1.96 * pred.vals.se$se.fit), lty = 2, col = 2)
+
+# And the ggplot way of doing things
+
+ggplot(mapping = aes(x = LOGAREA, y = ABUND), data = loyn) +
+    geom_point() +
+    xlab("Log10 Patch Area") +
+    ylab("Bird Abundance") +
+    geom_smooth(method = "lm", se = TRUE, colour = "red") +
+    theme_classic()
 ```
 
 \  
