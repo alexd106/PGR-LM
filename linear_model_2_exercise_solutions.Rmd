@@ -239,7 +239,7 @@ plotmeans(ABUND ~ FGRAZE, xlab = "grazing level",
 
 library(effects)
 loyn.effects <- allEffects(birds.lm)
-plot(loyn.effects,"FGRAZE")
+plot(loyn.effects,"FGRAZE", lty = 0)
 ```
 
 \  
@@ -256,7 +256,6 @@ pred.vals <- predict(birds.lm, newdata = my.data, se.fit = TRUE)
 plot(1:5, seq(0, 50, length=5), type = "n", xlab = "Graze intensity", ylab = "Bird Abundance")
 points(1:5, pred.vals$fit)
 segments(1:5, pred.vals$fit, 1:5, pred.vals$fit - 1.96 * pred.vals$se.fit)
-segments(1:5, pred.vals$fit, 1:5, pred.vals$fit + 1.96 * pred.vals$se.fit)
 segments(1:5, pred.vals$fit, 1:5, pred.vals$fit + 1.96 * pred.vals$se.fit)
 ```
 
