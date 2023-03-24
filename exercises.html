@@ -13,8 +13,8 @@
 
 <title>Exercises</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -50,6 +50,7 @@
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -70,6 +71,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -127,11 +131,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -160,8 +168,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -169,16 +177,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -222,7 +223,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -246,7 +247,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
      
     R Book
@@ -272,7 +273,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
      
     Exercises
@@ -305,7 +306,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-question-circle"></span>
      
     Info
@@ -335,13 +336,7 @@ $(document).ready(function () {
         Resources
       </a>
     </li>
-    <li>
-      <a href="https://bit.ly/3ukUMmK">
-        <span class="fa fa-commenting"></span>
-         
-        Feedback
-      </a>
-    </li>
+    <li class="dropdown-header">Feedback</li>
     <li>
       <a href="People.html">
         <span class="fa fa-envelope fa-lg"></span>
@@ -384,10 +379,28 @@ $(document).ready(function () {
 
 
 <p> </p>
-<p>These exercises will help gauge your understanding of the material covered during this course. Each exercise contains a series of questions which will help reinforce statistical theory, how to implement this theory in R and also take you through a typical workflow when asking and answering research questions with your data.</p>
-<p>Whilst working through the exercises we recommend that you create a new R script for each exercise in an RStudio project. Make sure you include plenty of comments and notes to yourself for future reference, or, perhaps even better, include your code and commentary in an R markdown document. Of course, how you want to work is entirely up to you!</p>
-<p>During each exercise you will be working in a synchronous session on Blackboard collaborate where you will be able to ask questions and get one-to-one help from the course instructors. Towards the end of each session, one of the instructors will go through each exercise with you in real time to help clear up any lingering doubts and also provide you with an opportunity to discuss analytical decisions.</p>
-<p>We will release the <a href="exercise_solutions.html" target="_blank">solutions to the exercises</a> after each of our synchronous sessions. If you prefer to download these exercises in pdf format you can <a href="exercise_pdf.html" target="_blank">find them here</a>.</p>
+<p>These exercises will help gauge your understanding of the material
+covered during this course. Each exercise contains a series of questions
+which will help reinforce statistical theory, how to implement this
+theory in R and also take you through a typical workflow when asking and
+answering research questions with your data.</p>
+<p>Whilst working through the exercises we recommend that you create a
+new R script for each exercise in an RStudio project. Make sure you
+include plenty of comments and notes to yourself for future reference,
+or, perhaps even better, include your code and commentary in an R
+markdown document. Of course, how you want to work is entirely up to
+you!</p>
+<p>During each exercise you will be working in a synchronous session on
+Blackboard collaborate where you will be able to ask questions and get
+one-to-one help from the course instructors. Towards the end of each
+session, one of the instructors will go through each exercise with you
+in real time to help clear up any lingering doubts and also provide you
+with an opportunity to discuss analytical decisions.</p>
+<p>We will release the <a href="exercise_solutions.html"
+target="_blank">solutions to the exercises</a> after each of our
+synchronous sessions. If you prefer to download these exercises in pdf
+format you can <a href="exercise_pdf.html" target="_blank">find them
+here</a>.</p>
 <p>Have fun!</p>
 <p> </p>
 <p> </p>
@@ -395,35 +408,40 @@ $(document).ready(function () {
 <div id="day-1" class="section level3">
 <h3>Day 1</h3>
 <ul>
-<li><a href="graphical_data_exploration_exercise.html">Graphical data exploration exercise</a></li>
+<li><a href="graphical_data_exploration_exercise.html">Graphical data
+exploration exercise</a></li>
 </ul>
 <p> </p>
 </div>
 <div id="day-2" class="section level3">
 <h3>Day 2</h3>
 <ul>
-<li><a href="linear_model_1_exercise.html">Linear model with a single continuous explanatory variable exercise</a></li>
+<li><a href="linear_model_1_exercise.html">Linear model with a single
+continuous explanatory variable exercise</a></li>
 </ul>
 <p> </p>
 </div>
 <div id="day-3" class="section level3">
 <h3>Day 3</h3>
 <ul>
-<li><a href="linear_model_2_exercise.html">Linear model with a single categorical explanatory variable exercise</a></li>
+<li><a href="linear_model_2_exercise.html">Linear model with a single
+categorical explanatory variable exercise</a></li>
 </ul>
 <p> </p>
 </div>
 <div id="day-4" class="section level3">
 <h3>Day 4</h3>
 <ul>
-<li><a href="linear_model_3_exercise.html">Linear model with categorical and continuous explanatory variables</a></li>
+<li><a href="linear_model_3_exercise.html">Linear model with categorical
+and continuous explanatory variables</a></li>
 </ul>
 <p> </p>
 </div>
 <div id="day-5" class="section level3">
 <h3>Day 5</h3>
 <ul>
-<li><a href="linear_model_4_exercise.html">Linear model selection exercise</a></li>
+<li><a href="linear_model_4_exercise.html">Linear model selection
+exercise</a></li>
 </ul>
 <p> </p>
 </div>

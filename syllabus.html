@@ -13,8 +13,8 @@
 
 <title>Syllabus</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -50,6 +50,7 @@
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -70,6 +71,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -127,11 +131,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -160,8 +168,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -169,16 +177,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -222,7 +223,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -246,7 +247,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
      
     R Book
@@ -272,7 +273,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
      
     Exercises
@@ -305,7 +306,7 @@ $(document).ready(function () {
   </a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-question-circle"></span>
      
     Info
@@ -335,13 +336,7 @@ $(document).ready(function () {
         Resources
       </a>
     </li>
-    <li>
-      <a href="https://bit.ly/3ukUMmK">
-        <span class="fa fa-commenting"></span>
-         
-        Feedback
-      </a>
-    </li>
+    <li class="dropdown-header">Feedback</li>
     <li>
       <a href="People.html">
         <span class="fa fa-envelope fa-lg"></span>
@@ -384,13 +379,21 @@ $(document).ready(function () {
 
 
 <p> </p>
-<p>The course will start at 09:30 each morning and finish at 17:00. We will break for a one hour lunch break around 12:30. However, everyone learns R and statistics in their own way and at their own pace so this syllabus should be treated as indicative rather than absolute. There will also be plenty of opportunities to take short breaks during the course.</p>
-<p>The live sessions will be held on Blackboard Collaborate at the time indicated in the timetable below. The recorded video lectures will be hosted on MyAberdeen and you should watch them at the time indicated below.</p>
+<p>The course will start at 09:30 each morning and finish at 17:00. We
+will break for a one hour lunch break around 12:30. However, everyone
+learns R and statistics in their own way and at their own pace so this
+syllabus should be treated as indicative rather than absolute. There
+will also be plenty of opportunities to take short breaks during the
+course.</p>
+<p>The live sessions will be held on Blackboard Collaborate at the time
+indicated in the timetable below. The recorded video lectures will be
+hosted on MyAberdeen and you should watch them at the time indicated
+below.</p>
 <!--All teaching will be held in room FN113 in the Fraser Noble building (building No. 7 on [this map](images/uoa_map.png){target="_blank"} on the old Aberdeen campus).
 -->
 <p> </p>
-<div id="monday-18th-april-2022" class="section level4">
-<h4>Monday 18<sup>th</sup> April 2022</h4>
+<div id="monday-17th-april-2023" class="section level4">
+<h4>Monday 17<sup>th</sup> April 2023</h4>
 <p> </p>
 <table>
 <colgroup>
@@ -414,49 +417,57 @@ $(document).ready(function () {
 <tbody>
 <tr class="odd">
 <td align="left">Course introduction (ALL - live)</td>
-<td align="left">Graphical data exploration (GDE) theory lecture (recorded)</td>
+<td align="left">Graphical data exploration (GDE) theory lecture
+(recorded)</td>
 <td align="left">GDE live practical (AD)</td>
 <td align="left">LUNCH</td>
 <td align="left">GDE live practical, Live review session (AD)</td>
-<td align="left">Linear models theory lectures (recorded AD), Linear models paper exercise</td>
+<td align="left">Linear models theory lectures (recorded AD), Linear
+models paper exercise</td>
 </tr>
 </tbody>
 </table>
 <p> </p>
 <p> </p>
 </div>
-<div id="tuesday-19th-april-2022" class="section level4">
-<h4>Tuesday 19<sup>th</sup> April 2022</h4>
+<div id="tuesday-18th-april-2023" class="section level4">
+<h4>Tuesday 18<sup>th</sup> April 2023</h4>
 <p> </p>
-<table style="width:100%;">
+<table>
 <colgroup>
-<col width="31%" />
 <col width="25%" />
 <col width="20%" />
-<col width="22%" />
+<col width="16%" />
+<col width="18%" />
+<col width="18%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">09:30 - 11:30</th>
 <th align="left">11:30 - 12:30</th>
 <th align="left">12:30 - 13:30</th>
-<th align="left">13:30 - 17:00</th>
+<th align="left">13:30 - 15:30</th>
+<th align="left">15:30 - 17:00</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Linear model theory (recorded AD)</td>
-<td align="left">Linear models live practical (AD) – single continuous explanatory variable</td>
+<td align="left">Linear models live practical (AD) – single continuous
+explanatory variable</td>
 <td align="left">LUNCH</td>
-<td align="left">Linear models live practical (AD) – single continuous explanatory variable, Live review session</td>
+<td align="left">Linear models live practical (AD) – single continuous
+explanatory variable, Live review session</td>
+<td align="left">Linear models theory – single categorical explanatory
+variable (recorded AD)</td>
 </tr>
 </tbody>
 </table>
 <p> </p>
 <p> </p>
 </div>
-<div id="wednesday-20th-april-2022" class="section level4">
-<h4>Wednesday 20<sup>th</sup> April 2022</h4>
+<div id="wednesday-19th-april-2023" class="section level4">
+<h4>Wednesday 19<sup>th</sup> April 2023</h4>
 <p> </p>
 <table>
 <colgroup>
@@ -477,77 +488,59 @@ $(document).ready(function () {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Linear models theory – single categorical explanatory variable (recorded AD)</td>
-<td align="left">Linear models live practical (AD) – single categorical explanatory variable</td>
+<td align="left">Linear models live practical (AD) – single categorical
+explanatory variable</td>
+<td align="left">Linear models review session (AD) – single categorical
+explanatory variable</td>
 <td align="left">LUNCH</td>
-<td align="left">Linear models live practical (AD) – single categorical explanatory variable, Live review session</td>
-<td align="left">Linear models theory - categorical and continuous explanatory variables (recorded TC)</td>
+<td align="left">Linear models live practical (AD) – single categorical
+explanatory variable, Live review session</td>
+<td align="left">Linear models theory - categorical and continuous
+explanatory variables (recorded AD)</td>
 </tr>
 </tbody>
 </table>
-<p> </p>
-</div>
-<div id="thursday-21st-april-2022" class="section level4">
-<h4>Thursday 21<sup>st</sup> April 2022</h4>
+<p>  <!--
+#### Thursday 21^st^ April 2022
+
+\  
+
+|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 15:00    | 15:00 - 17:00      |
+|:--------------------------|:-------------|:---------------|:------------------|
+|Linear models live practical (AD) – categorical and continuous explanatory variable| LUNCH |Live exercise review session (AD)| Linear models theory - model selection (recorded AD)|
+
+\  
+--> #### Friday 21<sup>st</sup> April 2023</p>
 <p> </p>
 <table>
 <colgroup>
-<col width="35%" />
-<col width="18%" />
+<col width="36%" />
+<col width="19%" />
 <col width="21%" />
-<col width="25%" />
+<col width="21%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">09:30 - 12:30</th>
 <th align="left">12:30 - 13:30</th>
-<th align="left">13:30 - 15:00</th>
-<th align="left">15:00 - 17:00</th>
+<th align="left">13:30 - 14:30</th>
+<th align="left">14:30 - 17:00</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Linear models live practical (TC) – categorical and continuous explanatory variable</td>
+<td align="left">Linear models live practical (AD) – categorical and
+continuous explanatory variable</td>
 <td align="left">LUNCH</td>
-<td align="left">Live exercise review session (TC)</td>
-<td align="left">Linear models theory - model selection (recorded TC)</td>
+<td align="left">Linear models theory - model selection (recorded
+AD)</td>
+<td align="left">Linear models live practical (AD) – model
+selection</td>
 </tr>
 </tbody>
 </table>
 <p> </p>
-</div>
-<div id="friday-22nd-april-2022" class="section level4">
-<h4>Friday 22<sup>nd</sup> April 2022</h4>
-<p> </p>
-<table>
-<colgroup>
-<col width="29%" />
-<col width="15%" />
-<col width="17%" />
-<col width="17%" />
-<col width="20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">09:30 - 12:30</th>
-<th align="left">12:30 - 13:30</th>
-<th align="left">13:30 - 15:00</th>
-<th align="left">15:00 - 15:30</th>
-<th align="left">15:30 - 16:30</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Linear models live practical (TC) – model selection</td>
-<td align="left">LUNCH</td>
-<td align="left">Live review session (TC)</td>
-<td align="left">General discussion</td>
-<td align="left">Catchup/course close (ALL - LIVE)</td>
-</tr>
-</tbody>
-</table>
-<p> </p>
-<p>AD – Alex Douglas TC - Thomas Cornulier</p>
+<p>AD – Alex Douglas</p>
 <p> </p>
 </div>
 
