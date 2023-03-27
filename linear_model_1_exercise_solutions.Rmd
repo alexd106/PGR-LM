@@ -70,7 +70,7 @@ anova(loyn.lm)
 # between LOGAREA and ABUND = 0
 # i.e. there is no relationship
 
-# The p value is very small (7.178e-11) therefore we 
+# The p value is very small (3.81e-14) therefore we 
 # reject this null hypothesis (i.e. the slope is different
 # from 0)
 ```
@@ -105,7 +105,7 @@ summary(loyn.lm)
 # is different from zero.
 
 # the null hypothesis for the slope is that the slope = 0
-# the p value is very small (7.18e-11)
+# the p value is very small (3.81e-14)
 # therefore we reject this null hypothesis and conclude that the slope
 # is different from zero (i.e. there is a significant relationship between
 # LOGAREA and ABUND).
@@ -120,7 +120,7 @@ summary(loyn.lm)
 ```{r Q7, eval=TRUE, echo=TRUE, collapse=TRUE}
 summary(loyn.lm)
 
-# The multiple R-squared value is 0.548 and therefore 54.8% of
+# The multiple R-squared value is 0.588 and therefore 58.8% of
 # the variation in ABUND is explained by LOGAREA
 ```
 
