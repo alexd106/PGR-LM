@@ -401,11 +401,11 @@ the interaction between these two explanatory variables
 (<code>FGRAZE:LOGAREA</code>). This was useful as a training exercise,
 and might be a viable approach when analysing these data if the
 experiment had been designed to test these effects only. However, if
-other potentially important variables variables are not included in the
-model this may lead to biased inferences (interpretation). Additionally,
-if the goal of the analysis is to explore what models explain the data
-in a parsimonious way (as opposed to formally testing hypotheses), we
-would also want to include these extra explanatory variables.</p>
+other potentially important variables are not included in the model this
+may lead to biased inferences (interpretation). Additionally, if the
+goal of the analysis is to explore what models explain the data in a
+parsimonious way (as opposed to formally testing hypotheses), we would
+also want to include these extra explanatory variables.</p>
 <p> </p>
 <p>Here we revisit the loyn data analysis, asking if a ‘better’ model
 for the data could be achieved by including additional explanatory
@@ -420,9 +420,10 @@ variables may be reasonable but we will focus only on the
 information in this data set (67 observations). What we want to avoid is
 fitting an overly complex model which will estimate many parameters for
 which we have very little data. This is a balance you will all have to
-maintain for your own data and analyses (or better still, perform a
+maintain with your own data and analyses (or better still, perform a
 power analysis before you even collect your data). No 4-way interaction
-terms please!</p>
+terms in your models please!</p>
+<p> </p>
 <p>It’s also important to note that we will assume that all the
 explanatory variables were collected by the researchers <em>because</em>
 they believed them to be biologically relevant for explaining bird
@@ -432,9 +433,9 @@ to pause and think what might be relevant or not-so relevant or partly
 redundant and why. Do we need to include all variables? This highlights
 the importance of knowing your study organism / study area and
 discussing research designs with colleagues and other experts in the
-field before you collect your data. What you shouldn’t really do is
-collect heaps of data across many variables (just because you can) and
-then expect the statistical models to make sense of it for you. As
+field before you collect your data. What you should avoid is collecting
+heaps of data across many variables (just because you can) and then
+expecting your statistical models to make sense of it for you. As
 mentioned in the lecture, model selection is a relatively controversial
 topic and should not be treated as a purely mechanical process. Your
 expertise needs to be woven into this process otherwise you may come
@@ -450,31 +451,26 @@ did you apply? Add the transformed variables to the <code>loyn</code>
 dataframe.</p>
 <p> </p>
 <p> </p>
-<p>2. It’s useful to start with a quick graphical exploration of the
-relationships between predictors and between predictors and response. A
-pair-plot with <code>pairs()</code> is a very effective way of doing
+<p>2. It’s useful to start with a quick graphical exploration of any
+potential relationships between each explanatory variable (collinearity)
+and also between our response and explanatory variables. A pairs plot
+using the function <code>pairs()</code> is a very effective way of doing
 this when the number of variables is not too large. You can also add the
 correlations to the lower triangle of the plot as you did previously
 (don’t forget to define the function first).</p>
-<ul>
-<li>Hints:
-<ul>
-<li>restrict the plot to the variables you actually need</li>
-<li>an effective way of doing this is to store the names of the
-variables of interest in a vector
-<code>VOI &lt;- c("Var1", "Var2", ...)</code></li>
-<li>and then use the naming method for subsetting the data set
-<code>Mydata[, VOI]</code></li>
-</ul></li>
-</ul>
+<p>Hint: restrict the plot to the variables you actually need. An
+effective way of doing this is to store the names of the variables of
+interest in a vector <code>VOI &lt;- c("Var1", "Var2", ...)</code> and
+then use the naming method for subsetting the data set
+<code>Mydata[, VOI]</code></p>
 <p> </p>
 <p> </p>
 <p>3. Start with a model of <code>ABUND</code> and include all
 explanatory variables as main effects. Also include the interaction
-<code>LOGAREA:FGRAZE</code> but no other interaction terms as outlined
+<code>LOGAREA:FGRAZE</code> but no other interaction terms as justified
 in the preamble above. Don’t forget to include the transformed versions
-of the variable where appropriate (but not the untransformed variables
-otherwise you will have very strong collinearity between these
+of the variables where appropriate (but not the untransformed variables
+as well otherwise you will have very strong collinearity between these
 variables!).<br />
  </p>
 <p> </p>
@@ -497,52 +493,55 @@ do this model selection step?</p>
 <p> </p>
 <p>7. Update the model and remove the least significant explanatory
 variable (from above) and repeat single term deletions with
-<code>drop1()</code>.</p>
-<p>, until there are no longer any non-significant terms, ignoring
-<code>LOGAREA</code> or <code>FGRAZE</code> (we want to leave them in
-for now, irrespective of what <code>drop1</code> suggests).</p>
+<code>drop1()</code>. You can update the model by just fitting a new
+model without the appropriate explanatory variable and assign it to a
+new name. Alternatively you can use the <code>update()</code> function.
+I’ll show you both ways in the solutions below.</p>
+<p> </p>
 <p> </p>
 <p>8. Again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
-<p>9. Again, update the model to remove the least significant
+<p> </p>
+<p>9. Once again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
-<p>10. Again, update the model to remove the least significant
+<p> </p>
+<p>10. And finally, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
 <p> </p>
-<p>11. If all goes well, you should end up with the interactive model
+<p>11. If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code> which you
-encountered in the previous exercise. You may have noticed that the
-output from the <code>drop1()</code> function does not include the main
-effects of <code>LOGAREA</code> or <code>FRGRAZE</code>. Can you think
-why this might be the case?</p>
+encountered in the previous exercise. Also, you may have noticed that
+the output from the <code>drop1()</code> function does not include the
+main effects of <code>LOGAREA</code> or <code>FRGRAZE</code>. Can you
+think why this might be the case?</p>
 <p> </p>
 <p> </p>
-<p>12. Now that we have our final model, you should go through your
+<p>12. Now that you have your final model, you should go through your
 model validation and model interpretation as usual. As we have already
-completed this in the previous exercise I’ll leave it up to you whether
-you include it here (you should be able to copy and paste the code).
-Please make sure you understand the biological interpretation of each of
-the parameter estimates and the interpretation of the hypotheses you are
-testing.</p>
+completed this in the previous exercise I’ll leave it up to you to
+decide whether you include it here (you should be able to just copy and
+paste the code). Please make sure you understand the biological
+interpretation of each of the parameter estimates and the interpretation
+of the hypotheses you are testing.</p>
 <p> </p>
 <p> </p>
-<div id="optional-questions-if-you-have-time-energy-inclination"
-class="section level4">
-<h4>OPTIONAL questions if you have time / energy / inclination!</h4>
+<p><strong>OPTIONAL questions</strong> if you have time / energy /
+inclination!</p>
 <p>A1. If we weren’t aiming to directly test the effect of the
 <code>LOGAREA:FGRAZE</code> interaction statistically (i.e. test this
-specific hypothesis), we could also have used AIC to perform the model
+specific hypothesis), we could also have used AIC to perform model
 selection. Let’s try this using the <code>step()</code> function. NOTE:
 you can also do this using the <code>AIC()</code> function or by taking
 the AIC values returned by <code>drop1()</code> (did you notice them?!
 actually as an interesting aside, the <code>step()</code> function just
-uses the AIC values from <code>drop1()</code> ).  </p>
+uses the AIC values from <code>drop1()</code> ).</p>
+<p> </p>
 <p>.</p>
 <p> </p>
 <p>We don’t need to re-validate or re-interpret the model, since the
@@ -568,11 +567,11 @@ which I quite like is to construct a table which includes a description
 of all of our models and associated summary statistics. Let’s do this
 for the AIC based model selection but the same principles apply when
 using <code>drop1()</code> (although you will be presenting <em>F</em>
-statistics and P values rather than AIC). As i rarely use the
+statistics and P values rather than AIC). As I rarely use the
 <code>step()</code> function (for reasons given above) I will use the
 <code>AIC()</code> function and do the model selection manually. This
-also has the advantage that it makes it easier to extract the AIC
-values.</p>
+also has the advantage that it makes it easier to extract the AIC values
+for our table.</p>
 <p> </p>
 <p>Or if you prefer a prettier version to include directly in your paper
 / thesis. You will need to install the <code>knitr</code> package before
@@ -653,7 +652,6 @@ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE
 </table>
 <p> </p>
 <p>End of the model selection exercise</p>
-</div>
 </div>
 
 

@@ -13,11 +13,10 @@ loyn$FGRAZE <- factor(loyn$GRAZE)
 ## coplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
 ## 
 ## # or
-## library(lattice)
-## xyplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
+## # library(lattice)
+## # xyplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
 ## 
-## # There is a lot of variation in there, but:
-## # - Within a grazing level, abundance seems to increase with the log-patch area
+## # - Within a grazing level, abundance seems to increase with the log patch area
 ## #   in a more or less linear fashion
 ## # - Overall, the mean abundance seems to decrease as grazing levels increase.
 ## #   This is most noticeable in the highest grazing level.
@@ -144,7 +143,7 @@ plot(ABUND ~ LOGAREA, data = loyn, col = GRAZE, pch = 16)
 # colour 5 means cyan in R
 
 # FGRAZE1
-# create a sequence of increasing Biomass within the observed range
+# create a sequence of increasing LOGAREA within the observed range
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 1]),
 					to = max(loyn$LOGAREA[loyn$FGRAZE == 1]),
 					length = 20)
@@ -217,9 +216,10 @@ legend("topleft",
 
 
 ## ----Q9c, eval=TRUE, echo=TRUE, collapse=FALSE----------------------------------------------------------------------------------------------------------------------
+# install.packages('ggplot2', dep = TRUE)
 library(ggplot2)
 
-ggplot(loyn, aes(x = LOGAREA, y = ABUND, color = FGRAZE) ) +
+ggplot(loyn, aes(x = LOGAREA, y = ABUND, colour = FGRAZE) ) +
      geom_point() +
      geom_smooth(method = "lm", se = FALSE)
 

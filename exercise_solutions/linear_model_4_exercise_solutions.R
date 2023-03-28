@@ -10,7 +10,7 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 
 
 ## ----Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
-## # define the panel.cor function
+## # define the panel.cor function from ?pairs
 ## panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
 ## {
 ##     usr <- par("usr")
@@ -26,12 +26,13 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 ## VOI<- c("ABUND", "LOGAREA", "LOGDIST", "LOGLDIST", "YR.ISOL", "ALT", "FGRAZE")
 ## pairs(loyn[, VOI], lower.panel = panel.cor)
 ## 
-## # There are variable degrees of correlation between explanatory variables which
+## # There are varying degrees of correlation between explanatory variables which
 ## # might indicate some collinearity, i.e. LOGAREA and FGRAZE (0.48), LOGDIST and
 ## # LOGLDIST (0.59) and YR.ISOL and FGRAZE (0.56). However, the relationships
-## # between these explanatory variables are quite weak so we can probably continue
-## # and include these variables (but keep an eye on things). There also seems to be
-## # a decent spread of observations across these pairs of predictors.
+## # between these explanatory variables are quite weak so we can probably
+## # include these variables in the same model (but keep an eye on things).
+## # There also seems to be a reasonable spread of observations across these
+## # pairs of explanatory variables.
 ## 
 ## # The relationship between the response variable ABUND and all the explanatory
 ## # variables is visible in the top row:
@@ -49,7 +50,7 @@ summary(M1)
 
 
 ## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
-# Wait: why did we not use information from the 'summary()' or 'anova()' functions
+# Wait: why can't we use information from the 'summary()' or 'anova()' functions
 # to do this?
 
 # the 'summary' table tests if the coefficient for each explanatory variable 
@@ -58,15 +59,16 @@ summary(M1)
 # the 'anova' tests for the significance of the proportion of variation explained
 # by a particular term in the model. 
 
-# The ANOVA allows testing the overall significance of categorical explanatory
-# variables which involves several coefficients together, which is quite is handy. 
-# But the results of this ANOVA are based on sequential sums of squares and therefore
-# the order of the variables (which is arbitrary here) in the model matters.
+# The ANOVA table also allows testing the overall significance of a categorical explanatory
+# variable (like FGRAZE) which involves several parameters together (one for each level), 
+# which is quite is handy. But the results of this ANOVA are based on sequential 
+# sums of squares and therefore the order of the variables in the model
+# (which is arbitrary here) matters.
 
-# We could change the order but there are too many possible permutations
-# Summary p-values don't suffer that problem but test different hypotheses
+# We could change the order but there are too many possible permutations.
+# Summary P values don't suffer from this problem but tests different hypotheses.
 # It would be useful to use an ANOVA that doesn't depend on the order
-# of inclusion of the variables, like 'drop1'
+# of inclusion of the variables, this is effectively what 'drop1' does.
 
 drop1(M1, test = "F")
 
@@ -76,12 +78,15 @@ drop1(M1, test = "F")
 
 
 ## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
+# new model removing LOGLDIST 
 M2 <- lm(ABUND ~ LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
-           LOGAREA:FGRAZE, data = loyn) # removing LOGLDIST here
+           LOGAREA:FGRAZE, data = loyn) 
 
-# or use a shortcut with the update function:
+# or use a shortcut with the update() function:
 
 M2<- update(M1, formula = . ~ . - LOGLDIST) # "." means all previous variables
+
+# now redo drop1() on the new model
 drop1(M2, test = "F")
 
 # YR.ISOL is now the least significant (p = 0.859), hence makes the least 
@@ -117,31 +122,31 @@ drop1(M5, test = "F")
 
 ## ----Q11, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
 # As the interaction between LOGAREA and FGRAZE was significant at each step of
-# model selection the main effects should be left in our model,
+# model selection process the main effects should be left in our model,
 # irrespective of significance. This is because it is quite difficult to 
 # interpret an interaction without the main effects. The drop1 
-# function is clever enough that it doesn't let you see the p-values for the 
+# function is clever enough that it doesn't let you see the P values for the 
 # main effects, in the presence of their significant interaction.
 
 # Also note, because R always includes interactions *after* their main effects
 # the P value of the interaction term (p = 0.005) from the model selection 
-# is the same as P value if we use the anova() fucntion on our final model
+# is the same as P value if we use the anova() function on our final model
 
-# Demo:
+# Check this:
 anova(M5)
 drop1(M5, test= "F") 
 
 
 ## ----Q12, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
-# Biologically: confirming what we already found out in the previous LM exercises:
+# Biologically: confirming what we already found out in the previous exercise:
 # There is a significant interaction between the area of the patch and the level 
 # of grazing 
 
-# Some observations are poorly predicted (fitted) using the set of
-# available predictors.
+# However, some observations are poorly predicted (fitted) using the set of
+# available explanatory variables (i.e. the two very large forest patches)
 
 # Interpretation: 
-# Bird abundance may increase with patch area due to populations being more
+# Bird abundance might increase with patch area due to populations being more
 # viable in large patches (e.g. less prone to extinction), 
 # or perhaps because there is proportionally less edge effect in larger
 # patches, and this in turn provides more high quality habitat for species 
@@ -149,7 +154,9 @@ drop1(M5, test= "F")
 
 # The negative effect of grazing may be due to grazing decreasing resource
 # availability for birds, for example plants or seeds directly, or insects
-# associated with the grazed plants.
+# associated with the grazed plants. There may also be more disturbance of birds
+# in highly grazed forest patches resulting in fewer foraging opportunities
+# or chances to mate (this is all speculation mind you!).
 
 # Methodologically:
 # Doing model selection is difficult without intrinsic / expert knowledge
@@ -173,7 +180,7 @@ drop1(M5, test= "F")
 # model we started with using drop1() above.
 
 M.start<- lm(ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
-               LOGAREA:FGRAZE, data= loyn)
+               LOGAREA:FGRAZE, data = loyn)
 
 step(M.start)
 
@@ -203,11 +210,11 @@ step(M.start)
 # Start:)
 
 # The step() function then automatically drops the term with the lowest AIC 
-# (LOGLDIST in our case) and presents models with the remaining terms 
-# sequentially removed as in the first table. 
+# (LOGLDIST in our case), refits the model without this variable and then does 
+# another round of sequentially removing the terms in the model as above.
 
-# So the model with the lowest AIC is the model with YR.ISOL removed (224.27) 
-# in this round of deletions.
+# So, in this next round, the model with the lowest AIC is the model with 
+# YR.ISOL removed (224.27).
 
 # The step() function then removes YR.ISOL and performs another round of deletions 
 # from the model and removes LOGDIST (AIC = 222.43)
@@ -225,9 +232,10 @@ step(M.start)
 
 
 ## ----QA2a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------------------------------------------------
-# one way of constructing a summary table, for reporting the results:
+# one way of constructing a summary table for reporting the results:
 
-# specify all the models compared during out model selection
+# create a vector of  all the models compared during out model selection
+
 model.formulas<- c(
   "LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
 	"LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
@@ -238,7 +246,8 @@ model.formulas<- c(
 # fit each model. Need to use the noquote() function to remove the 
 # quotations around our model formula (will cause an error with the lm()
 # function otherwise). Also need to paste The response variable 'ABUND ~ ' 
-# together with out explanatory variables
+# together with out explanatory variables to cerate a valide model formula
+
 M.start <- lm(noquote(paste('ABUND ~', model.formulas[1])), data = loyn)
 M.step2 <- lm(noquote(paste('ABUND ~', model.formulas[2])), data = loyn)
 M.step3 <- lm(noquote(paste('ABUND ~', model.formulas[3])), data = loyn)
@@ -255,17 +264,21 @@ model.AIC<- c(AIC(M.start),
 	AIC(M.step4),
 	AIC(M.step5))
 
-# cerate a summary table of models and AIC values
+# create a dataframe of models and AIC values
+
 summary.table<- data.frame(Model = model.formulas,
 	AIC= round(model.AIC, 2))
 
-# Sorting models from lowest AIC (preferred) to highest (least preferred):
+# Sort the models from lowest AIC (preferred) to highest (least preferred)
+
 summary.table<- summary.table[order(summary.table$AIC), ]
 
-# Adding AIC differences with respect to best model:
+# Add the difference in AIC with respect to best model
+
 summary.table$deltaAIC<- summary.table$AIC - summary.table$AIC[1]
 
-# print the table on screen
+# print the dataframe to the console
+
 summary.table
 
 
