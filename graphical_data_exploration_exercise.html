@@ -426,21 +426,22 @@ directory.</p>
 <p> </p>
 <p>3. These data are from a study originally conducted by Loyn
 (1987)<sup>1</sup> and subsequently re-analysed by Quinn and Keough
-(2002)<sup>2</sup> and Zuur et al (2009)<sup>3</sup>. The aim of the
-study was to relate bird density in 67 forest patches to a number of
-different environmental variables and management practices. A summary of
-the variables is: <strong>ABUND</strong>: Density of birds, Continuous
-response; <strong>AREA</strong>: Size of forest patch, Continuous
-explanatory; <strong>DIST</strong>: Distance to nearest patch,
-Continuous explanatory; <strong>LDIST</strong>: Distance to nearest
-larger patch, Continuous explanatory; <strong>ALT</strong>: Mean
-altitude of patch, Continuous explanatory; <strong>YR.ISOL</strong>:
-Year of isolation of clearance, Continuous explanatory;
-<strong>GRAZE</strong>: Index of livestock grazing intensity, 5 level
-Categorical explanatory 1= low graze, 5 = high graze. Add a description
-of your variables to the metadata you created previously. Clearly
-highlight which variable is the response variable and which variables
-are potential explanatory variables.</p>
+(2002)<sup>2</sup> and Zuur et al (2009)<sup>3</sup>. Note, I have had
+to do some slight ‘tweaking’ of these data to improve usability for this
+course. The aim of the study was to relate bird density in 67 forest
+patches to a number of different environmental variables and management
+practices. A summary of the variables is: <strong>ABUND</strong>:
+Density of birds, Continuous response; <strong>AREA</strong>: Size of
+forest patch, Continuous explanatory; <strong>DIST</strong>: Distance to
+nearest patch, Continuous explanatory; <strong>LDIST</strong>: Distance
+to nearest larger patch, Continuous explanatory; <strong>ALT</strong>:
+Mean altitude of patch, Continuous explanatory;
+<strong>YR.ISOL</strong>: Year of isolation of clearance, Continuous
+explanatory; <strong>GRAZE</strong>: Index of livestock grazing
+intensity, 5 level Categorical explanatory 1= low graze, 5 = high graze.
+Add a description of your variables to the metadata you created
+previously. Clearly highlight which variable is the response variable
+and which variables are potential explanatory variables.</p>
 <p> </p>
 <p>4. Import your <em>‘loyn.txt’</em> file into R using the
 <code>read.table()</code> function and assign it to an object called
@@ -469,8 +470,8 @@ this.</p>
 <p> </p>
 <p>6. Using the <code>tapply()</code> function what is the mean bird
 abundance (<code>ABUND</code>) for each level of <code>FGRAZE</code>?
-Can you determine the variance, the minimum and maximum for each
-<code>FGRAZE</code> level? Again see <a
+Can you also determine the variance for each <code>FGRAZE</code> level?
+Again see <a
 href="https://intro2r.com/summarising-data-frames.html">section 3.5</a>
 of the Introduction to R book to remind yourself how to do this.</p>
 <p> </p>

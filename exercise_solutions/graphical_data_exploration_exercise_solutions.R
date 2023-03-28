@@ -27,12 +27,6 @@ tapply(loyn$ABUND, loyn$FGRAZE, mean, na.rm = TRUE)
 # variance in the abundance of birds for each level of FGRAZE
 tapply(loyn$ABUND, loyn$FGRAZE, var, na.rm = TRUE)
 
-# minimum abundance of birds for each level of FGRAZE
-tapply(loyn$ABUND, loyn$FGRAZE, min, na.rm = TRUE)
-
-# maximum abundance of birds for each level of FGRAZE
-tapply(loyn$ABUND, loyn$FGRAZE, max, na.rm = TRUE)
-
 # OR use the summary function
 tapply(loyn$ABUND, loyn$FGRAZE, summary, na.rm = TRUE)
 

@@ -60,10 +60,17 @@ link_name <- "Linear model with categorical and continuous explanatory variables
 file_name <- "linear_model_3_exercise_solutions.html"
 paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
+
+
+link_name <- "Linear model selection exercise"
+file_name <- "linear_model_4_exercise_solutions.html"
+paste0("- [", link_name, "](", file_name, ")") %>%
+cat(sep="\n\n")
 ```
 
 \  
 
+<!--
 ### Day 5
 
 ```{r sol_lm4, results='asis', eval = isTRUE(show_text_lm4)}
@@ -74,6 +81,7 @@ cat(sep="\n\n")
 ```
 
 \  
+-->
 
 [Offline R scripts](course_code.html)
 

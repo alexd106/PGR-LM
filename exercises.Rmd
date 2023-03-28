@@ -70,10 +70,14 @@ rmarkdown::render("linear_model_4_exercise.Rmd", output_format = "pdf_document",
 
  - [Linear model with categorical and continuous explanatory variables](linear_model_3_exercise.html)
  
- \  
+ - [Linear model selection exercise](linear_model_4_exercise.html)
  
+\  
+
+<!--
 ### Day 5
 
 - [Linear model selection exercise](linear_model_4_exercise.html)
 
 \  
+-->

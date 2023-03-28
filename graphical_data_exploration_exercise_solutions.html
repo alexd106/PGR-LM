@@ -548,21 +548,22 @@ directory.</p>
 <p> </p>
 <p>3. These data are from a study originally conducted by Loyn
 (1987)<sup>1</sup> and subsequently re-analysed by Quinn and Keough
-(2002)<sup>2</sup> and Zuur et al (2009)<sup>3</sup>. The aim of the
-study was to relate bird density in 67 forest patches to a number of
-different environmental variables and management practices. A summary of
-the variables is: <strong>ABUND</strong>: Density of birds, Continuous
-response; <strong>AREA</strong>: Size of forest patch, Continuous
-explanatory; <strong>DIST</strong>: Distance to nearest patch,
-Continuous explanatory; <strong>LDIST</strong>: Distance to nearest
-larger patch, Continuous explanatory; <strong>ALT</strong>: Mean
-altitude of patch, Continuous explanatory; <strong>YR.ISOL</strong>:
-Year of isolation of clearance, Continuous explanatory;
-<strong>GRAZE</strong>: Index of livestock grazing intensity, 5 level
-Categorical explanatory 1= low graze, 5 = high graze. Add a description
-of your variables to the metadata you created previously. Clearly
-highlight which variable is the response variable and which variables
-are potential explanatory variables.</p>
+(2002)<sup>2</sup> and Zuur et al (2009)<sup>3</sup>. Note, I have had
+to do some slight ‘tweaking’ of these data to improve usability for this
+course. The aim of the study was to relate bird density in 67 forest
+patches to a number of different environmental variables and management
+practices. A summary of the variables is: <strong>ABUND</strong>:
+Density of birds, Continuous response; <strong>AREA</strong>: Size of
+forest patch, Continuous explanatory; <strong>DIST</strong>: Distance to
+nearest patch, Continuous explanatory; <strong>LDIST</strong>: Distance
+to nearest larger patch, Continuous explanatory; <strong>ALT</strong>:
+Mean altitude of patch, Continuous explanatory;
+<strong>YR.ISOL</strong>: Year of isolation of clearance, Continuous
+explanatory; <strong>GRAZE</strong>: Index of livestock grazing
+intensity, 5 level Categorical explanatory 1= low graze, 5 = high graze.
+Add a description of your variables to the metadata you created
+previously. Clearly highlight which variable is the response variable
+and which variables are potential explanatory variables.</p>
 <p> </p>
 <p>4. Import your <em>‘loyn.txt’</em> file into R using the
 <code>read.table()</code> function and assign it to an object called
@@ -631,8 +632,8 @@ this.</p>
 <p> </p>
 <p>6. Using the <code>tapply()</code> function what is the mean bird
 abundance (<code>ABUND</code>) for each level of <code>FGRAZE</code>?
-Can you determine the variance, the minimum and maximum for each
-<code>FGRAZE</code> level? Again see <a
+Can you also determine the variance for each <code>FGRAZE</code> level?
+Again see <a
 href="https://intro2r.com/summarising-data-frames.html">section 3.5</a>
 of the Introduction to R book to remind yourself how to do this.</p>
 <p> </p>
@@ -646,37 +647,27 @@ of the Introduction to R book to remind yourself how to do this.</p>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">##        1        2        3        4        5 </span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 32.63859 73.13364 89.42243 50.62923 23.10744</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># minimum abundance of birds for each level of FGRAZE</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(loyn<span class="sc">$</span>ABUND, loyn<span class="sc">$</span>FGRAZE, min, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">##    1    2    3    4    5 </span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 14.6  5.3  2.9  3.3  1.5</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># maximum abundance of birds for each level of FGRAZE</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(loyn<span class="sc">$</span>ABUND, loyn<span class="sc">$</span>FGRAZE, max, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">##    1    2    3    4    5 </span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 39.6 34.4 37.7 27.8 13.8</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># OR use the summary function</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(loyn<span class="sc">$</span>ABUND, loyn<span class="sc">$</span>FGRAZE, summary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">## $`1`</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="do">##   14.60   27.30   29.50   28.62   30.90   39.60 </span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">## $`2`</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="do">##    5.30   14.00   19.40   19.42   25.20   34.40 </span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="do">## $`3`</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="do">##    2.90   14.10   19.50   20.16   27.60   37.70 </span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="do">## $`4`</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="do">##    3.30   15.00   19.90   18.96   25.00   27.80 </span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="do">## $`5`</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.500   2.200   3.800   6.292  11.500  13.800</span></span></code></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># OR use the summary function</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(loyn<span class="sc">$</span>ABUND, loyn<span class="sc">$</span>FGRAZE, summary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## $`1`</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   14.60   27.30   29.50   28.62   30.90   39.60 </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="do">## $`2`</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">##    5.30   14.00   19.40   19.42   25.20   34.40 </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="do">## $`3`</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">##    2.90   14.10   19.50   20.16   27.60   37.70 </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="do">## $`4`</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">##    3.30   15.00   19.90   18.96   25.00   27.80 </span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="do">## $`5`</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="do">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="do">##   1.500   2.200   3.800   6.292  11.500  13.800</span></span></code></pre></div>
 <p> </p>
 <p>7. Now onto some plotting action. Plot a Cleveland dotchart (<a
 href="https://intro2r.com/simple-base-r-plots.html#dotcharts">Section
