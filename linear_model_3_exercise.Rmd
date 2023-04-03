@@ -1,5 +1,5 @@
 ---
-title: "Exercise Solutions"
+title: "Exercises"
 output:
   html_document:
     toc: no

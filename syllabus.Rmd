@@ -32,7 +32,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-|09:30 - 11:30      | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 15:30    | 15:30 - 17:00|
+|09:30 - 11:30      | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 16:00    | 16:00 - 17:00|
 |:---------------------|:-----------------|:-------------|:---------------|:---------------|
 |Linear model theory (recorded AD)|Linear models live practical (AD) – single continuous explanatory variable|LUNCH|Linear models live practical (AD) – single continuous explanatory variable, Live review session|Linear models theory – single categorical explanatory variable (recorded AD)|
 
@@ -46,7 +46,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 |09:30 - 11:30               | 11:30 - 12:30     | 12:30 - 13:30 |13:30 - 16:00    | 16:00 - 17:00      |
 |:--------------------------|:-----------------|:-------------|:---------------|:------------------|
-|Linear models live practical (AD) – single categorical explanatory variable | Linear models review session (AD) – single categorical explanatory variable| LUNCH |Linear models live practical (AD) – single categorical explanatory variable, Live review session| Linear models theory - categorical and continuous explanatory variables (recorded AD)|
+|Linear models live practical (AD) – single categorical explanatory variable | Linear models review session (AD) – single categorical explanatory variable| LUNCH |Linear models theory - categorical and continuous explanatory variables (recorded AD)| Linear models live practical – models with continuous and categorical explanatory variables|
 
 \  
 <!--
@@ -65,9 +65,9 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 14:30    | 14:30 - 17:00|
-|:--------------------------|:-------------|:---------------|:---------------|
-|Linear models live practical (AD) – categorical and continuous explanatory variable|LUNCH| Linear models theory - model selection (recorded AD) | Linear models live practical (AD) – model selection|  | 
+|09:30 - 10:30               | 10:30 - 12:30 |12:30 - 13:30    | 13:30 - 16:30| 16:30 - 17:00|
+|:--------------------------|:-------------|:---------------|:---------------|:----------------|
+|Linear models live practical (AD) – categorical and continuous explanatory variable|Linear models theory - model selection (recorded AD)| LUNCH | Linear models live practical (AD) – model selection| Course wash-up and close | 
 
 \  
 
