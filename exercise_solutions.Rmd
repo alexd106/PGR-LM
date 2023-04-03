@@ -49,6 +49,11 @@ link_name <- "Linear model with single categorical explanatory variable exercise
 file_name <- "linear_model_2_exercise_solutions.html"
 paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
+
+link_name <- "Linear model with categorical and continuous explanatory variables exercise"
+file_name <- "linear_model_3_exercise_solutions.html"
+paste0("- [", link_name, "](", file_name, ")") %>%
+cat(sep="\n\n")
 ```
 
 \  

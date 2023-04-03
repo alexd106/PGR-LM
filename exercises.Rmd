@@ -63,6 +63,7 @@ rmarkdown::render("linear_model_4_exercise.Rmd", output_format = "pdf_document",
 ### Day 3
  
  - [Linear model with a single categorical explanatory variable exercise](linear_model_2_exercise.html)
+ - [Linear model with categorical and continuous explanatory variables](linear_model_3_exercise.html)
  
 \  
 
