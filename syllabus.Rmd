@@ -65,7 +65,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-|09:30 - 11:30               | 11:30 - 12:30 |12:30 - 13:30    | 13:30 - 16:30| 16:30 - 17:00|
+|09:30 - 11:00               | 11:00 - 12:30 |12:30 - 13:30    | 13:30 - 16:30| 16:30 - 17:00|
 |:--------------------------|:-------------|:---------------|:---------------|:----------------|
 |Linear models live practical (AD) – categorical and continuous explanatory variable|Linear models theory - model selection (recorded AD)| LUNCH | Linear models live practical (AD) – model selection| Course wash-up and close | 
 
