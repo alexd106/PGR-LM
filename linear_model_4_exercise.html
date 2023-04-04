@@ -11,7 +11,7 @@
 
 
 
-<title>Exercises</title>
+<title>Exercise</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -385,7 +385,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Exercises</h1>
+<h1 class="title toc-ignore">Exercise</h1>
 
 </div>
 
@@ -483,12 +483,13 @@ simplify our model.</p>
 <p> </p>
 <p> </p>
 <p>5. Let’s perform a first step in model selection using the
-<code>drop1()</code> function. This will allow us to decide which
-explanatory variable may be suitable for removal from the model.
-Remember to use the <code>test = "F"</code> argument to perform F tests
-when using <code>drop1()</code>. Which explanatory variable is the best
-candidate for removal and why? What hypothesis is being tested when we
-do this model selection step?</p>
+<code>drop1()</code> function and use a <em>F</em> test based model
+selection approach. This will allow us to decide which explanatory
+variable may be suitable for removal from the model. Remember to use the
+<code>test = "F"</code> argument to perform <em>F</em> tests when using
+<code>drop1()</code>. Which explanatory variable is the best candidate
+for removal and why? What hypothesis is being tested when we do this
+model selection step?</p>
 <p> </p>
 <p> </p>
 <p>7. Update the model and remove the least significant explanatory
@@ -533,45 +534,61 @@ of the hypotheses you are testing.</p>
 <p> </p>
 <p><strong>OPTIONAL questions</strong> if you have time / energy /
 inclination!</p>
+<p> </p>
 <p>A1. If we weren’t aiming to directly test the effect of the
 <code>LOGAREA:FGRAZE</code> interaction statistically (i.e. test this
 specific hypothesis), we could also have used AIC to perform model
-selection. Let’s try this using the <code>step()</code> function. NOTE:
-you can also do this using the <code>AIC()</code> function or by taking
-the AIC values returned by <code>drop1()</code> (did you notice them?!
-actually as an interesting aside, the <code>step()</code> function just
-uses the AIC values from <code>drop1()</code> ).</p>
+selection. Repeat the model selection as in the previous <em>F</em> test
+questions above but this time use the <code>drop1()</code> function and
+perform model selection using AIC instead. NOTE: you can also do this
+using the <code>AIC()</code> function. Don’t forget, if we want to
+perform model selection based on AIC with the <code>drop1()</code>
+function we need to omit the <code>test = "F"</code> argument)</p>
 <p> </p>
-<p>.</p>
+<p> </p>
+<p>A2. Refit your model with the variable associated with the lowest AIC
+value removed. Run `drop1() again.</p>
+<p> </p>
+<p>  A3. Refit your model with the variable associated with the lowest
+AIC value removed and run <code>drop1()</code> again on your new
+model.</p>
+<p> </p>
+<p> </p>
+<p>A4. Repeat your model selection by removing the variable indicated by
+the model with the lowest AIC.</p>
+<p> </p>
+<p> </p>
+<p>A5. Rinse and repeat.</p>
+<p> </p>
+<p> </p>
+<p>If all goes well, your final model should be
+<code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This is the
+same model you ended up with when using the <em>F</em> test based model
+selection above. This, however, might not always be the case and
+generally speaking AIC based model selection approaches tend to favour
+more complicated minimum adequate models compared to <em>F</em> test
+based approaches.</p>
 <p> </p>
 <p>We don’t need to re-validate or re-interpret the model, since the
 minimum adequate model is the one we came up with using the
 <code>drop1()</code> function (this is not always the case!).</p>
-<p>Also note that this rather automatic way of doing model selection and
-misses a number of plausible combinations of the terms of interest. This
-is somewhat arbitrary and there is a chance to miss the ‘best’ model in
-that way. The <code>step()</code> function tries to reduce this problem
-with the argument <code>direction = "both"</code>. This means that after
-achieving a minimal model by applying “backwards” steps of model
-reduction, <code>step()</code> will eventually apply one or more
-“forward” steps, where previously deleted terms are added again in case
-they lead to an improvement of the minimal model.</p>
-<p>However, this is no replacement for a fully manual and
+<p>However, don’t forget that there’s no replacement for a well
 thought-through model selection approach, informed by the understanding
 of theory in the research area and of the research questions. Remember
 to use your expertise and brain when performing model selection.</p>
 <p>I guess the next question is how to present your results from the
-model selection process (using either <code>drop1()</code> or
-<code>step()</code>) in your paper and/or thesis chapter. One approach
-which I quite like is to construct a table which includes a description
-of all of our models and associated summary statistics. Let’s do this
-for the AIC based model selection but the same principles apply when
-using <code>drop1()</code> (although you will be presenting <em>F</em>
-statistics and P values rather than AIC). As I rarely use the
-<code>step()</code> function (for reasons given above) I will use the
-<code>AIC()</code> function and do the model selection manually. This
-also has the advantage that it makes it easier to extract the AIC values
-for our table.</p>
+model selection process (using either <em><code>drop1()</code> or
+<code>step()</code></em>F* tests or AIC) in your paper and/or thesis
+chapter. One approach which I quite like is to construct a table which
+includes a description of all of our models and associated summary
+statistics. Let’s do this for the AIC based model selection but the same
+principles apply when using <code>drop1()</code> (although you will be
+presenting <em>F</em> statistics and P values rather than AIC). As I
+rarely use the <code>step()</code> function (for reasons given above) I
+will use the <code>AIC()</code> function and do the model selection
+manually. This also has the advantage that it makes it easier to extract
+the AIC values for our table.</p>
+<p> </p>
 <p> </p>
 <p>Or if you prefer a prettier version to include directly in your paper
 / thesis. You will need to install the <code>knitr</code> package before

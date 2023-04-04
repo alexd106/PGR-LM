@@ -9,35 +9,6 @@ loyn$LOGDIST <- log10(loyn$DIST)
 loyn$LOGLDIST <- log10(loyn$LDIST)
 
 
-## ----Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
-## # define the panel.cor function from ?pairs
-## panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
-## {
-##     usr <- par("usr")
-##     par(usr = c(0, 1, 0, 1))
-##     r <- abs(cor(x, y))
-##     txt <- format(c(r, 0.123456789), digits = digits)[1]
-##     txt <- paste0(prefix, txt)
-##     if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
-##     text(0.5, 0.5, txt, cex = cex.cor * r)
-## }
-## 
-## # subset the variables of interest
-## VOI<- c("ABUND", "LOGAREA", "LOGDIST", "LOGLDIST", "YR.ISOL", "ALT", "FGRAZE")
-## pairs(loyn[, VOI], lower.panel = panel.cor)
-## 
-## # There are varying degrees of correlation between explanatory variables which
-## # might indicate some collinearity, i.e. LOGAREA and FGRAZE (0.48), LOGDIST and
-## # LOGLDIST (0.59) and YR.ISOL and FGRAZE (0.56). However, the relationships
-## # between these explanatory variables are quite weak so we can probably
-## # include these variables in the same model (but keep an eye on things).
-## # There also seems to be a reasonable spread of observations across these
-## # pairs of explanatory variables.
-## 
-## # The relationship between the response variable ABUND and all the explanatory
-## # variables is visible in the top row:
-## #  Some potential relationships present like with LOGAREA (positive),
-## #  maybe ALT (positive) and FGRAZE (negative).
 
 
 ## ----Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
@@ -171,64 +142,64 @@ drop1(M5, test= "F")
 # patches may have a less important effect)
 
 
-## ----QA1a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------------------------------------------------
+## ----QA1, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
 # This time, we are not doing any specific hypothesis testing, rather we are 
 # attempting to select a model with the 'best' goodness of fit with the minimal
 # number of estimated parameters. 
 
 # We will start with a reasonably complex but PLAUSABLE model (this is the same 
-# model we started with using drop1() above.
+# model we started with using F test based model selection above.
 
-M.start<- lm(ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
+M.start.AIC<- lm(ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
                LOGAREA:FGRAZE, data = loyn)
 
-step(M.start)
+drop1(M.start.AIC)
 
 
-## ----QA1b, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------------------------------------------------
-# The output above is rather complicated and voluminous! But let's work through 
-# it step by step 
+## ----QA2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
+# So, our starting model with no variables removed has an AIC of 228.20. If we 
+# remove the interaction term `LOGAREA:FGRAZE` from the model then this results 
+# in a big increase in AIC (238.02 - 228.20 = 9.82) so this suggests that there 
+# is substantial evidence that the interaction should remain in the model. The 
+# models without `LOGLDIST`, `LOGDIST`, `YR.ISOL` all have pretty much the 
+# same AIC value (around 226) so in practice we could remove any of them. Let's 
+# remove the term that results in the model with the lowest AIC which is the 
+# `LOGLDIST` variable (AIC 226.23).
 
-# The first table starts with the AIC of our full model (228.2) and writes out 
-# the full model:
-# ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE
+M2.AIC <- update(M.start.AIC, formula = . ~ . - LOGLDIST)
+drop1(M2.AIC)
 
-# The table below this then presents the AIC from models that have had
-# a single term removed from the model. 
 
-# So the first line represents a model with LOGLDIST removed resulting in an 
-# AIC of 226.4. 
+## ----QA3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
+# Ok, as the model without the variable `YR.ISOL` has the lowest AIC (224.27) 
+# let's update our model and remove this variable.
 
-# The step() function then puts LOGLDIST back into the model and then removes 
-# YR.ISOL resulting in an AIC of 226.24
+M3.AIC <- update(M2.AIC, formula = . ~ . - YR.ISOL)
+drop1(M3.AIC)
 
-# This is repeated for each term in the model including the interaction term.
-# Note, just like the drop1() function the main effects of LOGAREA and FGRAZE
-# are not removed (or presented) as they are included in the interaction term.
 
-# The <none> row just denotes the model with no terms removed (same AIC as the 
-# Start:)
+## ----QA4, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
+# So, now the model without `LOGDIST` has the lowest AIC (222.43) so we should 
+# refit the model without this variable and run `drop1()` again.
 
-# The step() function then automatically drops the term with the lowest AIC 
-# (LOGLDIST in our case), refits the model without this variable and then does 
-# another round of sequentially removing the terms in the model as above.
+M4.AIC <- update(M3.AIC, formula = . ~ . - LOGDIST)
+drop1(M4.AIC)
 
-# So, in this next round, the model with the lowest AIC is the model with 
-# YR.ISOL removed (224.27).
 
-# The step() function then removes YR.ISOL and performs another round of deletions 
-# from the model and removes LOGDIST (AIC = 222.43)
+## ----QA5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------------------------------------
+# And the model without the variable `ALT` has an AIC of 221.57 which is about 
+# the same as the model with `ALT` (AIC 222.43), so let's remove this variable 
+# from the model as this suggests that the simpler model fits our data just as 
+# well as the more complicated model.
 
-# The step() function then removes LOGDIST and performs another round of deletions 
-# from the model and removes ALT (AIC = 221.57)
+M5.AIC <- update(M4.AIC, formula = . ~ . - ALT)
+drop1(M5.AIC)
 
-# Finally, the step() function displays the AIC when we remove the interaction 
-# term LOGAREA:FGRAZE but this results in an increase in AIC (230.47) compared 
-# to the model with the interaction term (AIC = 221.57). This suggests that the 
-# fit of the model is worse when we remove the interaction term and therefore it 
-# should be retained in the model (along with the main effects of LOGAREA and 
-# FGRAZE). This is now our final model and the step() function stops at this
-# point.
+# OK, so now we have a model with the main effects of LOGAREA, FGRAZE and the 
+# interaction term LOGAREA:FGRAZE. When we remove the interaction term the 
+# AIC value increases by 8.9 (230.47-221.57) and this suggests that if we 
+# remove the interaction term the model fit is significantly worse. Therefore we 
+# should leave it in and finish our model selection here.
 
 
 ## ----QA2a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------------------------------------------------

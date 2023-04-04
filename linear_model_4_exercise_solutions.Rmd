@@ -107,7 +107,7 @@ summary(M1)
 
 \  
 
-5\. Let's perform a first step in model selection using the `drop1()` function. This will allow us to decide which explanatory variable may be suitable for removal from the model. Remember to use the `test = "F"` argument to perform F tests when using `drop1()`. Which explanatory variable is the best candidate for removal and why? What hypothesis is being tested when we do this model selection step?
+5\. Let's perform a first step in model selection using the `drop1()` function and use a *F* test based model selection approach. This will allow us to decide which explanatory variable may be suitable for removal from the model. Remember to use the `test = "F"` argument to perform *F* tests when using `drop1()`. Which explanatory variable is the best candidate for removal and why? What hypothesis is being tested when we do this model selection step?
 
 \  
 
@@ -275,82 +275,106 @@ drop1(M5, test= "F")
 
 \ 
 
-A1\. If we weren't aiming to directly test the effect of the `LOGAREA:FGRAZE` interaction statistically (i.e. test this specific hypothesis), we could also have used AIC to perform model selection. Let's try this using the `step()` function. NOTE: you can also do this using the `AIC()` function or by taking the AIC values returned by `drop1()` (did you notice them?! actually as an interesting aside, the `step()` function just uses the AIC values from `drop1()` ).
+A1\. If we weren't aiming to directly test the effect of the `LOGAREA:FGRAZE` interaction statistically (i.e. test this specific hypothesis), we could also have used AIC to perform model selection. Repeat the model selection as in the previous *F* test questions above but this time use the `drop1()` function and perform model selection using AIC instead. NOTE: you can also do this using the `AIC()` function. Don't forget, if we want to perform model selection based on AIC with the `drop1()` function we need to omit the `test = "F"` argument)
 
 \  
 
-```{r QA1a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA1, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # This time, we are not doing any specific hypothesis testing, rather we are 
 # attempting to select a model with the 'best' goodness of fit with the minimal
 # number of estimated parameters. 
 
 # We will start with a reasonably complex but PLAUSABLE model (this is the same 
-# model we started with using drop1() above.
+# model we started with using F test based model selection above.
 
-M.start<- lm(ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
+M.start.AIC<- lm(ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
                LOGAREA:FGRAZE, data = loyn)
 
-step(M.start)
+drop1(M.start.AIC)
 ```
 
+\ 
 
-\. 
+A2\. Refit your model with the variable associated with the lowest AIC value removed. Run `drop1() again. 
 
-```{r QA1b, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
-# The output above is rather complicated and voluminous! But let's work through 
-# it step by step 
+\ 
 
-# The first table starts with the AIC of our full model (228.2) and writes out 
-# the full model:
-# ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE
+```{r QA2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# So, our starting model with no variables removed has an AIC of 228.20. If we 
+# remove the interaction term `LOGAREA:FGRAZE` from the model then this results 
+# in a big increase in AIC (238.02 - 228.20 = 9.82) so this suggests that there 
+# is substantial evidence that the interaction should remain in the model. The 
+# models without `LOGLDIST`, `LOGDIST`, `YR.ISOL` all have pretty much the 
+# same AIC value (around 226) so in practice we could remove any of them. Let's 
+# remove the term that results in the model with the lowest AIC which is the 
+# `LOGLDIST` variable (AIC 226.23).
 
-# The table below this then presents the AIC from models that have had
-# a single term removed from the model. 
-
-# So the first line represents a model with LOGLDIST removed resulting in an 
-# AIC of 226.4. 
-
-# The step() function then puts LOGLDIST back into the model and then removes 
-# YR.ISOL resulting in an AIC of 226.24
-
-# This is repeated for each term in the model including the interaction term.
-# Note, just like the drop1() function the main effects of LOGAREA and FGRAZE
-# are not removed (or presented) as they are included in the interaction term.
-
-# The <none> row just denotes the model with no terms removed (same AIC as the 
-# Start:)
-
-# The step() function then automatically drops the term with the lowest AIC 
-# (LOGLDIST in our case), refits the model without this variable and then does 
-# another round of sequentially removing the terms in the model as above.
-
-# So, in this next round, the model with the lowest AIC is the model with 
-# YR.ISOL removed (224.27).
-
-# The step() function then removes YR.ISOL and performs another round of deletions 
-# from the model and removes LOGDIST (AIC = 222.43)
-
-# The step() function then removes LOGDIST and performs another round of deletions 
-# from the model and removes ALT (AIC = 221.57)
-
-# Finally, the step() function displays the AIC when we remove the interaction 
-# term LOGAREA:FGRAZE but this results in an increase in AIC (230.47) compared 
-# to the model with the interaction term (AIC = 221.57). This suggests that the 
-# fit of the model is worse when we remove the interaction term and therefore it 
-# should be retained in the model (along with the main effects of LOGAREA and 
-# FGRAZE). This is now our final model and the step() function stops at this
-# point.
+M2.AIC <- update(M.start.AIC, formula = . ~ . - LOGLDIST)
+drop1(M2.AIC)
 ```
 
-\  
+\ 
+A3\. Refit your model with the variable associated with the lowest AIC value removed and run `drop1()` again on your new model.
+
+\ 
+
+```{r QA3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# Ok, as the model without the variable `YR.ISOL` has the lowest AIC (224.27) 
+# let's update our model and remove this variable.
+
+M3.AIC <- update(M2.AIC, formula = . ~ . - YR.ISOL)
+drop1(M3.AIC)
+```
+
+\ 
+
+A4\. Repeat your model selection by removing the variable indicated by the model with the lowest AIC.
+
+\ 
+
+```{r QA4, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# So, now the model without `LOGDIST` has the lowest AIC (222.43) so we should 
+# refit the model without this variable and run `drop1()` again.
+
+M4.AIC <- update(M3.AIC, formula = . ~ . - LOGDIST)
+drop1(M4.AIC)
+```
+
+\ 
+
+A5\. Rinse and repeat.
+
+\ 
+
+```{r QA5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# And the model without the variable `ALT` has an AIC of 221.57 which is about 
+# the same as the model with `ALT` (AIC 222.43), so let's remove this variable 
+# from the model as this suggests that the simpler model fits our data just as 
+# well as the more complicated model.
+
+M5.AIC <- update(M4.AIC, formula = . ~ . - ALT)
+drop1(M5.AIC)
+
+# OK, so now we have a model with the main effects of LOGAREA, FGRAZE and the 
+# interaction term LOGAREA:FGRAZE. When we remove the interaction term the 
+# AIC value increases by 8.9 (230.47-221.57) and this suggests that if we 
+# remove the interaction term the model fit is significantly worse. Therefore we 
+# should leave it in and finish our model selection here.
+```
+
+\ 
+
+If all goes well, your final model should be `lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)`. This is the same model you ended up with when using the *F* test based model selection above. This, however, might not always be the case and generally speaking AIC based model selection approaches tend to favour more complicated minimum adequate models compared to *F* test based approaches.
+
+\ 
 
 We don't need to re-validate or re-interpret the model, since the minimum adequate model is the one we came up with using the `drop1()` function (this is not always the case!). 
 
-Also note that this is a rather automatic way of doing model selection and misses a number of plausible combinations of the terms of interest. This is somewhat arbitrary but there is a chance to miss the 'best' model using this approach. The `step()` function tries to reduce this problem with the argument `direction = "both"`. This means that after achieving a minimal model by applying "backwards" steps of model reduction, `step()` will eventually apply one or more "forward" steps, where previously deleted terms are added again in case they lead to an improvement of the minimal model.
+However, don't forget that there's no replacement for a well thought-through model selection approach, informed by the understanding of theory in the research area and of the research questions. Remember to use your expertise and brain when performing model selection. 
 
-However, this is no replacement for a fully manual and thought-through model selection approach, informed by the understanding of theory in the research area and of the research questions. Remember to use your expertise and brain when performing model selection. 
+I guess the next question is how to present your results from the model selection process (using either *`drop1()` or `step()`*F* tests or AIC) in your paper and/or thesis chapter. One approach which I quite like is to construct a table which includes a description of all of our models and associated summary statistics. Let's do this for the AIC based model selection but the same principles apply when using `drop1()` (although you will be presenting *F* statistics and P values rather than AIC). As I rarely use the `step()` function (for reasons given above) I will use the `AIC()` function and do the model selection manually. This also has the advantage that it makes it easier to extract the AIC values for our table. 
 
-I guess the next question is how to present your results from the model selection process (using either `drop1()` or `step()`) in your paper and/or thesis chapter. One approach which I quite like is to construct a table which includes a description of all of our models and associated summary statistics. Let's do this for the AIC based model selection but the same principles apply when using `drop1()` (although you will be presenting *F* statistics and P values rather than AIC). As I rarely use the `step()` function (for reasons given above) I will use the `AIC()` function and do the model selection manually. This also has the advantage that it makes it easier to extract the AIC values for our table. 
+\ 
 
 ```{r QA2a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # one way of constructing a summary table for reporting the results:
