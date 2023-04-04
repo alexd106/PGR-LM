@@ -450,7 +450,6 @@ the remaining variables need transforming? If so, what transformation
 did you apply? Add the transformed variables to the <code>loyn</code>
 dataframe.</p>
 <p> </p>
-<p> </p>
 <p>2. It’s useful to start with a quick graphical exploration of any
 potential relationships between each explanatory variable (collinearity)
 and also between our response and explanatory variables. A pairs plot
@@ -464,15 +463,13 @@ interest in a vector <code>VOI &lt;- c("Var1", "Var2", ...)</code> and
 then use the naming method for subsetting the data set
 <code>Mydata[, VOI]</code></p>
 <p> </p>
-<p> </p>
 <p>3. Start with a model of <code>ABUND</code> and include all
 explanatory variables as main effects. Also include the interaction
 <code>LOGAREA:FGRAZE</code> but no other interaction terms as justified
 in the preamble above. Don’t forget to include the transformed versions
 of the variables where appropriate (but not the untransformed variables
 as well otherwise you will have very strong collinearity between these
-variables!).<br />
- </p>
+variables!).</p>
 <p> </p>
 <p>4. Have a look at the summary of the model using the
 <code>summary()</code> function. This is now quite a complicated model
@@ -480,7 +477,6 @@ with lots of parameter estimates (14) and P values testing lots of
 hypotheses. Are all the P values less than our cutoff of 0.05? If not,
 then this suggests that some form of model selection is warranted to
 simplify our model.</p>
-<p> </p>
 <p> </p>
 <p>5. Let’s perform a first step in model selection using the
 <code>drop1()</code> function and use a <em>F</em> test based model
@@ -491,7 +487,6 @@ variable may be suitable for removal from the model. Remember to use the
 for removal and why? What hypothesis is being tested when we do this
 model selection step?</p>
 <p> </p>
-<p> </p>
 <p>7. Update the model and remove the least significant explanatory
 variable (from above) and repeat single term deletions with
 <code>drop1()</code>. You can update the model by just fitting a new
@@ -499,21 +494,17 @@ model without the appropriate explanatory variable and assign it to a
 new name. Alternatively you can use the <code>update()</code> function.
 I’ll show you both ways in the solutions below.</p>
 <p> </p>
-<p> </p>
 <p>8. Again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
-<p> </p>
 <p> </p>
 <p>9. Once again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
-<p> </p>
 <p>10. And finally, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
-<p> </p>
 <p> </p>
 <p>11. If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code> which you
@@ -522,7 +513,6 @@ the output from the <code>drop1()</code> function does not include the
 main effects of <code>LOGAREA</code> or <code>FRGRAZE</code>. Can you
 think why this might be the case?</p>
 <p> </p>
-<p> </p>
 <p>12. Now that you have your final model, you should go through your
 model validation and model interpretation as usual. As we have already
 completed this in the previous exercise I’ll leave it up to you to
@@ -530,7 +520,6 @@ decide whether you include it here (you should be able to just copy and
 paste the code). Please make sure you understand the biological
 interpretation of each of the parameter estimates and the interpretation
 of the hypotheses you are testing.</p>
-<p> </p>
 <p> </p>
 <p><strong>OPTIONAL questions</strong> if you have time / energy /
 inclination!</p>
@@ -545,22 +534,16 @@ using the <code>AIC()</code> function. Don’t forget, if we want to
 perform model selection based on AIC with the <code>drop1()</code>
 function we need to omit the <code>test = "F"</code> argument)</p>
 <p> </p>
-<p> </p>
 <p>A2. Refit your model with the variable associated with the lowest AIC
 value removed. Run `drop1() again.</p>
 <p> </p>
-<p>  A3. Refit your model with the variable associated with the lowest
-AIC value removed and run <code>drop1()</code> again on your new
-model.</p>
-<p> </p>
+<p>A3. Refit your model with the variable associated with the lowest AIC
+value removed and run <code>drop1()</code> again on your new model.</p>
 <p> </p>
 <p>A4. Repeat your model selection by removing the variable indicated by
 the model with the lowest AIC.</p>
 <p> </p>
-<p> </p>
 <p>A5. Rinse and repeat.</p>
-<p> </p>
-<p> </p>
 <p>If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This is the
 same model you ended up with when using the <em>F</em> test based model
@@ -568,7 +551,6 @@ selection above. This, however, might not always be the case and
 generally speaking AIC based model selection approaches tend to favour
 more complicated minimum adequate models compared to <em>F</em> test
 based approaches.</p>
-<p> </p>
 <p>We don’t need to re-validate or re-interpret the model, since the
 minimum adequate model is the one we came up with using the
 <code>drop1()</code> function (this is not always the case!).</p>
@@ -588,7 +570,6 @@ rarely use the <code>step()</code> function (for reasons given above) I
 will use the <code>AIC()</code> function and do the model selection
 manually. This also has the advantage that it makes it easier to extract
 the AIC values for our table.</p>
-<p> </p>
 <p> </p>
 <p>Or if you prefer a prettier version to include directly in your paper
 / thesis. You will need to install the <code>knitr</code> package before

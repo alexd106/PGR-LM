@@ -559,7 +559,6 @@ yourself of your data exploration you conducted previously. Do any of
 the remaining variables need transforming? If so, what transformation
 did you apply? Add the transformed variables to the <code>loyn</code>
 dataframe.</p>
-<p> </p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/loyn.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(loyn)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    67 obs. of  8 variables:</span></span>
@@ -590,7 +589,6 @@ effective way of doing this is to store the names of the variables of
 interest in a vector <code>VOI &lt;- c("Var1", "Var2", ...)</code> and
 then use the naming method for subsetting the data set
 <code>Mydata[, VOI]</code></p>
-<p> </p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define the panel.cor function from ?pairs</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">prefix =</span> <span class="st">&quot;&quot;</span>, cex.cor, ...)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>{</span>
@@ -627,8 +625,7 @@ explanatory variables as main effects. Also include the interaction
 in the preamble above. Don’t forget to include the transformed versions
 of the variables where appropriate (but not the untransformed variables
 as well otherwise you will have very strong collinearity between these
-variables!).<br />
- </p>
+variables!).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> LOGDIST <span class="sc">+</span> LOGLDIST <span class="sc">+</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">+</span> FGRAZE <span class="sc">+</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>           FGRAZE<span class="sc">:</span>LOGAREA, <span class="at">data =</span> loyn)</span></code></pre></div>
 <p> </p>
@@ -638,7 +635,6 @@ with lots of parameter estimates (14) and P values testing lots of
 hypotheses. Are all the P values less than our cutoff of 0.05? If not,
 then this suggests that some form of model selection is warranted to
 simplify our model.</p>
-<p> </p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(M1)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
@@ -680,7 +676,6 @@ variable may be suitable for removal from the model. Remember to use the
 <code>drop1()</code>. Which explanatory variable is the best candidate
 for removal and why? What hypothesis is being tested when we do this
 model selection step?</p>
-<p> </p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wait: why can&#39;t we use information from the &#39;summary()&#39; or &#39;anova()&#39; functions</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to do this?</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -727,7 +722,6 @@ variable (from above) and repeat single term deletions with
 model without the appropriate explanatory variable and assign it to a
 new name. Alternatively you can use the <code>update()</code> function.
 I’ll show you both ways in the solutions below.</p>
-<p> </p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new model removing LOGLDIST </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> LOGDIST <span class="sc">+</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">+</span> FGRAZE <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>           LOGAREA<span class="sc">:</span>FGRAZE, <span class="at">data =</span> loyn) </span>
@@ -758,7 +752,6 @@ I’ll show you both ways in the solutions below.</p>
 <p>8. Again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
-<p> </p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>M3 <span class="ot">&lt;-</span> <span class="fu">update</span>(M2, <span class="at">formula =</span> . <span class="sc">~</span> . <span class="sc">-</span> YR.ISOL)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M3, <span class="at">test =</span> <span class="st">&quot;F&quot;</span>)</span>
@@ -780,7 +773,6 @@ explanatory variable (from above) and repeat single term deletions with
 <p>9. Once again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
-<p> </p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>M4 <span class="ot">&lt;-</span> <span class="fu">update</span>(M3, <span class="at">formula =</span> . <span class="sc">~</span> . <span class="sc">-</span> LOGDIST)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M4, <span class="at">test =</span> <span class="st">&quot;F&quot;</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Single term deletions</span></span>
@@ -799,7 +791,6 @@ explanatory variable (from above) and repeat single term deletions with
 <p>10. And finally, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
-<p> </p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and finally drop ALT from the model</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>M5 <span class="ot">&lt;-</span> <span class="fu">update</span>(M4, <span class="at">formula =</span> . <span class="sc">~</span> . <span class="sc">-</span> ALT)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(M5, <span class="at">test =</span> <span class="st">&quot;F&quot;</span>)</span>
@@ -823,7 +814,6 @@ encountered in the previous exercise. Also, you may have noticed that
 the output from the <code>drop1()</code> function does not include the
 main effects of <code>LOGAREA</code> or <code>FRGRAZE</code>. Can you
 think why this might be the case?</p>
-<p> </p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># As the interaction between LOGAREA and FGRAZE was significant at each step of</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model selection process the main effects should be left in our model,</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># irrespective of significance. This is because it is quite difficult to </span></span>
@@ -865,7 +855,6 @@ decide whether you include it here (you should be able to just copy and
 paste the code). Please make sure you understand the biological
 interpretation of each of the parameter estimates and the interpretation
 of the hypotheses you are testing.</p>
-<p> </p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Biologically: confirming what we already found out in the previous exercise:</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># There is a significant interaction between the area of the patch and the level </span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># of grazing </span></span>
@@ -910,7 +899,6 @@ perform model selection using AIC instead. NOTE: you can also do this
 using the <code>AIC()</code> function. Don’t forget, if we want to
 perform model selection based on AIC with the <code>drop1()</code>
 function we need to omit the <code>test = "F"</code> argument)</p>
-<p> </p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This time, we are not doing any specific hypothesis testing, rather we are </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># attempting to select a model with the &#39;best&#39; goodness of fit with the minimal</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># number of estimated parameters. </span></span>
@@ -937,7 +925,6 @@ function we need to omit the <code>test = "F"</code> argument)</p>
 <p> </p>
 <p>A2. Refit your model with the variable associated with the lowest AIC
 value removed. Run `drop1() again.</p>
-<p> </p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># So, our starting model with no variables removed has an AIC of 228.20. If we </span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the interaction term `LOGAREA:FGRAZE` from the model then this results </span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># in a big increase in AIC (238.02 - 228.20 = 9.82) so this suggests that there </span></span>
@@ -959,10 +946,9 @@ value removed. Run `drop1() again.</p>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="do">## YR.ISOL         1      0.78 1331.1 224.27</span></span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="do">## ALT             1     22.24 1352.6 225.34</span></span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4    406.74 1737.1 236.10</span></span></code></pre></div>
-<p>  A3. Refit your model with the variable associated with the lowest
-AIC value removed and run <code>drop1()</code> again on your new
-model.</p>
 <p> </p>
+<p>A3. Refit your model with the variable associated with the lowest AIC
+value removed and run <code>drop1()</code> again on your new model.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ok, as the model without the variable `YR.ISOL` has the lowest AIC (224.27) </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># let&#39;s update our model and remove this variable.</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -980,7 +966,6 @@ model.</p>
 <p> </p>
 <p>A4. Repeat your model selection by removing the variable indicated by
 the model with the lowest AIC.</p>
-<p> </p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># So, now the model without `LOGDIST` has the lowest AIC (222.43) so we should </span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># refit the model without this variable and run `drop1()` again.</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -996,7 +981,6 @@ the model with the lowest AIC.</p>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="do">## LOGAREA:FGRAZE  4    408.56 1743.0 232.33</span></span></code></pre></div>
 <p> </p>
 <p>A5. Rinse and repeat.</p>
-<p> </p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And the model without the variable `ALT` has an AIC of 221.57 which is about </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the same as the model with `ALT` (AIC 222.43), so let&#39;s remove this variable </span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from the model as this suggests that the simpler model fits our data just as </span></span>
@@ -1017,7 +1001,6 @@ the model with the lowest AIC.</p>
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC value increases by 8.9 (230.47-221.57) and this suggests that if we </span></span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the interaction term the model fit is significantly worse. Therefore we </span></span>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># should leave it in and finish our model selection here.</span></span></code></pre></div>
-<p> </p>
 <p>If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This is the
 same model you ended up with when using the <em>F</em> test based model
@@ -1025,7 +1008,6 @@ selection above. This, however, might not always be the case and
 generally speaking AIC based model selection approaches tend to favour
 more complicated minimum adequate models compared to <em>F</em> test
 based approaches.</p>
-<p> </p>
 <p>We don’t need to re-validate or re-interpret the model, since the
 minimum adequate model is the one we came up with using the
 <code>drop1()</code> function (this is not always the case!).</p>
@@ -1045,7 +1027,6 @@ rarely use the <code>step()</code> function (for reasons given above) I
 will use the <code>AIC()</code> function and do the model selection
 manually. This also has the advantage that it makes it easier to extract
 the AIC values for our table.</p>
-<p> </p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># one way of constructing a summary table for reporting the results:</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a vector of  all the models compared during out model selection</span></span>
