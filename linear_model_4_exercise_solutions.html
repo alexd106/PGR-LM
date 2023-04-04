@@ -1001,6 +1001,7 @@ the model with the lowest AIC.</p>
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC value increases by 8.9 (230.47-221.57) and this suggests that if we </span></span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the interaction term the model fit is significantly worse. Therefore we </span></span>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># should leave it in and finish our model selection here.</span></span></code></pre></div>
+<p> </p>
 <p>If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This is the
 same model you ended up with when using the <em>F</em> test based model
@@ -1016,17 +1017,16 @@ thought-through model selection approach, informed by the understanding
 of theory in the research area and of the research questions. Remember
 to use your expertise and brain when performing model selection.</p>
 <p>I guess the next question is how to present your results from the
-model selection process (using either <em><code>drop1()</code> or
-<code>step()</code></em>F* tests or AIC) in your paper and/or thesis
-chapter. One approach which I quite like is to construct a table which
-includes a description of all of our models and associated summary
-statistics. Let’s do this for the AIC based model selection but the same
-principles apply when using <code>drop1()</code> (although you will be
-presenting <em>F</em> statistics and P values rather than AIC). As I
-rarely use the <code>step()</code> function (for reasons given above) I
-will use the <code>AIC()</code> function and do the model selection
-manually. This also has the advantage that it makes it easier to extract
-the AIC values for our table.</p>
+model selection process (using either <em>F</em> tests or AIC) in your
+paper and/or thesis chapter. One approach which I quite like is to
+construct a table which includes a description of all of our models and
+associated summary statistics. Let’s do this for the AIC based model
+selection but the same principles apply when using <em>F</em> tests
+(although you will be presenting <em>F</em> statistics and P values
+rather than AIC values). Although you can use the output from the
+<code>drop1()</code> (and do a bit more wrangling) let’s make it a
+little simpler by just using the <code>AIC()</code> function to
+calculate the AIC values for each model.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># one way of constructing a summary table for reporting the results:</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a vector of  all the models compared during out model selection</span></span>

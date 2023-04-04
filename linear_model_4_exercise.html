@@ -544,6 +544,7 @@ value removed and run <code>drop1()</code> again on your new model.</p>
 the model with the lowest AIC.</p>
 <p> </p>
 <p>A5. Rinse and repeat.</p>
+<p> </p>
 <p>If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This is the
 same model you ended up with when using the <em>F</em> test based model
@@ -559,17 +560,16 @@ thought-through model selection approach, informed by the understanding
 of theory in the research area and of the research questions. Remember
 to use your expertise and brain when performing model selection.</p>
 <p>I guess the next question is how to present your results from the
-model selection process (using either <em><code>drop1()</code> or
-<code>step()</code></em>F* tests or AIC) in your paper and/or thesis
-chapter. One approach which I quite like is to construct a table which
-includes a description of all of our models and associated summary
-statistics. Let’s do this for the AIC based model selection but the same
-principles apply when using <code>drop1()</code> (although you will be
-presenting <em>F</em> statistics and P values rather than AIC). As I
-rarely use the <code>step()</code> function (for reasons given above) I
-will use the <code>AIC()</code> function and do the model selection
-manually. This also has the advantage that it makes it easier to extract
-the AIC values for our table.</p>
+model selection process (using either <em>F</em> tests or AIC) in your
+paper and/or thesis chapter. One approach which I quite like is to
+construct a table which includes a description of all of our models and
+associated summary statistics. Let’s do this for the AIC based model
+selection but the same principles apply when using <em>F</em> tests
+(although you will be presenting <em>F</em> statistics and P values
+rather than AIC values). Although you can use the output from the
+<code>drop1()</code> (and do a bit more wrangling) let’s make it a
+little simpler by just using the <code>AIC()</code> function to
+calculate the AIC values for each model.</p>
 <p> </p>
 <p>Or if you prefer a prettier version to include directly in your paper
 / thesis. You will need to install the <code>knitr</code> package before

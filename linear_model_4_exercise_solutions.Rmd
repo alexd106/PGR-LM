@@ -332,13 +332,15 @@ drop1(M5.AIC)
 # should leave it in and finish our model selection here.
 ```
 
+\ 
+
 If all goes well, your final model should be `lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)`. This is the same model you ended up with when using the *F* test based model selection above. This, however, might not always be the case and generally speaking AIC based model selection approaches tend to favour more complicated minimum adequate models compared to *F* test based approaches.
 
 We don't need to re-validate or re-interpret the model, since the minimum adequate model is the one we came up with using the `drop1()` function (this is not always the case!). 
 
 However, don't forget that there's no replacement for a well thought-through model selection approach, informed by the understanding of theory in the research area and of the research questions. Remember to use your expertise and brain when performing model selection. 
 
-I guess the next question is how to present your results from the model selection process (using either *`drop1()` or `step()`*F* tests or AIC) in your paper and/or thesis chapter. One approach which I quite like is to construct a table which includes a description of all of our models and associated summary statistics. Let's do this for the AIC based model selection but the same principles apply when using `drop1()` (although you will be presenting *F* statistics and P values rather than AIC). As I rarely use the `step()` function (for reasons given above) I will use the `AIC()` function and do the model selection manually. This also has the advantage that it makes it easier to extract the AIC values for our table. 
+I guess the next question is how to present your results from the model selection process (using either *F* tests or AIC) in your paper and/or thesis chapter. One approach which I quite like is to construct a table which includes a description of all of our models and associated summary statistics. Let's do this for the AIC based model selection but the same principles apply when using *F* tests (although you will be presenting *F* statistics and P values rather than AIC values). Although you can use the output from the `drop1()` (and do a bit more wrangling) let's make it a little simpler by just using the `AIC()` function to calculate the AIC values for each model.
 
 ```{r QA2a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # one way of constructing a summary table for reporting the results:
