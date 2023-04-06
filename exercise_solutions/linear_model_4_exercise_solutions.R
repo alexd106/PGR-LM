@@ -3,10 +3,11 @@ loyn <- read.table("data/loyn.txt", header = TRUE)
 str(loyn)
 
 loyn$LOGAREA <- log10(loyn$AREA)
-# create factor GRAZE as it was originally coded as an integer
-loyn$FGRAZE <- factor(loyn$GRAZE)
 loyn$LOGDIST <- log10(loyn$DIST)
 loyn$LOGLDIST <- log10(loyn$LDIST)
+
+# create factor GRAZE as it was originally coded as an integer
+loyn$FGRAZE <- factor(loyn$GRAZE)
 
 
 ## ----Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
@@ -36,8 +37,8 @@ loyn$LOGLDIST <- log10(loyn$LDIST)
 ## 
 ## # The relationship between the response variable ABUND and all the explanatory
 ## # variables is visible in the top row:
-## #  Some potential relationships present like with LOGAREA (positive),
-## #  maybe ALT (positive) and FGRAZE (negative).
+## # Some potential relationships present like with LOGAREA (positive),
+## # maybe ALT (positive) and FGRAZE (negative).
 
 
 ## ----Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ summary(M1)
 
 
 ## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
-# Wait: why can't we use information from the 'summary()' or 'anova()' functions
+# Wait: why can't we use information from the 'summary(M1)' or 'anova(M1)' functions
 # to do this?
 
 # the 'summary' table tests if the coefficient for each explanatory variable 
@@ -83,8 +84,7 @@ M2 <- lm(ABUND ~ LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
            LOGAREA:FGRAZE, data = loyn) 
 
 # or use a shortcut with the update() function:
-
-M2<- update(M1, formula = . ~ . - LOGLDIST) # "." means all previous variables
+M2 <- update(M1, formula = . ~ . - LOGLDIST) # "." means all previous variables
 
 # now redo drop1() on the new model
 drop1(M2, test = "F")
@@ -234,7 +234,7 @@ drop1(M5.AIC)
 ## ----QA2a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------------------------------------------------
 # one way of constructing a summary table for reporting the results:
 
-# create a vector of  all the models compared during out model selection
+# create a vector of all the models compared during out model selection
 
 model.formulas<- c(
   "LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
@@ -244,9 +244,10 @@ model.formulas<- c(
 	"LOGAREA + FGRAZE + LOGAREA:FGRAZE")
 
 # fit each model. Need to use the noquote() function to remove the 
-# quotations around our model formula (will cause an error with the lm()
-# function otherwise). Also need to paste The response variable 'ABUND ~ ' 
-# together with out explanatory variables to cerate a valide model formula
+# quotations around our model formula otherwise you will get an error when 
+# using the lm() function.
+# You will also need to paste the response variable 'ABUND ~ ' 
+# together with out explanatory variables to create a valid model formula
 
 M.start <- lm(noquote(paste('ABUND ~', model.formulas[1])), data = loyn)
 M.step2 <- lm(noquote(paste('ABUND ~', model.formulas[2])), data = loyn)
@@ -254,9 +255,10 @@ M.step3 <- lm(noquote(paste('ABUND ~', model.formulas[3])), data = loyn)
 M.step4 <- lm(noquote(paste('ABUND ~', model.formulas[4])), data = loyn)
 M.step5 <- lm(noquote(paste('ABUND ~', model.formulas[5])), data = loyn)
 
-# obtain the AIC values for each model. Note: these will be slightly different 
+# obtain the AIC values for each model. Note: these will be different 
 # than those obtained with the drop1() function due to a small difference in
-# how AIC is calculated.
+# how AIC is calculated. This isn;t a problem, just don't mix and match
+# the AIC values form drop1 and AIC functions.
 
 model.AIC<- c(AIC(M.start),
 	AIC(M.step2),
