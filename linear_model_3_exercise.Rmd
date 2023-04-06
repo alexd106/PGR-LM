@@ -19,7 +19,7 @@ SOLUTIONS <- FALSE
 
 \  
 
-This exercise builds on the previous exercises where you fitted a linear model with either a single continuous explanatory variable or a single categorical explanatory variable. In this exercise you will fit a model with both a continuous and categorical explanatory variable and allow their effects to interact (i.e. the effect of one explanatory changes with the value of the other explanatory variable). This is the third of four complementary exercises, based on the `loyn` data set.
+This exercise builds on the previous exercises where you fitted a linear model with either a single continuous explanatory variable or a single categorical explanatory variable. In this exercise you will fit a model with both a continuous and categorical explanatory variable and allow their effects to interact (i.e. the effect of one explanatory on the response variable changes with the value of the other explanatory variable). This is the third of four complementary exercises, based on the `loyn` data set.
 
 \  
 
@@ -27,7 +27,7 @@ This exercise builds on the previous exercises where you fitted a linear model w
 
 \  
 
-2\. Import the data file 'loyn.txt' into R and take a look at the structure of this dataframe using the `str()` function. We know that the abundance of birds `ABUND` increases quickly with the area of the patch `LOGAREA`, and more slowly for the larger patches (a saturating "log-linear relationship"). We also know that bird abundance changes with the grazing intensity (`FGRAZE` variable). But how do these effects combine together? Would a small patch with low grazing intensity have more birds than a larger patch with high grazing intensity? Could the fit of the `ABUND ~ LOGAREA` model for the large patches be improved if we accounted for grazing intensity in the patches?
+2\. Import the data file 'loyn.txt' into R and take a look at the structure of this dataframe using the `str()` function. We know that the abundance of birds `ABUND` increases with the log~10~ transformed area of the forest patch `LOGAREA`. We also know that bird abundance changes with the grazing intensity (`FGRAZE` variable) with forest patches with higher grazing intensity having fewer birds on average. But how do these effects combine together? Would a small patch with low grazing intensity have more birds than a larger patch with high grazing intensity? Could the fit of the `ABUND ~ LOGAREA` model for the large patches be improved if we accounted for grazing intensity in the patches?
 
 \  
 
@@ -209,9 +209,9 @@ summary(birds.inter.1)
 * plot the raw data, using a different colour for points from each `FGRAZE` level
 * for each `FGRAZE` level in turn:
 * create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values, probably best not too!).
-* store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its values need to be placed in quotes.
-* add a predicted column containing the predictions of the model for the new data frame, using `predict()`
-* plot the predictions with the appropriate colours
+* store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes.
+* Create a vector of predicted bird abundances using our new dataframe using the `predict()` function.
+* Add the predicted to your plot using the `lines()` function with the appropriate colours.
   
 See the script below, for one of many ways of doing this. Now this might seem like a huge amount of code just to plot your predicted values (and admittedly it is!) but most of the code is just repeated for each level of graze. Just work through it slowly and logically and hopefully it will make sense (please ask if you are confused). I will also show you some alternative (easier?) ways to do this below.  
 

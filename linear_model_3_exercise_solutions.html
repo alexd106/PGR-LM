@@ -511,10 +511,10 @@ categorical variable</h2>
 linear model with either a single continuous explanatory variable or a
 single categorical explanatory variable. In this exercise you will fit a
 model with both a continuous and categorical explanatory variable and
-allow their effects to interact (i.e. the effect of one explanatory
-changes with the value of the other explanatory variable). This is the
-third of four complementary exercises, based on the <code>loyn</code>
-data set.</p>
+allow their effects to interact (i.e. the effect of one explanatory on
+the response variable changes with the value of the other explanatory
+variable). This is the third of four complementary exercises, based on
+the <code>loyn</code> data set.</p>
 <p> </p>
 <p>1. As in previous exercises, either create a new R script (perhaps
 call it linear_model_3) or continue with your previous R script in your
@@ -525,15 +525,16 @@ beginning of the line.</p>
 <p> </p>
 <p>2. Import the data file ‘loyn.txt’ into R and take a look at the
 structure of this dataframe using the <code>str()</code> function. We
-know that the abundance of birds <code>ABUND</code> increases quickly
-with the area of the patch <code>LOGAREA</code>, and more slowly for the
-larger patches (a saturating “log-linear relationship”). We also know
-that bird abundance changes with the grazing intensity
-(<code>FGRAZE</code> variable). But how do these effects combine
-together? Would a small patch with low grazing intensity have more birds
-than a larger patch with high grazing intensity? Could the fit of the
-<code>ABUND ~ LOGAREA</code> model for the large patches be improved if
-we accounted for grazing intensity in the patches?</p>
+know that the abundance of birds <code>ABUND</code> increases with the
+log<sub>10</sub> transformed area of the forest patch
+<code>LOGAREA</code>. We also know that bird abundance changes with the
+grazing intensity (<code>FGRAZE</code> variable) with forest patches
+with higher grazing intensity having fewer birds on average. But how do
+these effects combine together? Would a small patch with low grazing
+intensity have more birds than a larger patch with high grazing
+intensity? Could the fit of the <code>ABUND ~ LOGAREA</code> model for
+the large patches be improved if we accounted for grazing intensity in
+the patches?</p>
 <p> </p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;./data/loyn.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(loyn)</span>
@@ -778,11 +779,12 @@ the maximum within the grazing level (unless you wish to predict outside
 the range of observed values, probably best not too!).</li>
 <li>store it in a data frame (e.g. <code>dat4pred</code>) containing the
 variables <code>FGRAZE</code> and <code>LOGAREA.</code> Remember that
-<code>FGRAZE</code> is a factor, so its values need to be placed in
+<code>FGRAZE</code> is a factor, so its value need to be placed in
 quotes.</li>
-<li>add a predicted column containing the predictions of the model for
-the new data frame, using <code>predict()</code></li>
-<li>plot the predictions with the appropriate colours</li>
+<li>Create a vector of predicted bird abundances using our new dataframe
+using the <code>predict()</code> function.</li>
+<li>Add the predicted to your plot using the <code>lines()</code>
+function with the appropriate colours.</li>
 </ul>
 <p>See the script below, for one of many ways of doing this. Now this
 might seem like a huge amount of code just to plot your predicted values
@@ -804,50 +806,65 @@ you some alternative (easier?) ways to do this below.</p>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">1</span>]),</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">1</span>]),</span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame for prediction</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;1&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># predict for new data</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>dat4pred<span class="sc">$</span>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># add the predictions to the plot of the data</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted <span class="sc">~</span> LOGAREA, <span class="at">data =</span> dat4pred, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame for prediction</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;1&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># predict for new data</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>P1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE2</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">2</span>]),</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">2</span>]),</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;2&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>dat4pred<span class="sc">$</span>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted <span class="sc">~</span> LOGAREA, <span class="at">data =</span> dat4pred, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># add the predictions to the plot of the data</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(P1 <span class="sc">~</span> dat4pred<span class="sc">$</span>LOGAREA, <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE2</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">2</span>]),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">2</span>]),</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE3</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">3</span>]),</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">3</span>]),</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;3&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>dat4pred<span class="sc">$</span>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted <span class="sc">~</span> LOGAREA, <span class="at">data =</span> dat4pred, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE4</span></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">4</span>]),</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">4</span>]),</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;4&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>dat4pred<span class="sc">$</span>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted <span class="sc">~</span> LOGAREA, <span class="at">data =</span> dat4pred, <span class="at">col =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE5</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">5</span>]),</span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">5</span>]),</span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;5&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>dat4pred<span class="sc">$</span>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(predicted <span class="sc">~</span> LOGAREA, <span class="at">data =</span> dat4pred, <span class="at">col =</span> <span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;2&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>P2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(P2 <span class="sc">~</span> dat4pred<span class="sc">$</span>LOGAREA, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE3</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">3</span>]),</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">3</span>]),</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;3&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>P3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(P3 <span class="sc">~</span> dat4pred<span class="sc">$</span>LOGAREA, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE4</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">4</span>]),</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">4</span>]),</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;4&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
 <span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, </span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a> <span class="at">legend =</span> <span class="fu">paste</span>(<span class="st">&quot;Graze = &quot;</span>, <span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), </span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a> <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>,</span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a> <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a> <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>P4 <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(P4 <span class="sc">~</span> dat4pred<span class="sc">$</span>LOGAREA, <span class="at">col =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE5</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>LOGAREA.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">5</span>]),</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">max</span>(loyn<span class="sc">$</span>LOGAREA[loyn<span class="sc">$</span>FGRAZE <span class="sc">==</span> <span class="dv">5</span>]),</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>                    <span class="at">length =</span> <span class="dv">20</span>)</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>dat4pred <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FGRAZE =</span> <span class="st">&quot;5&quot;</span>, <span class="at">LOGAREA =</span> LOGAREA.seq)</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>P5 <span class="ot">&lt;-</span> <span class="fu">predict</span>(birds.inter<span class="fl">.1</span>, <span class="at">newdata =</span> dat4pred)</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(P5 <span class="sc">~</span> dat4pred<span class="sc">$</span>LOGAREA, <span class="at">col =</span> <span class="dv">5</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, </span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a> <span class="at">legend =</span> <span class="fu">paste</span>(<span class="st">&quot;Graze = &quot;</span>, <span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), </span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a> <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>,</span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a> <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a> <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9a-1.png" width="672" /></p>
 <p> </p>
 <p><strong>(Optional, for the geeks)</strong> Alternative method, using
