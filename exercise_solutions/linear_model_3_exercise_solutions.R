@@ -9,21 +9,6 @@ loyn$LOGAREA <- log10(loyn$AREA)
 loyn$FGRAZE <- factor(loyn$GRAZE)
 
 
-## ----Q4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
-## coplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
-## 
-## # or
-## # library(lattice)
-## # xyplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
-## 
-## # - Within a grazing level, abundance seems to increase with the log patch area
-## #   in a more or less linear fashion
-## # - Overall, the mean abundance seems to decrease as grazing levels increase.
-## #   This is most noticeable in the highest grazing level.
-## # - Some of the slopes of the relationships (imagine a straight line) appear to be
-## #   somewhat different for the different graze levels. The slopes for graze levels
-## #   1 and 2 are similar, but different for graze levels 3, 4, and 5. We will
-## #   need to test this with a model.
 
 
 ## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
@@ -33,28 +18,6 @@ birds.inter.1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
 # birds.inter.1 <- lm(ABUND ~ FGRAZE * LOGAREA, data = loyn)
 
 
-## ----Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
-## # first split the plotting device into 2 rows and 2 columns
-## par(mfrow = c(2,2))
-## 
-## # now create the residuals plots
-## plot(birds.inter.1)
-## 
-## # To test the normality of residuals assumption we use the Normal Q-Q plot.
-## # The central residuals are not too far from the Q-Q line but the extremes
-## # are too extreme (the tails of the distribution are too long). Some
-## # observations, both high and low, are poorly explained by the model.
-## 
-## # The plot of the residuals against the fitted values suggests these
-## # extreme residuals happen for intermediate fitted values.
-## 
-## # Looking at the homogeneity of variance assumption (Residuals vs
-## # Fitted and Scale-Location plot),
-## # the graphs are mostly messy, with no clear pattern emerging.
-## 
-## # The observations with the highest leverage don't appear to be overly
-## # influential, according to the Cook's distances in the Residuals vs
-## # Leverage plot (all < 0.5).
 
 
 ## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------------------
@@ -147,44 +110,59 @@ plot(ABUND ~ LOGAREA, data = loyn, col = GRAZE, pch = 16)
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 1]),
 					to = max(loyn$LOGAREA[loyn$FGRAZE == 1]),
 					length = 20)
+
 # create data frame for prediction
 dat4pred <- data.frame(FGRAZE = "1", LOGAREA = LOGAREA.seq)
+
 # predict for new data
-dat4pred$predicted <- predict(birds.inter.1, newdata = dat4pred)
+P1 <- predict(birds.inter.1, newdata = dat4pred)
+
 # add the predictions to the plot of the data
-lines(predicted ~ LOGAREA, data = dat4pred, col = 1, lwd = 2)
+lines(P1 ~ dat4pred$LOGAREA, col = 1, lwd = 2)
 
 # FGRAZE2
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 2]),
 					to = max(loyn$LOGAREA[loyn$FGRAZE == 2]),
 					length = 20)
+
 dat4pred <- data.frame(FGRAZE = "2", LOGAREA = LOGAREA.seq)
-dat4pred$predicted <- predict(birds.inter.1, newdata = dat4pred)
-lines(predicted ~ LOGAREA, data = dat4pred, col = 2, lwd = 2)
+
+P2 <- predict(birds.inter.1, newdata = dat4pred)
+
+lines(P2 ~ dat4pred$LOGAREA, col = 2, lwd = 2)
 
 # FGRAZE3
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 3]),
 					to = max(loyn$LOGAREA[loyn$FGRAZE == 3]),
 					length = 20)
+
 dat4pred <- data.frame(FGRAZE = "3", LOGAREA = LOGAREA.seq)
-dat4pred$predicted <- predict(birds.inter.1, newdata = dat4pred)
-lines(predicted ~ LOGAREA, data = dat4pred, col = 3, lwd = 2)
+
+P3 <- predict(birds.inter.1, newdata = dat4pred)
+
+lines(P3 ~ dat4pred$LOGAREA, col = 3, lwd = 2)
 
 # FGRAZE4
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 4]),
 					to = max(loyn$LOGAREA[loyn$FGRAZE == 4]),
 					length = 20)
+
 dat4pred <- data.frame(FGRAZE = "4", LOGAREA = LOGAREA.seq)
-dat4pred$predicted <- predict(birds.inter.1, newdata = dat4pred)
-lines(predicted ~ LOGAREA, data = dat4pred, col = 4, lwd = 2)
+
+P4 <- predict(birds.inter.1, newdata = dat4pred)
+
+lines(P4 ~ dat4pred$LOGAREA, col = 4, lwd = 2)
 
 # FGRAZE5
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 5]),
 					to = max(loyn$LOGAREA[loyn$FGRAZE == 5]),
 					length = 20)
+
 dat4pred <- data.frame(FGRAZE = "5", LOGAREA = LOGAREA.seq)
-dat4pred$predicted <- predict(birds.inter.1, newdata = dat4pred)
-lines(predicted ~ LOGAREA, data = dat4pred, col = 5, lwd = 2)
+
+P5 <- predict(birds.inter.1, newdata = dat4pred)
+
+lines(P5 ~ dat4pred$LOGAREA, col = 5, lwd = 2)
 
 legend("topleft", 
  legend = paste("Graze = ", 5:1), 
