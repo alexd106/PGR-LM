@@ -598,9 +598,9 @@ take you through it.</p>
 <p>5. Now display the table of parameter estimates using the
 <code>summary()</code> function on your model object. Again, make sure
 you understand the different components of this output and be sure to
-ask if in doubt. What is the estimate of the intercept and slope? Write
-down the word equation of this linear model including your parameter
-estimates (hint: think y = a + bx).</p>
+ask if in doubt. What are the estimates of the intercept and slope?
+Write down the word equation of this linear model including your
+parameter estimates (hint: think y = a + bx).</p>
 <p> </p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn.lm)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
@@ -686,9 +686,9 @@ Next, check the homogeneity of variance of residuals assumption. Can you
 see any patterns in the residuals versus fitted value plots? Is there
 more or less equal spread of the residuals? Finally, take a look at the
 leverage and Cooks distance plot to assess whether you have any
-unusually large or small residuals or any influential residuals. What is
-your assessment? Write a couple of sentences to summarise your
-assessment of the modelling assumptions as a comment in your R code.</p>
+residuals with high leverage or any influential residuals. What is your
+assessment? Write a couple of sentences to summarise your assessment of
+the modelling assumptions as a comment in your R code.</p>
 <p> </p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first split the plotting device into 2 rows and 2 columns</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
@@ -743,7 +743,7 @@ object called <code>pred.vals</code>. Remember, you will first need to
 create a dataframe object containing the values of log transformed
 <code>AREA</code> you want to make predictions from. Refer back to the
 model interpretation video if you need a quick reminder of how to do
-this. Ask an instructor to take you through it if you’re in any doubt
+this or ask an instructor to take you through it if you’re in any doubt
 (they’d be happy to take you through it).</p>
 <p> </p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># need to create a dataframe object with a column of LOGAREA values to predict from.</span></span>
@@ -805,9 +805,11 @@ errors. Once you’ve got your head around this you can now use the
 <code>lines()</code> function three times to add the fitted values (as
 before) and also the upper and lower 95% confidence intervals. Don’t
 forget, if you want the 95% confidence intervals then you will need to
-multiply your standard error values by the critical value of 1.96. Take
-a look at the video on confidence intervals if you are unclear why you
-need to do this.</p>
+multiply your standard error values by the critical value of 1.96. If
+you need a reminder then take a look at the video on confidence
+intervals on the course MyAberdeen site (in the ‘Introductory statistics
+lectures’ folder which you can find in the ‘Course Information’ learning
+module).</p>
 <p> </p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pred.vals.se <span class="ot">&lt;-</span> <span class="fu">predict</span>(loyn.lm, <span class="at">newdata =</span> my.data, <span class="at">se.fit =</span> <span class="cn">TRUE</span>) <span class="co"># note the use of the se.fit argument</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>

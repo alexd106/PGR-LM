@@ -389,16 +389,15 @@ $(document).ready(function () {
 class="section level2">
 <h2>Exercise: Graphical data exploration using R</h2>
 <p> </p>
-<p>1. Start RStudio on your computer. Check that you have a recent
-version of R (at least 4.0.0). If you haven’t already done so, create a
-new RStudio Project (select File –&gt; New Project on the main menu).
-Create the Project in a new directory by selecting ‘New Directory’ and
-then select ‘New Project’. Give the Project a suitable name (‘pgr_stats’
-maybe) in the ‘Directory name:’ box and choose where you would like to
-create this Project directory by clicking on the ‘Browse’ button.
-Finally create the project by clicking on the ‘Create Project’ button.
-This will be your main RStudio Project file and directory which you will
-use throughout this course. See <a
+<p>1. Start RStudio on your computer. If you haven’t already done so,
+create a new RStudio Project (select File –&gt; New Project on the main
+menu). Create the Project in a new directory by selecting ‘New
+Directory’ and then select ‘New Project’. Give the Project a suitable
+name (‘pgr_stats’ maybe) in the ‘Directory name:’ box and choose where
+you would like to create this Project directory by clicking on the
+‘Browse’ button. Finally create the project by clicking on the ‘Create
+Project’ button. This will be your main RStudio Project file and
+directory which you will use throughout this course. See <a
 href="https://intro2r.com/rsprojs.html#rsprojs">Section 1.6</a> of the
 Introduction to R book for more information about RStudio Projects and
 <a
@@ -466,7 +465,10 @@ dataframe contain? Are there any missing values (coded as
 coded? (as a number or a string?). If you think this will cause a
 problem (hint: it will!), create a new variable called
 <code>FGRAZE</code> <strong>in</strong> the dataframe with
-<code>GRAZE</code> recoded as a factor.</p>
+<code>GRAZE</code> recoded as a factor. See <a
+href="https://intro2r.com/data-types.html#data-types">here</a> to see
+how to convert/coerce a numeric variable into a factor (TLDR: use the
+<code>as.factor()</code> or <code>factor()</code> function).</p>
 <p> </p>
 <p>5. Use the function <code>table()</code> (or <code>xtabs()</code>) to
 determine how many observations are in each <code>FGRAZE</code> level.
@@ -485,23 +487,23 @@ of the Introduction to R book to remind yourself how to do this.</p>
 href="https://intro2r.com/simple-base-r-plots.html#dotcharts">Section
 4.2.4</a>) of each variable separately to assess whether there are any
 outliers (unusually large or small values) in the response variable
-(<code>ABUND</code>) or any of the explanatory variables (see Q3).
-Produce a Cleveland dotchart of each variable separately to assess this.
-If you feel in the mood, output these plots to an external PDF file in
-the output directory you created in Exercise 1.</p>
+(<code>ABUND</code>) or any of the continuous explanatory variables (see
+Q3). If you feel in the mood, output these plots to an external PDF file
+in an <code>output</code> (don’t forget to create the directory
+first).</p>
 <p> </p>
 <p>8. If you do spot any unusual observations have a think about what
 you want to do with them (NOTE: do <strong>not</strong> just remove them
-without justification!). If you’re unsure, be sure to speak to an
-instructor to discuss your options during our synchronous practical
-sessions. Perhaps you should apply a data transformation to see if this
-reduces the magnitude of any outlier. The best thing to do here is to
-play around with different transformations (i.e. <code>log</code>,
-<code>sqrt</code>) to see which one does what you want it to do. After
-you have applied these data transformations make sure you re-plot your
-dotcharts with any transformed variable to double check what the
-transformation is doing. Hint: a log to the base 10 transformation might
-help reduce the magnitude of the outliers for some of the variables.</p>
+without justification!). If you’re unsure, please speak to an instructor
+to discuss your options during the practical session. Perhaps you should
+apply a data transformation to see if this reduces the magnitude of any
+outlier. The best thing to do here is to play around with different
+transformations (i.e. <code>log</code>, <code>sqrt</code>) to see which
+one does what you want it to do. After you have applied these data
+transformations make sure you re-plot your dotcharts with any
+transformed variable to double check what the transformation is doing.
+Hint: a log_10_ transformation might help reduce the magnitude of the
+outliers for some of the variables.</p>
 <p> </p>
 <p>9. Next, check if there is any potential collinearity between any of
 the <strong>explanatory variables</strong>. Remember, collinearity is
@@ -529,8 +531,9 @@ of the original variables. Also, don’t forget, you can split your
 plotting device up to allow you to plot multiple graphs (<a
 href="https://intro2r.com/mult_graphs.html#mult_graphs">Section 4.4</a>)
 or again use a function like <code>pairs()</code> to create a
-multi-panel plot. Output these plots to the output directory as PDFs.
-Add some comments in your R code to summarise your findings.</p>
+multi-panel plot. Output these plots to the <code>output</code>
+directory as PDFs. Add some comments in your R code to summarise your
+findings.</p>
 <p> </p>
 <p>11. One of the main aims of this study was to determine whether
 management practices such as grazing intensity (<code>GRAZE</code>) and
@@ -544,9 +547,10 @@ function to explore these data for such an interaction (perhaps a
 href="https://intro2r.com/simple-base-r-plots.html#coplots">Section
 4.2.6</a> might be helpful?). Again, don’t forget, if you have applied a
 data transformation to your <code>AREA</code> variable you need to use
-the transformed variable in this plot not the original <code>AREA</code>
-variable. Output this plot as a PDF to your output directory and add
-some comments to your R code to describe any patterns you observe.</p>
+the transformed variable in this plot <strong>not</strong> the original
+<code>AREA</code> variable. Output this plot as a PDF to your
+<code>output</code> directory and add some comments to your R code to
+describe any patterns you observe.</p>
 <p> </p>
 <p><sup>1</sup> Loyn, R. (1987). Effects of patch area and habitat on
 bird abundances, species numbers and tree health in fragmented Victoria
