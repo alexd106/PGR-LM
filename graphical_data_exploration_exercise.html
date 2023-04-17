@@ -541,16 +541,20 @@ size of the forest (<code>AREA</code>) affected the abundance of birds
 (<code>ABUND</code>). One hypothesis was that the size of the forest
 affected the number of birds, but this was dependent of the intensity of
 the grazing regime (in other words, there is an interaction between
-<code>AREA</code> and <code>GRAZE</code>). Use an appropriate plotting
-function to explore these data for such an interaction (perhaps a
-<code>coplot()</code> or <code>xyplot()</code> in <a
+<code>AREA</code> and <code>GRAZE</code> - don’t worry if you haven’t
+heard of an interaction term, we will go through this later on in the
+course). Use an appropriate plotting function to explore these data for
+such an interaction (perhaps a <code>coplot()</code> or
+<code>xyplot()</code> in <a
 href="https://intro2r.com/simple-base-r-plots.html#coplots">Section
 4.2.6</a> might be helpful?). Again, don’t forget, if you have applied a
 data transformation to your <code>AREA</code> variable you need to use
 the transformed variable in this plot <strong>not</strong> the original
-<code>AREA</code> variable. Output this plot as a PDF to your
-<code>output</code> directory and add some comments to your R code to
-describe any patterns you observe.</p>
+<code>AREA</code> variable. Likewise, as we’ve converted the
+<code>GRAZE</code> variable into a factor type variable we should use
+our new factor <code>FGRAZE</code> (or whatever you have called it).
+Save this plot as a PDF to your <code>output</code> directory and add
+some comments to your R code to describe any patterns you observe.</p>
 <p> </p>
 <p><sup>1</sup> Loyn, R. (1987). Effects of patch area and habitat on
 bird abundances, species numbers and tree health in fragmented Victoria
