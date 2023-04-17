@@ -43,11 +43,11 @@ Now create a new R script inside this Project by selecting File â€“> New File â€
 
 \  
 
-7\. Now onto some plotting action. Plot a Cleveland dotchart ([Section 4.2.4](https://intro2r.com/simple-base-r-plots.html#dotcharts)) of each variable separately to assess whether there are any outliers (unusually large or small values) in the response variable (`ABUND`) or any of the continuous explanatory variables (see Q3). If you feel in the mood, output these plots to an external PDF file in an `output` (don't forget to create the directory first).
+7\. Now onto some plotting action. Plot a Cleveland dotchart ([Section 4.2.4](https://intro2r.com/simple-base-r-plots.html#dotcharts)) of each variable separately to assess whether there are any outliers (unusually large or small values) in the response variable (`ABUND`) or any of the continuous explanatory variables (see Q3). If you feel in the mood, output these plots to an external PDF file in an `output` directory within your RStudio project(don't forget to create the directory first).
 
 \  
 
-8\. If you do spot any unusual observations have a think about what you want to do with them (NOTE: do **not** just remove them without justification!). If you're unsure, please speak to an instructor to discuss your options during the practical session. Perhaps you should apply a data transformation to see if this reduces the magnitude of any outlier. The best thing to do here is to play around with different transformations (i.e. `log`, `sqrt`) to see which one does what you want it to do. After you have applied these data transformations make sure you re-plot your dotcharts with any transformed variable to double check what the transformation is doing. Hint: a log_10_ transformation might help reduce the magnitude of the outliers for some of the variables.
+8\. If you do spot any unusual observations have a think about what you want to do with them (NOTE: do **not** just remove them without justification!). If you're unsure, please speak to an instructor to discuss your options during the practical session. Perhaps you should apply a data transformation to see if this reduces the magnitude of any outlier. The best thing to do here is to play around with different transformations (i.e. `log`, `sqrt`) to see which one does what you want it to do. After you have applied these data transformations make sure you re-plot your dotcharts with any transformed variable to double check what the transformation is doing. Hint: a log~10~ transformation might help reduce the magnitude of the outliers for some of the variables.
 
 \  
 

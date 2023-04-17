@@ -683,8 +683,8 @@ href="https://intro2r.com/simple-base-r-plots.html#dotcharts">Section
 outliers (unusually large or small values) in the response variable
 (<code>ABUND</code>) or any of the continuous explanatory variables (see
 Q3). If you feel in the mood, output these plots to an external PDF file
-in an <code>output</code> (don’t forget to create the directory
-first).</p>
+in an <code>output</code> directory within your RStudio project(don’t
+forget to create the directory first).</p>
 <p> </p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first split the plotting device into 2 rows</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and 3 columns</span></span>
@@ -730,8 +730,8 @@ transformations (i.e. <code>log</code>, <code>sqrt</code>) to see which
 one does what you want it to do. After you have applied these data
 transformations make sure you re-plot your dotcharts with any
 transformed variable to double check what the transformation is doing.
-Hint: a log_10_ transformation might help reduce the magnitude of the
-outliers for some of the variables.</p>
+Hint: a log<sub>10</sub> transformation might help reduce the magnitude
+of the outliers for some of the variables.</p>
 <p> </p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There appears to be two unusually large forest patches compared to the rest</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Also one potentially large distance in DIST</span></span>
