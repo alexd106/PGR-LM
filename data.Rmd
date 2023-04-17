@@ -28,7 +28,7 @@ system("zip -r all_data.zip data/ -x '*.html' -x '*.DS_Store'")
 
 \  
 
-**Option 1: Download individual datasets as needed.** 
+**Option 2: Download individual datasets as needed.** 
 
 - Create a new RStudio project for this course (call it 'pgr_stats' if your imagination fails you!). If you're not sure how to create a new Project then see [Section 1.6](https://intro2r.com/rsprojs.html) of our Introduction to R book or watch [this short video](https://alexd106.github.io/PGR-R/howto.html#rstudio_proj-vid).
 
