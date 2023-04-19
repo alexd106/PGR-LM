@@ -517,10 +517,10 @@ categorical variable</h2>
 linear model with either a single continuous explanatory variable or a
 single categorical explanatory variable. In this exercise you will fit a
 model with both a continuous and categorical explanatory variable and
-allow their effects to interact (i.e. the effect of one explanatory on
-the response variable changes with the value of the other explanatory
-variable). This is the third of four complementary exercises, based on
-the <code>loyn</code> data set.</p>
+allow their effects to interact (i.e. the effect of one explanatory
+variable on the response variable changes with the value of the another
+explanatory variable). This is the third of four complementary
+exercises, based on the <code>loyn</code> data set.</p>
 <p> </p>
 <p>1. As in previous exercises, either create a new R script (perhaps
 call it linear_model_3) or continue with your previous R script in your
@@ -533,19 +533,19 @@ beginning of the line.</p>
 structure of this dataframe using the <code>str()</code> function. We
 know that the abundance of birds <code>ABUND</code> increases with the
 log<sub>10</sub> transformed area of the forest patch
-<code>LOGAREA</code>. We also know that bird abundance changes with the
-grazing intensity (<code>FGRAZE</code> variable) with forest patches
-with higher grazing intensity having fewer birds on average. But how do
-these effects combine together? Would a small patch with low grazing
-intensity have more birds than a larger patch with high grazing
-intensity? Could the fit of the <code>ABUND ~ LOGAREA</code> model for
-the large patches be improved if we accounted for grazing intensity in
-the patches?</p>
+(<code>LOGAREA</code> variable). We also know that bird abundance
+changes with the grazing intensity (<code>FGRAZE</code> variable) with
+forest patches with higher grazing intensity having fewer birds on
+average. But how do these effects combine together? Would a small patch
+with low grazing intensity have more birds than a larger patch with high
+grazing intensity? Could the fit of the <code>ABUND ~ LOGAREA</code>
+model for the large patches be improved if we accounted for grazing
+intensity in the patches?</p>
 <p> </p>
 <p> </p>
 <p>3. As previously we want to treat <code>AREA</code> as a
-log-transformed area to limit the influence of the couple of
-disproportionately large patches, and <code>GRAZE</code> as a
+log<sub>10</sub>-transformed area to limit the influence of the couple
+of disproportionately large patches, and <code>GRAZE</code> as a
 categorical variable with five levels. So the first thing we need to do
 is create the corresponding variables in the <code>loyn</code>
 dataframe, called <code>LOGAREA</code> and <code>FGRAZE</code>.</p>
