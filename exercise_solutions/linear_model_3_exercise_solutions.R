@@ -1,9 +1,9 @@
-## ----Q2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------
+## ----Q2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
 loyn <- read.table("./data/loyn.txt", header = TRUE)
 str(loyn)
 
 
-## ----Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------
+## ----Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
 loyn$LOGAREA <- log10(loyn$AREA)
 # create factor GRAZE as it was originally coded as an integer
 loyn$FGRAZE <- factor(loyn$GRAZE)
@@ -11,7 +11,7 @@ loyn$FGRAZE <- factor(loyn$GRAZE)
 
 
 
-## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------
+## ----Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
 birds.inter.1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
 
 # Or use the 'shortcut' - its is equivalent to the model above
@@ -20,7 +20,7 @@ birds.inter.1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
 
 
 
-## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------
+## ----Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
 anova(birds.inter.1)
 
 # The null hypothesis is that there is no significant interaction between 
@@ -38,7 +38,7 @@ anova(birds.inter.1)
 # dependent on the value of the other variable.
 
 
-## ----Q8, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------------------
+## ----Q8, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-------------------------------------------------------------------------------------------
 summary(birds.inter.1)
 
 # (Intercept)
@@ -96,7 +96,7 @@ summary(birds.inter.1)
 # LOGAREA and FGRAZE as single explanatory variables.
 
 
-## ----Q9a, eval=TRUE, echo=TRUE, collapse=FALSE----------------------------------------------------------------------------------------------------------
+## ----Q9a, eval=TRUE, echo=TRUE, collapse=FALSE-----------------------------------------------------------------------------------------------------------------
 par(mfrow= c(1, 1))
 plot(ABUND ~ LOGAREA, data = loyn, col = GRAZE, pch = 16)
 # Note: # colour 1 means black in R
@@ -118,7 +118,7 @@ dat4pred <- data.frame(FGRAZE = "1", LOGAREA = LOGAREA.seq)
 P1 <- predict(birds.inter.1, newdata = dat4pred)
 
 # add the predictions to the plot of the data
-lines(P1 ~ dat4pred$LOGAREA, col = 1, lwd = 2)
+lines(dat4pred$LOGAREA, P1, col = 1, lwd = 2)
 
 # FGRAZE2
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 2]),
@@ -129,7 +129,7 @@ dat4pred <- data.frame(FGRAZE = "2", LOGAREA = LOGAREA.seq)
 
 P2 <- predict(birds.inter.1, newdata = dat4pred)
 
-lines(P2 ~ dat4pred$LOGAREA, col = 2, lwd = 2)
+lines(dat4pred$LOGAREA, P2, col = 2, lwd = 2)
 
 # FGRAZE3
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 3]),
@@ -140,7 +140,7 @@ dat4pred <- data.frame(FGRAZE = "3", LOGAREA = LOGAREA.seq)
 
 P3 <- predict(birds.inter.1, newdata = dat4pred)
 
-lines(P3 ~ dat4pred$LOGAREA, col = 3, lwd = 2)
+lines(dat4pred$LOGAREA, P3, col = 3, lwd = 2)
 
 # FGRAZE4
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 4]),
@@ -151,7 +151,7 @@ dat4pred <- data.frame(FGRAZE = "4", LOGAREA = LOGAREA.seq)
 
 P4 <- predict(birds.inter.1, newdata = dat4pred)
 
-lines(P4 ~ dat4pred$LOGAREA, col = 4, lwd = 2)
+lines(dat4pred$LOGAREA, P4, col = 4, lwd = 2)
 
 # FGRAZE5
 LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 5]),
@@ -162,7 +162,7 @@ dat4pred <- data.frame(FGRAZE = "5", LOGAREA = LOGAREA.seq)
 
 P5 <- predict(birds.inter.1, newdata = dat4pred)
 
-lines(P5 ~ dat4pred$LOGAREA, col = 5, lwd = 2)
+lines(dat4pred$LOGAREA, P5, col = 5, lwd = 2)
 
 legend("topleft", 
  legend = paste("Graze = ", 5:1), 
@@ -171,7 +171,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 
 
-## ----Q9b, eval=TRUE, echo=TRUE, collapse=FALSE----------------------------------------------------------------------------------------------------------
+## ----Q9b, eval=TRUE, echo=TRUE, collapse=FALSE-----------------------------------------------------------------------------------------------------------------
 # Okay, that was a long-winded way of doing this.
 # If, like me, you prefer more compact code and less risks of errors,
 # you can use a loop, to save repeating the sequence 5 times:
@@ -183,8 +183,8 @@ for(g in levels(loyn$FGRAZE)){ # g will take the values "1", "2",..., "5" in tur
 										to = max(loyn$LOGAREA[loyn$FGRAZE == g]),
 														length = 20)
 	dat4pred <- data.frame(FGRAZE = g, LOGAREA = LOGAREA.seq)
-	dat4pred$predicted <- predict(birds.inter.1, newdata = dat4pred)
-	lines(predicted ~ LOGAREA, data = dat4pred, col = as.numeric(g), lwd = 2)
+	predicted <- predict(birds.inter.1, newdata = dat4pred)
+	lines(dat4pred$LOGAREA, predicted, col = as.numeric(g), lwd = 2)
 }
 legend("topleft", 
  legend = paste("Graze = ", 5:1), 
@@ -193,7 +193,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 
 
-## ----Q9c, eval=TRUE, echo=TRUE, collapse=FALSE----------------------------------------------------------------------------------------------------------
+## ----Q9c, eval=TRUE, echo=TRUE, collapse=FALSE-----------------------------------------------------------------------------------------------------------------
 # install.packages('ggplot2', dep = TRUE)
 library(ggplot2)
 
