@@ -494,7 +494,7 @@ using <code>drop1()</code>. Which explanatory variable is the best
 candidate for removal and why? What hypothesis is being tested when we
 do this model selection step?</p>
 <p> </p>
-<p>7. Update and refit your model and remove the least significant
+<p>6. Update and refit your model and remove the least significant
 explanatory variable (from above). Repeat single term deletions with
 <code>drop1()</code> again using this updated model. You can update the
 model by just fitting a new model without the appropriate explanatory
@@ -502,26 +502,26 @@ variable and assign it to a new name (<code>M2</code>). Alternatively
 you can use the <code>update()</code> function instead. I’ll show you
 both ways in the solutions below.</p>
 <p> </p>
-<p>8. Again, update the model to remove the least significant
+<p>7. Again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
-<p>9. Once again, update the model to remove the least significant
+<p>8. Once again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
-<p>10. And finally, update the model to remove the least significant
+<p>9. And finally, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <p> </p>
-<p>11. If all goes well, your final model should be
+<p>10. If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code> which you
 encountered in the previous exercise. Also, you may have noticed that
 the output from the <code>drop1()</code> function does not include the
 main effects of <code>LOGAREA</code> or <code>FRGRAZE</code>. Can you
 think why this might be the case?</p>
 <p> </p>
-<p>12. Now that you have your final model, you should go through your
+<p>11. Now that you have your final model, you should go through your
 model validation and model interpretation as usual. As we have already
 completed this in the previous exercise I’ll leave it up to you to
 decide whether you include it here (you should be able to just copy and

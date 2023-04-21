@@ -724,7 +724,7 @@ do this model selection step?</p>
 <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co"># contribution to the variability explained by the model, with respect to </span></span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co"># the number of degrees of freedom it uses (1)</span></span></code></pre></div>
 <p> </p>
-<p>7. Update and refit your model and remove the least significant
+<p>6. Update and refit your model and remove the least significant
 explanatory variable (from above). Repeat single term deletions with
 <code>drop1()</code> again using this updated model. You can update the
 model by just fitting a new model without the appropriate explanatory
@@ -757,7 +757,7 @@ both ways in the solutions below.</p>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># contribution to the variability explained by the model, </span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># with respect to the number of degrees of freedom it uses (1)</span></span></code></pre></div>
 <p> </p>
-<p>8. Again, update the model to remove the least significant
+<p>7. Again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>M3 <span class="ot">&lt;-</span> <span class="fu">update</span>(M2, <span class="at">formula =</span> . <span class="sc">~</span> . <span class="sc">-</span> YR.ISOL)</span>
@@ -778,7 +778,7 @@ explanatory variable (from above) and repeat single term deletions with
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># LOGDIST now the least significant (p = 0.714) and should be removed from </span></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># the next model.</span></span></code></pre></div>
 <p> </p>
-<p>9. Once again, update the model to remove the least significant
+<p>8. Once again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>M4 <span class="ot">&lt;-</span> <span class="fu">update</span>(M3, <span class="at">formula =</span> . <span class="sc">~</span> . <span class="sc">-</span> LOGDIST)</span>
@@ -796,7 +796,7 @@ explanatory variable (from above) and repeat single term deletions with
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ALT is not significant (p = 0.331)</span></span></code></pre></div>
 <p> </p>
-<p>10. And finally, update the model to remove the least significant
+<p>9. And finally, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
 <code>drop1()</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and finally drop ALT from the model</span></span>
@@ -816,7 +816,7 @@ explanatory variable (from above) and repeat single term deletions with
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># FGRAZE. This is significant (p = 0.005) and so our model selection</span></span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># process comes to an end.</span></span></code></pre></div>
 <p> </p>
-<p>11. If all goes well, your final model should be
+<p>10. If all goes well, your final model should be
 <code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code> which you
 encountered in the previous exercise. Also, you may have noticed that
 the output from the <code>drop1()</code> function does not include the
@@ -856,7 +856,7 @@ think why this might be the case?</p>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 <p> </p>
-<p>12. Now that you have your final model, you should go through your
+<p>11. Now that you have your final model, you should go through your
 model validation and model interpretation as usual. As we have already
 completed this in the previous exercise I’ll leave it up to you to
 decide whether you include it here (you should be able to just copy and
