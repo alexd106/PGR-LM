@@ -16,7 +16,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Monday 17^th^ April 2023
+#### Monday 22^nd^ April 2024
 
 \  
 
@@ -28,7 +28,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Tuesday 18^th^ April 2023 
+#### Tuesday 23^rd^ April 2024
 
 \  
 
@@ -40,7 +40,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Wednesday 19^th^ April 2023
+#### Wednesday 24^th^ April 2024
 
 \  
 
@@ -49,19 +49,8 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 |Linear models live practical (AD) – single categorical explanatory variable | Linear models review session (AD) – single categorical explanatory variable| LUNCH |Linear models theory - categorical and continuous explanatory variables (recorded AD)| Linear models live practical – models with continuous and categorical explanatory variables|
 
 \  
-<!--
-#### Thursday 20^th^ April 2023
 
-\  
-
-|09:30 - 12:30               | 12:30 - 13:30 |13:30 - 15:00    | 15:00 - 17:00      |
-|:--------------------------|:-------------|:---------------|:------------------|
-|Linear models live practical (AD) – categorical and continuous explanatory variable| LUNCH |Live exercise review session (AD)| Linear models theory - model selection (recorded AD)|
-
-\  
--->
-
-#### Friday 21^st^ April 2023
+#### Thursday 25^th^ April 2024
 
 \  
 
@@ -69,6 +58,17 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 |:--------------------------|:-------------|:---------------|:---------------|:----------------|
 |Linear models live practical (AD) – categorical and continuous explanatory variable|Linear models theory - model selection (recorded AD)| LUNCH | Linear models live practical (AD) – model selection| Course wash-up and close | 
 
+\  
+
+<!--
+#### Friday 21^st^ April 2023
+
+\  
+
+|09:30 - 11:00               | 11:00 - 12:30 |12:30 - 13:30    | 13:30 - 16:30| 16:30 - 17:00|
+|:--------------------------|:-------------|:---------------|:---------------|:----------------|
+|Linear models live practical (AD) – categorical and continuous explanatory variable|Linear models theory - model selection (recorded AD)| LUNCH | Linear models live practical (AD) – model selection| Course wash-up and close | 
+-->
 \  
 
 AD – Alex Douglas 
