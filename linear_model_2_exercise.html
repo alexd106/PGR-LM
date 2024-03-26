@@ -831,9 +831,11 @@ Alternatively, have a go at using our old trusty <code>predict()</code>
 function to calculate the fitted values and standard error (this time
 you will need to use either the <code>segments()</code> or
 <code>arrows()</code> function to add these to the plot instead of the
-<code>lines()</code> function we used before). Check out the solutions
-code if you’re thoroughly confused!</p>
+<code>lines()</code> function we used before). Or we can even use the
+<code>ggplot2</code> package. Check out the solutions code if you’re
+thoroughly confused!</p>
 <p> </p>
+<p><code>gplots</code> package solution</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Using the gplots package, you may need to install this package first</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co"># install.packages(&#39;gplots&#39;)</span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
@@ -843,6 +845,7 @@ code if you’re thoroughly confused!</p>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;bird abundance&quot;</span>, <span class="at">data =</span> loyn, <span class="at">connect =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="linear_model_2_exercise_files/figure-html/Q11a-1.png" width="672" /></p>
 <p> </p>
+<p><code>effects</code> package solution</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Using the effects package, you may need to install this package first</span></span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co"># install.packages(&#39;effects&#39;)</span></span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
@@ -851,6 +854,8 @@ code if you’re thoroughly confused!</p>
 <span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">plot</span>(loyn_effects,<span class="st">&quot;FGRAZE&quot;</span>, <span class="at">lty =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="linear_model_2_exercise_files/figure-html/Q11b-1.png" width="672" /></p>
 <p> </p>
+<p>Our old friend the <code>predict()</code> function solution (with the
+<code>segments()</code> function)</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># and finally using old faithful the predict function and base R graphics</span></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># with the segments function</span></span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
@@ -865,6 +870,8 @@ code if you’re thoroughly confused!</p>
 <span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> pred_vals<span class="sc">$</span>se.fit)</span></code></pre></div>
 <p><img src="linear_model_2_exercise_files/figure-html/Q11c-1.png" width="672" /></p>
 <p> </p>
+<p>Our old friend the <code>predict()</code> function solution (with the
+<code>arrows()</code> function)</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># using old faithful the predict function and base R graphics </span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co"># with the arrows function </span></span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
@@ -881,6 +888,7 @@ code if you’re thoroughly confused!</p>
 <span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="linear_model_2_exercise_files/figure-html/Q11d-1.png" width="672" /></p>
 <p> </p>
+<p>A <code>ggplot()</code> solution - two ways!</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># or using the ggplot2 package</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># make the functions in ggplot2 available</span></span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a></span>

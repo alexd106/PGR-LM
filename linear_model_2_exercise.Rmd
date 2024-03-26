@@ -218,9 +218,11 @@ plot(birds_lm_sqrt)
 
 \  
 
-11\. This is an optional question and really just for information. I'll give you the code in the solutions so don't overly stress about this! Use Google (yep, this is OK!) to figure out how to plot your fitted values and 95% confidence intervals. Try Googling the `gplots` package or the `effects` package. Alternatively, have a go at using our old trusty `predict()` function to calculate the fitted values and standard error (this time you will need to use either the `segments()` or `arrows()` function to add these to the plot instead of the `lines()` function we used before). Check out the solutions code if you're thoroughly confused!
+11\. This is an optional question and really just for information. I'll give you the code in the solutions so don't overly stress about this! Use Google (yep, this is OK!) to figure out how to plot your fitted values and 95% confidence intervals. Try Googling the `gplots` package or the `effects` package. Alternatively, have a go at using our old trusty `predict()` function to calculate the fitted values and standard error (this time you will need to use either the `segments()` or `arrows()` function to add these to the plot instead of the `lines()` function we used before). Or we can even use the `ggplot2` package. Check out the solutions code if you're thoroughly confused!
 
 \  
+
+`gplots` package solution
 
 ```{r Q11a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the gplots package, you may need to install this package first
@@ -234,6 +236,8 @@ plotmeans(ABUND ~ FGRAZE, xlab = "grazing level",
 
 \  
 
+`effects` package solution
+
 ```{r Q11b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the effects package, you may need to install this package first
 # install.packages('effects')
@@ -244,6 +248,8 @@ plot(loyn_effects,"FGRAZE", lty = 0)
 ```
 
 \  
+
+Our old friend the `predict()` function solution (with the `segments()` function)
 
 ```{r Q11c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # and finally using old faithful the predict function and base R graphics
@@ -261,6 +267,8 @@ segments(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit)
 ```
 
 \  
+
+Our old friend the `predict()` function solution (with the `arrows()` function)
 
 ```{r Q11d, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # using old faithful the predict function and base R graphics 
@@ -280,6 +288,8 @@ points(1:5, pred_vals$fit, pch = 16)
 ```
 
 \  
+
+A `ggplot()` solution - two ways!
 
 ```{r Q11e, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # or using the ggplot2 package
