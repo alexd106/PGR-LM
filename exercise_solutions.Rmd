@@ -74,7 +74,7 @@ cat(sep="\n\n")
 
 [Offline R scripts](course_code.html)
 
-```{r code-out, echo = FALSE}
+```{r code-out, include=FALSE}
 # TODO: generate list automagically
 
 knitr::purl('./graphical_data_exploration_exercise_solutions.Rmd', output = './exercise_solutions/graphical_data_exploration_exercise_solutions.R', quiet = TRUE)
