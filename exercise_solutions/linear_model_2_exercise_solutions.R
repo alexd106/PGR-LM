@@ -27,11 +27,11 @@
 
 
 ## ----Q5, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------
-## birds.lm <- lm(ABUND ~ FGRAZE, data = loyn)
+## birds_lm <- lm(ABUND ~ FGRAZE, data = loyn)
 
 
 ## ----Q6, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------
-## anova(birds.lm)
+## anova(birds_lm)
 ## 
 ## # null hypothesis : There is no difference in the mean bird abundance between the
 ## # five levels of grazing.
@@ -44,7 +44,7 @@
 
 
 ## ----Q7, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE------------------------------------------------------------------------
-## summary(birds.lm)
+## summary(birds_lm)
 ## 
 ## # Here the intercept (baseline) is the mean abundance of birds for FGRAZE level 1.
 ## # the null hypothesis for the intercept is that the intercept = 0.
@@ -77,22 +77,22 @@
 ## # Set FGRAZE level 2 to be the intercept
 ## 
 ## loyn$FGRAZE <- relevel(loyn$FGRAZE, ref = "2")
-## birds.lm2 <- lm(ABUND ~ FGRAZE, data = loyn)
-## summary(birds.lm2)
+## birds_lm2 <- lm(ABUND ~ FGRAZE, data = loyn)
+## summary(birds_lm2)
 ## 
 ## # The intercept is now FGRAZE level 2, we can now compare between levels '2 and 3', '2 and 4', and '2 and 5'
 ## # Also note that the rest of the model output (R^2, F, DF etc) is the same as the previous model (i.e. its
 ## # the same model we have just changed the intercept and therefore the contrasts).
 ## 
 ## loyn$FGRAZE <- relevel(loyn$FGRAZE, ref = "3")
-## birds.lm3 <- lm(ABUND ~ FGRAZE, data = loyn)
-## summary(birds.lm3)
+## birds_lm3 <- lm(ABUND ~ FGRAZE, data = loyn)
+## summary(birds_lm3)
 ## 
 ## # The intercept is now FGRAZE level 3, we can now compare between levels '3 and 4', 'and 3 and 5'
 ## 
 ## loyn$FGRAZE <- relevel(loyn$FGRAZE, ref = "4")
-## birds.lm4 <- lm(ABUND ~ FGRAZE, data = loyn)
-## summary(birds.lm4)
+## birds_lm4 <- lm(ABUND ~ FGRAZE, data = loyn)
+## summary(birds_lm4)
 ## 
 ## # The intercept is now FGRAZE level 4, we can now compare between levels '4 and 5'
 
@@ -107,7 +107,7 @@
 ## par(mfrow = c(2,2))
 ## 
 ## # now create the residuals plots
-## plot(birds.lm)
+## plot(birds_lm)
 ## 
 ## # To test the normality of residuals assumption we use the Normal Q-Q plot. Although the majority of the residuals
 ## # lie along the 1:1 line there are five residuals which are all below the line resulting in reasonably substantial
@@ -130,9 +130,9 @@
 ## # for example
 ## 
 ## loyn$ABUND.SQRT <- sqrt(loyn$ABUND)
-## birds.lm.sqrt <- lm(ABUND.SQRT ~ FGRAZE, data = loyn)
+## birds_lm_sqrt <- lm(ABUND.SQRT ~ FGRAZE, data = loyn)
 ## par(mfrow = c(2,2))
-## plot(birds.lm.sqrt)
+## plot(birds_lm_sqrt)
 ## 
 ## # Sadly this doesn't seemed to have improved things!
 ## 
@@ -155,38 +155,66 @@
 ## # install.packages('effects')
 ## 
 ## library(effects)
-## loyn.effects <- allEffects(birds.lm)
-## plot(loyn.effects,"FGRAZE", lty = 0)
+## loyn_effects <- allEffects(birds_lm)
+## plot(loyn_effects,"FGRAZE", lty = 0)
 
 
 ## ----Q11c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE---------------------------------------------------------------------
 ## # and finally using old faithful the predict function and base R graphics
 ## # with the segments function
 ## 
-## my.data <- data.frame(FGRAZE = c("1", "2", "3", "4", "5"))
-## pred.vals <- predict(birds.lm, newdata = my.data, se.fit = TRUE)
+## my_data <- data.frame(FGRAZE = c("1", "2", "3", "4", "5"))
+## pred_vals <- predict(birds_lm, newdata = my_data, se.fit = TRUE)
 ## 
 ## # now plot these values
 ## 
 ## plot(1:5, seq(0, 50, length=5), type = "n", xlab = "Graze intensity", ylab = "Bird Abundance")
-## points(1:5, pred.vals$fit)
-## segments(1:5, pred.vals$fit, 1:5, pred.vals$fit - 1.96 * pred.vals$se.fit)
-## segments(1:5, pred.vals$fit, 1:5, pred.vals$fit + 1.96 * pred.vals$se.fit)
+## points(1:5, pred_vals$fit)
+## segments(1:5, pred_vals$fit, 1:5, pred_vals$fit - 1.96 * pred_vals$se.fit)
+## segments(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit)
 
 
 ## ----Q11d, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE---------------------------------------------------------------------
 ## # using old faithful the predict function and base R graphics
 ## # with the arrows function
 ## 
-## my.data <- data.frame(FGRAZE = c("1", "2", "3", "4", "5"))
-## pred.vals <- predict(birds.lm, newdata = my.data, se.fit = TRUE)
+## my_data <- data.frame(FGRAZE = c("1", "2", "3", "4", "5"))
+## pred_vals <- predict(birds_lm, newdata = my_data, se.fit = TRUE)
 ## 
 ## # now plot these values
 ## 
 ## plot(1:5, seq(0, 50, length=5), type = "n", xlab = "Graze intensity level", ylab = "Bird Abundance")
-## arrows(1:5, pred.vals$fit, 1:5, pred.vals$fit - 1.96 * pred.vals$se.fit,
+## arrows(1:5, pred_vals$fit, 1:5, pred_vals$fit - 1.96 * pred_vals$se.fit,
 ##     angle = 90, code = 2, length = 0.05, col = "blue")
-## arrows(1:5, pred.vals$fit, 1:5, pred.vals$fit + 1.96 * pred.vals$se.fit,
+## arrows(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit,
 ##        angle = 90, code = 2, length = 0.05, col = "blue")
-## points(1:5, pred.vals$fit, pch = 16)
+## points(1:5, pred_vals$fit, pch = 16)
+
+
+## ----Q11e, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE---------------------------------------------------------------------
+## # or using the ggplot2 package
+## library(ggplot2) # make the functions in ggplot2 available
+## 
+## 
+## # This plot will plot the means for each level of FGRAZE
+## # and also the 95% confidence intervals
+## 
+## ggplot(loyn, aes(x = FGRAZE, y = ABUND)) +
+##   stat_summary(fun = mean, geom = "point", color = "firebrick",
+##         size = 3, position=position_nudge(x = 0.15)) +
+##   stat_summary(fun.data = mean_cl_normal, geom = "errorbar",
+##         width = 0.1, position=position_nudge(x = 0.15))
+## 
+## 
+## # and as an added bonus, if you wanted to also plot the
+## # raw data along with the means for FGRAZE
+## 
+## ggplot(loyn, aes(x = FGRAZE, y = ABUND)) +
+##   geom_point(color = "firebrick", size = 3, alpha = 0.6) +
+##   stat_summary(fun = mean, geom = "point", color = "firebrick",
+##         size = 3, position=position_nudge(x = 0.15)) +
+##   stat_summary(fun.data = mean_cl_normal, geom = "errorbar",
+##         width = 0.1, position=position_nudge(x = 0.15))
+## 
+## 
 

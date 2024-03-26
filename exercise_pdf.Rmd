@@ -45,18 +45,12 @@ cat("Exercises will be released as the course progresses")
 \  
 
  - [Linear model with single categorical explanatory variable exercise](./exercises/linear_model_2_exercise.pdf)
+ 
+ - [Linear model with categorical and continuous explanatory variables](./exercises/linear_model_3_exercise.pdf)
 
 \  
 
 ### Day 4
-
-\  
-
-- [Linear model with categorical and continuous explanatory variables](./exercises/linear_model_3_exercise.pdf)
-
-\  
-
-### Day 5
 
 \  
 
