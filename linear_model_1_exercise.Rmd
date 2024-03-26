@@ -36,7 +36,7 @@ str(loyn)
 
 \  
 
-3\. Create a scatterplot of bird abundance and forest patch area to remind yourself what this relationship looks like. Remember you may have to transform the `AREA` variable, return to your data exploration if in doubt. Try to remember which is your response variable (y axis) and which is your explanatory variable (x axis). Now fit an appropriate linear model to describe this relationship using the `lm()` function. Remember to use the `data =` argument. Assign this linear model to an appropriately named object (`loyn.lm` if you imagination fails you!).
+3\. Create a scatterplot of bird abundance and forest patch area to remind yourself what this relationship looks like. Remember you may have to transform the `AREA` variable, return to your data exploration if in doubt. Try to remember which is your response variable (y axis) and which is your explanatory variable (x axis). Now fit an appropriate linear model to describe this relationship using the `lm()` function. Remember to use the `data =` argument. Assign this linear model to an appropriately named object (`loyn_lm` if you imagination fails you!).
 
 \  
 
@@ -54,7 +54,7 @@ plot(loyn$LOGAREA, loyn$ABUND, xlab = "log10 forest area",
 
 # now fit the linear model
 
-loyn.lm <- lm(ABUND ~ LOGAREA, data = loyn)
+loyn_lm <- lm(ABUND ~ LOGAREA, data = loyn)
 ```
 
 \  
@@ -65,7 +65,7 @@ loyn.lm <- lm(ABUND ~ LOGAREA, data = loyn)
 
 ```{r Q4, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # ANOVA table
-anova(loyn.lm)
+anova(loyn_lm)
 
 # The null hypothesis is that the slope of the relationship
 # between LOGAREA and ABUND = 0
@@ -83,7 +83,7 @@ anova(loyn.lm)
 \  
 
 ```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
-summary(loyn.lm)
+summary(loyn_lm)
 
 # the estimate of the intercept = 10.4
 # the estimate of the slope = 9.78
@@ -119,7 +119,7 @@ summary(loyn.lm)
 \  
 
 ```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
-summary(loyn.lm)
+summary(loyn_lm)
 
 # The multiple R-squared value is 0.588 and therefore 58.8% of
 # the variation in ABUND is explained by LOGAREA
@@ -127,7 +127,7 @@ summary(loyn.lm)
 
 \  
 
-8\. Now onto a really important part of the model fitting process. Let's check the assumptions of your linear model by creating plots of the residuals from the model. Remember, you can easily create these plots by using the `plot()` function on your model object (`loyn.lm` or whatever you called it). Also remember that if you want to see all plots at once then you should split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots ([Section 4.4](https://intro2r.com/mult_graphs.html#mult_graphs)). Can you remember which plot is used to check the assumption of normality of the residuals? What is you assessment of this assumption? Next, check the homogeneity of variance of residuals assumption. Can you see any patterns in the residuals versus fitted value plots? Is there more or less equal spread of the residuals? Finally, take a look at the leverage and Cooks distance plot to assess whether you have any residuals with high leverage or any influential residuals. What is your assessment? Write a couple of sentences to summarise your assessment of the modelling assumptions as a comment in your R code. 
+8\. Now onto a really important part of the model fitting process. Let's check the assumptions of your linear model by creating plots of the residuals from the model. Remember, you can easily create these plots by using the `plot()` function on your model object (`loyn_lm` or whatever you called it). Also remember that if you want to see all plots at once then you should split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots ([Section 4.4](https://intro2r.com/mult_graphs.html#mult_graphs)). Can you remember which plot is used to check the assumption of normality of the residuals? What is you assessment of this assumption? Next, check the homogeneity of variance of residuals assumption. Can you see any patterns in the residuals versus fitted value plots? Is there more or less equal spread of the residuals? Finally, take a look at the leverage and Cooks distance plot to assess whether you have any residuals with high leverage or any influential residuals. What is your assessment? Write a couple of sentences to summarise your assessment of the modelling assumptions as a comment in your R code. 
 
 \  
 
@@ -136,7 +136,7 @@ summary(loyn.lm)
 par(mfrow = c(2,2))
 
 # now create the residuals plots
-plot(loyn.lm)
+plot(loyn_lm)
 
 # The normal Q-Q plot is used to assess normality of the residuals (top right).
 # If perfectly normal then all residuals would lie exactly on the 1:1 line.
@@ -156,7 +156,7 @@ plot(loyn.lm)
 # with a Cooks distance greater than 1. In fact they are all well below 0.5. If you want to 
 # produce a plot of just Cooks distance (perhaps this is clearer)
 par(mfrow = c(1,1))
-plot(loyn.lm, which = 4)
+plot(loyn_lm, which = 4)
 
 # Going back to the Residuals vs Leverage plot (bottom right) you can see 
 # three residuals that are somewhat unusual in terms of their leverage as 
@@ -191,13 +191,13 @@ bird_abundance100
 ```{r Q10, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # need to create a dataframe object with a column of LOGAREA values to predict from.
 # note you need to call the column the same as used in the model
-my.data <- data.frame(LOGAREA = seq(from = min(loyn$LOGAREA),
+my_data <- data.frame(LOGAREA = seq(from = min(loyn$LOGAREA),
                                   to = max(loyn$LOGAREA),
                                   length = 50))
 
 # use predict function to calculate predicted values of abundance based on the 
 # new LOGAREA values in the data frame my.data (use the newdata argument)
-pred.vals <- predict(loyn.lm, newdata = my.data)
+pred_vals <- predict(loyn_lm, newdata = my_data)
 ```
 
 \  
@@ -212,7 +212,7 @@ pred.vals <- predict(loyn.lm, newdata = my.data)
 plot(loyn$LOGAREA, loyn$ABUND, xlab = "Log10 Patch Area", 
      ylab = "Bird Abundance", ylim = c(0, 55))
 
-lines(my.data$LOGAREA, pred.vals, lty = 1,col = 2)
+lines(my_data$LOGAREA, pred_vals, lty = 1,col = 2)
 
 # for those of you who are into plotting using the ggplot2 package,
 # this is one of those occasions where things are a little simpler!
@@ -232,14 +232,14 @@ ggplot(mapping = aes(x = LOGAREA, y = ABUND), data = loyn) +
 
 \  
 
-12\. OK, this is an optional question so feel free to skip if you've had enough! (you can find the R code for this question in the exercise solutions if you want to refer to it at a later date). Let's recreate the plot you made in Question 11, but this time we'll add the 95% confidence intervals in addition to the fitted values. Remember, you will need to use the `predict()` function again but this time include the`se.fit = TRUE` argument (store these new values in a new object called `pred.vals.se`). When you use the `se.fit = TRUE` argument with the `predict()` function the returned object will have a slightly different structure compared to when you used it before. Use the `str()` function on the `pred.vals.se` to take a look at the structure. See if you can figure out how to access the fitted values and the standard errors. Once you've got your head around this you can now use the `lines()` function three times to add the fitted values (as before) and also the upper and lower 95% confidence intervals. Don't forget, if you want the 95% confidence intervals then you will need to multiply your standard error values by the critical value of 1.96. If you need a reminder then take a look at the video on confidence intervals on the course MyAberdeen site (in the 'Introductory statistics lectures' folder which you can find in the 'Course Information' learning module).  
+12\. OK, this is an optional question so feel free to skip if you've had enough! (you can find the R code for this question in the exercise solutions if you want to refer to it at a later date). Let's recreate the plot you made in Question 11, but this time we'll add the 95% confidence intervals in addition to the fitted values. Remember, you will need to use the `predict()` function again but this time include the`se.fit = TRUE` argument (store these new values in a new object called `pred_vals_se`). When you use the `se.fit = TRUE` argument with the `predict()` function the returned object will have a slightly different structure compared to when you used it before. Use the `str()` function on the `pred.vals.se` to take a look at the structure. See if you can figure out how to access the fitted values and the standard errors. Once you've got your head around this you can now use the `lines()` function three times to add the fitted values (as before) and also the upper and lower 95% confidence intervals. Don't forget, if you want the 95% confidence intervals then you will need to multiply your standard error values by the critical value of 1.96. If you need a reminder then take a look at the video on confidence intervals on the course MyAberdeen site (in the 'Introductory statistics lectures' folder which you can find in the 'Course Information' learning module).  
 
 \  
 
 ```{r Q12, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
-pred.vals.se <- predict(loyn.lm, newdata = my.data, se.fit = TRUE) # note the use of the se.fit argument
+pred_vals_se <- predict(loyn_lm, newdata = my_data, se.fit = TRUE) # note the use of the se.fit argument
 
-# check out the structure of pred.vals.se
+# check out the structure of pred_vals_se
 # you can see we now have 4 vectors in this object
 # $fit = fitted values
 # $se.fit = standard error of fitted values
@@ -248,7 +248,7 @@ pred.vals.se <- predict(loyn.lm, newdata = my.data, se.fit = TRUE) # note the us
 
 # so we will need to access our fitted values and standard errors using 
 # pred.val.se$fit and pred.vals.se$se.fit respectively
-str(pred.vals.se)
+str(pred_vals_se)
 
 # now create the plot
 plot(x = loyn$LOGAREA, y = loyn$ABUND,
@@ -258,13 +258,13 @@ plot(x = loyn$LOGAREA, y = loyn$ABUND,
 
 # add the fitted values as before but now we need to use 
 # pred.vals.se$fit
-lines(my.data$LOGAREA, pred.vals.se$fit, lty = 1,col = 1)
+lines(my_data$LOGAREA, pred_vals_se$fit, lty = 1,col = 1)
 
 # add the upper 95% confidence interval
-lines(my.data$LOGAREA, pred.vals.se$fit + (1.96 * pred.vals.se$se.fit), lty = 2, col = 2)
+lines(my_data$LOGAREA, pred_vals_se$fit + (1.96 * pred_vals_se$se.fit), lty = 2, col = 2)
 
 # add the lower 95% confidence interval
-lines(my.data$LOGAREA, pred.vals.se$fit - (1.96 * pred.vals.se$se.fit), lty = 2, col = 2)
+lines(my_data$LOGAREA, pred_vals_se$fit - (1.96 * pred_vals_se$se.fit), lty = 2, col = 2)
 
 # And the ggplot way of doing things
 
@@ -294,9 +294,9 @@ plot(x = loyn$AREA, y = loyn$ABUND, ylim = c(0,55),
 # remember we only log10 transformed the LOGAREA variable so this is the only
 # variable that we need to back-transform
 
-lines(10^(my.data$LOGAREA), pred.vals.se$fit, lty = 1,col = 1)
-lines(10^(my.data$LOGAREA), pred.vals.se$fit + (1.96 * pred.vals.se$se.fit), lty = 2, col = "red")
-lines(10^(my.data$LOGAREA), pred.vals.se$fit - (1.96 * pred.vals.se$se.fit), lty = 2, col = "red")
+lines(10^(my_data$LOGAREA), pred_vals_se$fit, lty = 1,col = 1)
+lines(10^(my_data$LOGAREA), pred_vals_se$fit + (1.96 * pred_vals_se$se.fit), lty = 2, col = "red")
+lines(10^(my_data$LOGAREA), pred_vals_se$fit - (1.96 * pred_vals_se$se.fit), lty = 2, col = "red")
 
 # the model doesn't look too great now! Technically, if we transform variables in our model
 # then we should only really interpret the model on the scale of the transformation.
