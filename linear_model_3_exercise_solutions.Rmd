@@ -1,5 +1,5 @@
 ---
-title: "Exercise Solutions"
+title: "Exercises"
 output:
   html_document:
     toc: no
@@ -10,7 +10,7 @@ output:
 ```{r setup, echo=FALSE, purl = FALSE}
 knitr::opts_chunk$set(echo=TRUE, message = FALSE, warning = FALSE, eval = FALSE, cache = FALSE)
 
-SOLUTIONS<- TRUE
+SOLUTIONS <- TRUE
 ```
 
 \  
@@ -31,8 +31,9 @@ This exercise builds on the previous exercises where you fitted a linear model w
 
 \  
 
-```{r Q2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
-loyn <- read.table("./data/loyn.txt", header = TRUE)
+```{r Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+loyn <- read.table("data/loyn.txt", header = TRUE, 
+                   stringsAsFactors = TRUE)
 str(loyn)
 ```
 
@@ -42,7 +43,7 @@ str(loyn)
 
 \  
 
-```{r Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 loyn$LOGAREA <- log10(loyn$AREA)
 # create factor GRAZE as it was originally coded as an integer
 loyn$FGRAZE <- factor(loyn$GRAZE)
@@ -73,12 +74,12 @@ coplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
 
 \  
 
-5\. Fit an appropriate linear model in R to explain the variation in the response variable `ABUND` with the explanatory variables `LOGAREA` and `FGRAZE`. Also include the interaction between `LOGAREA` and `FGRAZE`. Hint: `:` is the interaction symbol! Remember to use the `data =` argument. Assign this linear model to an appropriately named object, like `birds.inter.1`. Optional: Can you remember how to specify the model using the 'shortcut' version (with `*`) instead? 
+5\. Fit an appropriate linear model in R to explain the variation in the response variable `ABUND` with the explanatory variables `LOGAREA` and `FGRAZE`. Also include the interaction between `LOGAREA` and `FGRAZE`. Hint: `:` is the interaction symbol! Remember to use the `data =` argument. Assign this linear model to an appropriately named object, like `birds_inter1`. Optional: Can you remember how to specify the model using the 'shortcut' version (with `*`) instead? 
 
 \  
 
-```{r Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
-birds.inter.1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
+```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+birds_inter1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
 
 # Or use the 'shortcut' - its is equivalent to the model above
 # birds.inter.1 <- lm(ABUND ~ FGRAZE * LOGAREA, data = loyn)
@@ -95,7 +96,7 @@ birds.inter.1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
 par(mfrow = c(2,2))
 
 # now create the residuals plots
-plot(birds.inter.1)
+plot(birds_inter1)
 
 # To test the normality of residuals assumption we use the Normal Q-Q plot. 
 # The central residuals are not too far from the Q-Q line but the extremes
@@ -118,8 +119,8 @@ plot(birds.inter.1)
 
 7\. Use the `anova()` function to produce the ANOVA table of your linear model. Remember, this ANOVA table is based on sequential sums of squares (the order of the explanatory variables matters). The only P value that we should interpret is the one that occurs in the second to last row of the table (the one above 'Residuals'). This is the interaction term between `FGRAZE` and `LOGAREA` (`FGRAZE:LOGAREA`). What is the null hypothesis associated with this interaction term? Do we reject or fail to reject this hypothesis? What is the biological interpretation of this interaction term? Can we say anything about the hypotheses for the main effects of `FGRAZE` or `LOGAREA`?    
 
-```{r Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
-anova(birds.inter.1)
+```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+anova(birds_inter1)
 
 # The null hypothesis is that there is no significant interaction between 
 # FGRAZE and LOGAREA. 
@@ -141,8 +142,8 @@ anova(birds.inter.1)
 
 \  
 
-```{r Q8, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
-summary(birds.inter.1)
+```{r Q8, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+summary(birds_inter1)
 
 # (Intercept)
 # Here the Intercept (baseline) is the predicted ABUND when LOGAREA = 0,
@@ -214,7 +215,7 @@ See the script below, for one of many ways of doing this. Now this might seem li
 
 \  
 
-```{r Q9a, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q9a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 par(mfrow= c(1, 1))
 plot(ABUND ~ LOGAREA, data = loyn, col = GRAZE, pch = 16)
 # Note: # colour 1 means black in R
@@ -233,7 +234,7 @@ LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 1]),
 dat4pred <- data.frame(FGRAZE = "1", LOGAREA = LOGAREA.seq)
 
 # predict for new data
-P1 <- predict(birds.inter.1, newdata = dat4pred)
+P1 <- predict(birds_inter1, newdata = dat4pred)
 
 # add the predictions to the plot of the data
 lines(dat4pred$LOGAREA, P1, col = 1, lwd = 2)
@@ -245,7 +246,7 @@ LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 2]),
 
 dat4pred <- data.frame(FGRAZE = "2", LOGAREA = LOGAREA.seq)
 
-P2 <- predict(birds.inter.1, newdata = dat4pred)
+P2 <- predict(birds_inter1, newdata = dat4pred)
 
 lines(dat4pred$LOGAREA, P2, col = 2, lwd = 2)
 
@@ -256,7 +257,7 @@ LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 3]),
 
 dat4pred <- data.frame(FGRAZE = "3", LOGAREA = LOGAREA.seq)
 
-P3 <- predict(birds.inter.1, newdata = dat4pred)
+P3 <- predict(birds_inter1, newdata = dat4pred)
 
 lines(dat4pred$LOGAREA, P3, col = 3, lwd = 2)
 
@@ -267,7 +268,7 @@ LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 4]),
 
 dat4pred <- data.frame(FGRAZE = "4", LOGAREA = LOGAREA.seq)
 
-P4 <- predict(birds.inter.1, newdata = dat4pred)
+P4 <- predict(birds_inter1, newdata = dat4pred)
 
 lines(dat4pred$LOGAREA, P4, col = 4, lwd = 2)
 
@@ -278,7 +279,7 @@ LOGAREA.seq <- seq(from = min(loyn$LOGAREA[loyn$FGRAZE == 5]),
 
 dat4pred <- data.frame(FGRAZE = "5", LOGAREA = LOGAREA.seq)
 
-P5 <- predict(birds.inter.1, newdata = dat4pred)
+P5 <- predict(birds_inter1, newdata = dat4pred)
 
 lines(dat4pred$LOGAREA, P5, col = 5, lwd = 2)
 
@@ -295,7 +296,7 @@ legend("topleft",
 
 \  
 
-```{r Q9b, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q9b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Okay, that was a long-winded way of doing this.
 # If, like me, you prefer more compact code and less risks of errors,
 # you can use a loop, to save repeating the sequence 5 times:
@@ -307,7 +308,7 @@ for(g in levels(loyn$FGRAZE)){ # g will take the values "1", "2",..., "5" in tur
 										to = max(loyn$LOGAREA[loyn$FGRAZE == g]),
 														length = 20)
 	dat4pred <- data.frame(FGRAZE = g, LOGAREA = LOGAREA.seq)
-	predicted <- predict(birds.inter.1, newdata = dat4pred)
+	predicted <- predict(birds_inter1, newdata = dat4pred)
 	lines(dat4pred$LOGAREA, predicted, col = as.numeric(g), lwd = 2)
 }
 legend("topleft", 
@@ -321,7 +322,7 @@ legend("topleft",
 
 \  
 
-```{r Q9c, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q9c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # install.packages('ggplot2', dep = TRUE)
 library(ggplot2)
 

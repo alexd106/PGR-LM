@@ -1,5 +1,5 @@
 ---
-title: 'Exercise Solutions'
+title: 'Exercises'
 output: 
   html_document:
     toc: false
@@ -9,6 +9,7 @@ output:
 
 ```{r setup, echo=FALSE, purl = FALSE}
 knitr::opts_chunk$set(echo=TRUE, message = FALSE, warning = FALSE, eval = FALSE, cache = FALSE)
+SOLUTIONS <- TRUE
 ```
 
 \  
@@ -35,7 +36,7 @@ Now create a new R script inside this Project by selecting File â€“> New File â€
 
 \  
 
-```{r Q4, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q4, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 loyn <- read.table("./data/loyn.txt", header = TRUE, 
                    stringsAsFactors = TRUE)
 str(loyn)
@@ -56,7 +57,7 @@ loyn$FGRAZE <- factor(loyn$GRAZE)
 
 \  
 
-```{r Q5, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 table(loyn$FGRAZE)
 
 # or use xtabs function
@@ -69,7 +70,7 @@ xtabs(~ FGRAZE, data = loyn)
 
 \  
 
-```{r Q6, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q6, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # mean abundance of birds for each level of FGRAZE
 tapply(loyn$ABUND, loyn$FGRAZE, mean, na.rm = TRUE)
 
@@ -86,7 +87,7 @@ tapply(loyn$ABUND, loyn$FGRAZE, summary, na.rm = TRUE)
 
 \  
 
-```{r Q7a, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q7a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # first split the plotting device into 2 rows
 # and 3 columns
 par(mfrow = c(2,3))
@@ -102,7 +103,7 @@ dotchart(loyn$GRAZE, main = "Grazing levels")
 
 \  
 
-```{r Q7b, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q7b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # A fancier version of a dotplot - just for fun!
 Z <- cbind(loyn$ABUND, loyn$AREA, loyn$DIST,
            loyn$LDIST,loyn$YR.ISOL,loyn$ALT,
@@ -129,7 +130,7 @@ dotplot(as.matrix(Z),
 
 \  
 
-```{r Q8, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q8, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # There appears to be two unusually large forest patches compared to the rest
 # Also one potentially large distance in DIST
 # One option would be to log10 transform AREA, DIST 
@@ -148,7 +149,7 @@ str(loyn)
 
 \  
 
-```{r Q9a, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q9a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # Vanilla pairs plot
 
 pairs(loyn[,c("LOGAREA", "LOGDIST", "LDIST",
@@ -164,7 +165,7 @@ pairs(explan_vars)
 
 \  
 
-```{r Q9b, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q9b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # And with correlations in the upper panel
 
 # first need to define the panel.cor function
@@ -190,7 +191,7 @@ pairs(loyn[,c("LOGAREA","LOGDIST", "LDIST",
 
 \  
 
-```{r Q10a, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q10a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 pairs(loyn[,c("ABUND","LOGAREA","LOGDIST", "LDIST",
     	"YR.ISOL","ALT","GRAZE")],
       	lower.panel = panel.cor)
@@ -198,7 +199,7 @@ pairs(loyn[,c("ABUND","LOGAREA","LOGDIST", "LDIST",
 
 \  
 
-```{r Q10b, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q10b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 plot(loyn$LOGAREA, loyn$ABUND, xlab = "log area", ylab = "bird abundance")
 ```
 
@@ -208,7 +209,7 @@ plot(loyn$LOGAREA, loyn$ABUND, xlab = "log area", ylab = "bird abundance")
 
 \  
 
-```{r Q11a, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q11a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # Interaction between LOGAREA and FGRAZE? 
 # Do the slopes look similar or different? 
 coplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
@@ -216,7 +217,7 @@ coplot(ABUND ~ LOGAREA | FGRAZE, data = loyn)
 
 \  
 
-```{r Q11b, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q11b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # Fancier version of the above plot 
 # with a line of best fit included just for fun
 coplot(ABUND ~ LOGAREA | FGRAZE,

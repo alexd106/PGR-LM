@@ -1,5 +1,5 @@
 ---
-title: 'Exercise Solutions'
+title: 'Exercises'
 output: 
   html_document:
     toc: false
@@ -9,6 +9,7 @@ output:
 
 ```{r setup, echo=FALSE, purl = FALSE}
 knitr::opts_chunk$set(echo=TRUE, message = FALSE, warning = FALSE, eval = FALSE, cache = FALSE)
+SOLUTIONS <- TRUE
 ```
 
 \  
@@ -25,7 +26,7 @@ knitr::opts_chunk$set(echo=TRUE, message = FALSE, warning = FALSE, eval = FALSE,
 
 \  
 
-```{r Q2, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q2, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 loyn <- read.table("./data/loyn.txt", header = TRUE, 
                    stringsAsFactors = TRUE)
 str(loyn)
@@ -37,7 +38,7 @@ str(loyn)
 
 \  
 
-```{r Q3, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q3, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # create factor GRAZE as it was originally coded as an integer
 loyn$FGRAZE <- factor(loyn$GRAZE)
 
@@ -51,7 +52,7 @@ class(loyn$FGRAZE)
 
 \  
 
-```{r Q4, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q4, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 boxplot(ABUND ~ FGRAZE, xlab = "Grazing level", ylab = "Bird abundance", data = loyn)
 
 # mean bird abundance for each level of FGRAZE
@@ -71,7 +72,7 @@ tapply(loyn$ABUND, loyn$FGRAZE, mean, na.rm = TRUE)
 
 \  
 
-```{r Q5, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 birds.lm <- lm(ABUND ~ FGRAZE, data = loyn)
 ```
 
@@ -81,7 +82,7 @@ birds.lm <- lm(ABUND ~ FGRAZE, data = loyn)
 
 \  
 
-```{r Q6, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q6, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 anova(birds.lm)
 
 # null hypothesis : There is no difference in the mean bird abundance between the 
@@ -100,7 +101,7 @@ anova(birds.lm)
 
 \  
 
-```{r Q7, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 summary(birds.lm)
 
 # Here the intercept (baseline) is the mean abundance of birds for FGRAZE level 1.
@@ -136,7 +137,7 @@ summary(birds.lm)
 
 \  
 
-```{r Q8, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q8, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # Set FGRAZE level 2 to be the intercept
 
 loyn$FGRAZE <- relevel(loyn$FGRAZE, ref = "2")
@@ -166,7 +167,7 @@ summary(birds.lm4)
 
 \  
 
-```{r Q9, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q9, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # The multiple R-squared value is 0.491 and therefore 49.1% of
 # the variation in ABUND is explained by FGRAZE
 ```
@@ -177,7 +178,7 @@ summary(birds.lm4)
 
 \  
 
-```{r Q10, eval=TRUE, echo=TRUE, collapse=TRUE}
+```{r Q10, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # first split the plotting device into 2 rows and 2 columns
 par(mfrow = c(2,2))
 
@@ -221,7 +222,7 @@ plot(birds.lm.sqrt)
 
 \  
 
-```{r Q11a, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q11a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the gplots package, you may need to install this package first
 # install.packages('gplots')
 
@@ -233,7 +234,7 @@ plotmeans(ABUND ~ FGRAZE, xlab = "grazing level",
 
 \  
 
-```{r Q11b, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q11b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the effects package, you may need to install this package first
 # install.packages('effects')
 
@@ -244,7 +245,7 @@ plot(loyn.effects,"FGRAZE", lty = 0)
 
 \  
 
-```{r Q11c, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q11c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # and finally using old faithful the predict function and base R graphics
 # with the segments function
 
@@ -261,7 +262,7 @@ segments(1:5, pred.vals$fit, 1:5, pred.vals$fit + 1.96 * pred.vals$se.fit)
 
 \  
 
-```{r Q11d, eval=TRUE, echo=TRUE, collapse=FALSE}
+```{r Q11d, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # using old faithful the predict function and base R graphics 
 # with the arrows function 
 

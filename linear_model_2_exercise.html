@@ -30,6 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
 
@@ -206,6 +207,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -377,6 +381,14 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Exercises</h1>
@@ -406,6 +418,7 @@ intensities (<code>GRAZE</code>). Remember, the <code>GRAZE</code>
 variable is an index of livestock grazing intensity. Level 1 = low
 grazing intensity and level 5 = high grazing intensity.</p>
 <p> </p>
+<p> </p>
 <p>3. As we discussed in the graphical data exploration exercise the
 <code>GRAZE</code> variable was originally coded as a numeric (i.e. 1,
 2, 3, 4, 5). In this exercise we actually want to treat
@@ -416,6 +429,7 @@ the loyn dataframe called <code>FGRAZE</code> in which we store the
 the <code>factor()</code> function (you can also use the
 <code>as.factor()</code> function if you prefer).</p>
 <p> </p>
+<p> </p>
 <p>4. Explore any potential differences in bird abundance between each
 level of <code>FGRAZE</code> graphically using an appropriate plot
 (hint: a boxplot might be useful here). How would you interpret this
@@ -423,16 +437,19 @@ plot? What might you expect to see in your analysis? Write your
 predictions in your R script as a comment. What is the mean number of
 birds for each level of <code>FGRAZE</code>?</p>
 <p> </p>
+<p> </p>
 <p>5. Fit an appropriate linear model in R to explain the variation in
 the response variable, <code>ABUND</code>, with the explanatory variable
 <code>FGRAZE</code>. Remember to use the <code>data =</code> argument.
 Assign this linear model to an appropriately named object
 (<code>birds.lm</code> if your imagination fails you!).</p>
 <p> </p>
+<p> </p>
 <p>6. Produce the ANOVA table using the <code>anova()</code> function on
 the model object. What null hypothesis is being tested? Do you reject or
 fail to reject the null hypothesis? What summary statistics would you
 report? Summarise in your R script as a comment.</p>
+<p> </p>
 <p> </p>
 <p>7. Use the <code>summary()</code> function on the model object to
 produce the table of parameter estimates (remember these are called
@@ -447,6 +464,7 @@ hypothesis? Repeat this interpretation for the <code>FGRAZE3</code>,
 <code>FGRAZE4</code> and <code>FGRAZE5</code> parameters. Summarise this
 as a comment in your R script.</p>
 <p> </p>
+<p> </p>
 <p>8. Now that you have interpreted all the contrasts with
 <code>FGRAZE</code> level 1, reset the intercept to <code>FGRAZE</code>
 level 2 using the <code>relevel()</code> function, refit the model,
@@ -455,9 +473,11 @@ produce the new table of parameter estimates using the
 <code>FGRAZE</code> levels 3, 4 and 5. Can you summarise which levels of
 <code>FGRAZE</code> are different from each other?</p>
 <p> </p>
+<p> </p>
 <p>9. Staying with the summary table of parameter estimates, how much of
 the variation in bird abundance does the explanatory variable
 <code>FGRAZE</code> explain?</p>
+<p> </p>
 <p> </p>
 <p>10. Now onto a really important part of the model fitting process.
 Let’s check the assumptions of your linear model by creating plots of
@@ -468,6 +488,7 @@ split your plotting device into 2 rows and 2 columns using the
 <code>par()</code> function before you create the plots. Check each of
 the assumptions using these plots and report whether your model meets
 these assumptions in your R script.</p>
+<p> </p>
 <p> </p>
 <p>11. This is an optional question and really just for information.
 I’ll give you the code in the solutions so don’t overly stress about
@@ -480,6 +501,10 @@ you will need to use either the <code>segments()</code> or
 <code>arrows()</code> function to add these to the plot instead of the
 <code>lines()</code> function we used before). Check out the solutions
 code if you’re thoroughly confused!</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
 <p> </p>
 <p>End of the linear model with single categorical explanatory variable
 exercise</p>
@@ -518,6 +543,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

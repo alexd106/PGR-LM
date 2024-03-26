@@ -1,5 +1,5 @@
 ---
-title: 'Exercise Solutions'
+title: 'Exercises'
 output: 
   html_document:
     toc: false
@@ -33,7 +33,7 @@ It's also important to note that we will assume that all the explanatory variabl
 
 1\.  Import the 'loyn.txt' data file into RStudio and assign it to a variable called `loyn`. Here we will be using all the explanatory variables to explain the variation in bird density. If needed, remind yourself of your data exploration you conducted previously. Do any of the remaining variables need transforming (i.e. `AREA`, `DIST`, `LDIST`) or converting to a factor type variable (i.e. `GRAZE`)? Add the transformed variables to the `loyn` dataframe.
 
-```{r Q1, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 loyn <- read.table("data/loyn.txt", header = TRUE)
 str(loyn)
 
@@ -84,7 +84,7 @@ pairs(loyn[, VOI], lower.panel = panel.cor)
 
 3\. Now, let's fit our maximal model. Start with a model of `ABUND` and include all explanatory variables as main effects. Also include the interaction `LOGAREA:FGRAZE` but no other interaction terms as justified in the preamble above. Don't forget to include the transformed versions of the variables where appropriate (but not the untransformed variables as well otherwise you will have very strong collinearity between these variables!). Perhaps, call this model `M1`.
 
-```{r Q3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 M1 <- lm(ABUND ~ LOGDIST + LOGLDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + 
            FGRAZE:LOGAREA, data = loyn)
 ```
@@ -93,7 +93,7 @@ M1 <- lm(ABUND ~ LOGDIST + LOGLDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
 
 4\. Have a look at the summary table of the model using the `summary()` function. You'll probably find this summary is quite complicated with lots of parameter estimates (14) and P values testing lots of hypotheses. Are all the P values less than our cut-off of 0.05? If not, then this suggests that some form of model selection is warranted to simplify our model. 
 
-```{r Q4, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 summary(M1)
 ```
 
@@ -101,7 +101,7 @@ summary(M1)
 
 5\. Let's perform a first step in model selection using the `drop1()` function and use an *F* test based model selection approach. This will allow us to decide which explanatory variables may be suitable for removal from the model. Remember to use the `test = "F"` argument to perform *F* tests when using `drop1()`. Which explanatory variable is the best candidate for removal and why? What hypothesis is being tested when we do this model selection step?
 
-```{r Q5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # Wait: why can't we use information from the 'summary(M1)' or 'anova(M1)' functions
 # to do this?
 
@@ -133,7 +133,7 @@ drop1(M1, test = "F")
 
 6\. Update and refit your model and remove the least significant explanatory variable (from above). Repeat single term deletions with `drop1()` again using this updated model. You can update the model by just fitting a new model without the appropriate explanatory variable and assign it to a new name (`M2`). Alternatively you can use the `update()` function instead. I'll show you both ways in the solutions below.
 
-```{r Q6, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # new model removing LOGLDIST 
 M2 <- lm(ABUND ~ LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
            LOGAREA:FGRAZE, data = loyn) 
@@ -153,7 +153,7 @@ drop1(M2, test = "F")
 
 7\. Again, update the model to remove the least significant explanatory variable (from above) and repeat single term deletions with `drop1()`.
 
-```{r Q7, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 M3 <- update(M2, formula = . ~ . - YR.ISOL)
 
 drop1(M3, test = "F")
@@ -166,7 +166,7 @@ drop1(M3, test = "F")
 
 8\. Once again, update the model to remove the least significant explanatory variable (from above) and repeat single term deletions with `drop1()`.
 
-```{r Q8, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q8, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 M4 <- update(M3, formula = . ~ . - LOGDIST)
 drop1(M4, test = "F")
 
@@ -177,7 +177,7 @@ drop1(M4, test = "F")
 
 9\. And finally, update the model to remove the least significant explanatory variable (from above) and repeat single term deletions with `drop1()`.
 
-```{r Q9, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q9, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # and finally drop ALT from the model
 M5 <- update(M4, formula = . ~ . - ALT)
 drop1(M5, test = "F")
@@ -191,7 +191,7 @@ drop1(M5, test = "F")
 
 10\. If all goes well, your final model should be `lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)` which you encountered in the previous exercise. Also, you may have noticed that the output from the `drop1()` function does not include the main effects of `LOGAREA` or `FRGRAZE`. Can you think why this might be the case? 
 
-```{r Q10, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q10, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # As the interaction between LOGAREA and FGRAZE was significant at each step of
 # model selection process the main effects should be left in our model,
 # irrespective of significance. This is because it is quite difficult to 
@@ -212,7 +212,7 @@ drop1(M5, test= "F")
 
 11\. Now that you have your final model, you should go through your model validation and model interpretation as usual. As we have already completed this in the previous exercise I'll leave it up to you to decide whether you include it here (you should be able to just copy and paste the code). Please make sure you understand the biological interpretation of each of the parameter estimates and the interpretation of the hypotheses you are testing. 
 
-```{r Q11, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q11, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # Biologically: confirming what we already found out in the previous exercise:
 # There is a significant interaction between the area of the patch and the level 
 # of grazing 
@@ -254,7 +254,7 @@ drop1(M5, test= "F")
 
 A1\. If we weren't aiming to directly test the effect of the `LOGAREA:FGRAZE` interaction statistically (i.e. test this specific hypothesis), we could also have used AIC to perform model selection. Repeat the model selection you did above, but this time use the `drop1()` function and perform model selection using AIC instead. Don't forget, if we want to perform model selection based on AIC with the `drop1()` function we need to omit the `test = "F"` argument)
 
-```{r QA1, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # This time, we are not doing any specific hypothesis testing, rather we are 
 # attempting to select a model with the 'best' goodness of fit with the minimal
 # number of estimated parameters. 
@@ -272,7 +272,7 @@ drop1(M.start.AIC)
 
 A2\. Refit your model with the variable associated with the lowest AIC value removed. Run `drop1()` again on your updated model. Perhaps call this new model `M2.AIC`.
 
-```{r QA2, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # So, our starting model with no variables removed has an AIC of 228.20. If we 
 # remove the interaction term `LOGAREA:FGRAZE` from the model then this results 
 # in a big increase in AIC (238.02 - 228.20 = 9.82) so this suggests that there 
@@ -290,7 +290,7 @@ drop1(M2.AIC)
 
 A3\. Refit your model with the variable associated with the lowest AIC value removed and run `drop1()` again on your new model (`M3.AIC`).
 
-```{r QA3, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # Ok, as the model without the variable `YR.ISOL` has the lowest AIC (224.27) 
 # let's update our model and remove this variable.
 
@@ -302,7 +302,7 @@ drop1(M3.AIC)
 
 A4\. Repeat your model selection by removing the variable indicated by the model with the lowest AIC.
 
-```{r QA4, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # So, now the model without `LOGDIST` has the lowest AIC (222.43) so we should 
 # refit the model without this variable and run `drop1()` again.
 
@@ -314,7 +314,7 @@ drop1(M4.AIC)
 
 A5\. Rinse and repeat as above.
 
-```{r QA5, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # And the model without the variable `ALT` has an AIC of 221.57 which is about 
 # the same as the model with `ALT` (AIC 222.43), so let's remove this variable 
 # from the model as this suggests that the simpler model fits our data just as 
@@ -341,7 +341,7 @@ I guess the next question is how to present your results from the model selectio
 
 Although you can use the output from the `drop1()` (and do a bit more wrangling) let's make it a little simpler by fitting all of our nested models and then use the `AIC()` function to calculate the AIC values for each model rather than `drop1()`.
 
-```{r QA2a, eval=TRUE, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r QA2a, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # one way of constructing a summary table for reporting the results:
 
 # create a vector of all the models compared during out model selection
@@ -398,7 +398,7 @@ summary.table
 
 Or if you prefer a prettier version to include directly in your paper / thesis. You will need to install the `knitr` package before you can do this. See the 'Installing R Markdown' in [Appendix A](https://intro2r.com/install-rm.html) in the Introduction to R book for more details.
 
-```{r Q12c, eval=TRUE, echo=FALSE}
+```{r Q12c, eval=SOLUTIONS, echo=FALSE}
 knitr::kable(summary.table, "html", align = "lcr", row.names = FALSE)
 ```
 
