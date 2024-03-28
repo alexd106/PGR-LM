@@ -800,7 +800,6 @@ whether collinearity is an issue.</p>
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>               <span class="st">&quot;YR.ISOL&quot;</span>, <span class="st">&quot;ALT&quot;</span>, <span class="st">&quot;GRAZE&quot;</span>)]</span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="fu">pairs</span>(explan_vars)</span></code></pre></div>
 <p><img src="graphical_data_exploration_exercise_solutions_files/figure-html/Q9a-1.png" width="672" /></p>
-<p> </p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># And with correlations in the upper panel</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># first need to define the panel.cor function</span></span>
@@ -836,12 +835,10 @@ or again use a function like <code>pairs()</code> to create a
 multi-panel plot. Output these plots to the <code>output</code>
 directory as PDFs. Add some comments in your R code to summarise your
 findings.</p>
-<p> </p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">pairs</span>(loyn[,<span class="fu">c</span>(<span class="st">&quot;ABUND&quot;</span>,<span class="st">&quot;LOGAREA&quot;</span>,<span class="st">&quot;LOGDIST&quot;</span>, <span class="st">&quot;LDIST&quot;</span>,</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>        <span class="st">&quot;YR.ISOL&quot;</span>,<span class="st">&quot;ALT&quot;</span>,<span class="st">&quot;GRAZE&quot;</span>)],</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>        <span class="at">lower.panel =</span> panel.cor)</span></code></pre></div>
 <p><img src="graphical_data_exploration_exercise_solutions_files/figure-html/Q10a-1.png" width="672" /></p>
-<p> </p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">plot</span>(loyn<span class="sc">$</span>LOGAREA, loyn<span class="sc">$</span>ABUND, <span class="at">xlab =</span> <span class="st">&quot;log area&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;bird abundance&quot;</span>)</span></code></pre></div>
 <p><img src="graphical_data_exploration_exercise_solutions_files/figure-html/Q10b-1.png" width="672" /></p>
 <p> </p>

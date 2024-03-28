@@ -222,8 +222,6 @@ plotmeans(ABUND ~ FGRAZE, xlab = "grazing level",
   ylab = "bird abundance", data = loyn, connect = FALSE)
 ```
 
-\  
-
 ```{r Q11b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the effects package, you may need to install this package first
 # install.packages('effects')
@@ -232,8 +230,6 @@ library(effects)
 loyn_effects <- allEffects(birds_lm)
 plot(loyn_effects,"FGRAZE", lty = 0)
 ```
-
-\  
 
 ```{r Q11c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # and finally using old faithful the predict function and base R graphics
@@ -249,8 +245,6 @@ points(1:5, pred_vals$fit)
 segments(1:5, pred_vals$fit, 1:5, pred_vals$fit - 1.96 * pred_vals$se.fit)
 segments(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit)
 ```
-
-\  
 
 ```{r Q11d, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # using old faithful the predict function and base R graphics 
@@ -268,8 +262,6 @@ arrows(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit,
        angle = 90, code = 2, length = 0.05, col = "blue")
 points(1:5, pred_vals$fit, pch = 16)
 ```
-
-\  
 
 ```{r Q11e, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # or using the ggplot2 package

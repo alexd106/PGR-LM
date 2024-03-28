@@ -213,7 +213,7 @@ summary(birds_inter1)
     + Create a vector of predicted bird abundances using our new dataframe using the `predict()` function.
     + Add the predicted to your plot using the `lines()` function with the appropriate colours.
   
-See the script below, for one of many ways of doing this. Now this might seem like a huge amount of code just to plot your predicted values (and admittedly it is!) but most of the code is just repeated for each level of graze. Just work through it slowly and logically and hopefully it will make sense (please ask if you are confused). I will also show you some alternative (easier?) ways to do this below.
+See the solutions for one of many ways of doing this. Now this might seem like a huge amount of code just to plot your predicted values (and admittedly it is!) but most of the code is just repeated for each level of graze. Just work through it slowly and logically and hopefully it will make sense (please ask if you are confused). I will also show you some alternative (easier?) ways to do this in the solutions.
 
 ```{r Q9a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 par(mfrow= c(1, 1))
@@ -290,8 +290,6 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-\  
-
 **(Optional, for the geeks)** Alternative method, using a loop. Just keep this code in case you ever want to do something like this in the future.
 
 ```{r Q9b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
@@ -326,7 +324,5 @@ ggplot(loyn, aes(x = LOGAREA, y = ABUND, colour = FGRAZE) ) +
      geom_point() +
      geom_smooth(method = "lm", se = FALSE)
 ```
-
-\ 
 
 End of the Linear model with continuous and categorical explanatory variables exercise

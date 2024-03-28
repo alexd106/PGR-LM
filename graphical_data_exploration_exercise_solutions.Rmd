@@ -175,8 +175,6 @@ explan_vars <- loyn[,c("LOGAREA", "LOGDIST", "LDIST",
 pairs(explan_vars)
 ```
 
-\  
-
 ```{r Q9b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # And with correlations in the upper panel
 
@@ -205,15 +203,11 @@ Don't forget, if you have applied a data transformation to any of your variables
 
 Also, don't forget, you can split your plotting device up to allow you to plot multiple graphs ([Section 4.4](https://intro2r.com/mult_graphs.html#mult_graphs)) or again use a function like `pairs()` to create a multi-panel plot. Output these plots to the `output` directory as PDFs. Add some comments in your R code to summarise your findings.
 
-\  
-
 ```{r Q10a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 pairs(loyn[,c("ABUND","LOGAREA","LOGDIST", "LDIST",
     	"YR.ISOL","ALT","GRAZE")],
       	lower.panel = panel.cor)
 ```
-
-\  
 
 ```{r Q10b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 plot(loyn$LOGAREA, loyn$ABUND, xlab = "log area", ylab = "bird abundance")

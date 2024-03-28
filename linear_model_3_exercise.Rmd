@@ -134,10 +134,10 @@ anova(birds_inter1)
 
 8\. OK, now for the part you all know and love! Use the `summary()` function on your model object to produce the table of parameter estimates. Using this output, take each line in turn and answer the following questions: 
 
-(A) what does this parameter estimate? 
-(B) What is the biological interpretation of the corresponding estimate? 
-(C) What is the null hypothesis associated with it? 
-(D) Do you reject or fail to reject this hypothesis? 
+* what does this parameter estimate? 
+* What is the biological interpretation of the corresponding estimate? 
+* What is the null hypothesis associated with it? 
+* Do you reject or fail to reject this hypothesis? 
 
 Also compare the multiple R^2^ from this model the models you created in the previous two exercises. 
 
@@ -206,13 +206,14 @@ summary(birds_inter1)
 9\. Right, now hang onto your hat! Let's plot the predictions from your model to figure out how it really fits the data (and help us understand the output from the `summary()` function :). Here's a general recipe, using the `predict()` function.
 
 * plot the raw data, using a different colour for points from each `FGRAZE` level
+
 * for each `FGRAZE` level in turn:
-* create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values, probably best not too!).
-* store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes.
-* Create a vector of predicted bird abundances using our new dataframe using the `predict()` function.
-* Add the predicted to your plot using the `lines()` function with the appropriate colours.
+    + create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values, probably best not too!).
+    + store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes.
+    + Create a vector of predicted bird abundances using our new dataframe using the `predict()` function.
+    + Add the predicted to your plot using the `lines()` function with the appropriate colours.
   
-See the script below, for one of many ways of doing this. Now this might seem like a huge amount of code just to plot your predicted values (and admittedly it is!) but most of the code is just repeated for each level of graze. Just work through it slowly and logically and hopefully it will make sense (please ask if you are confused). I will also show you some alternative (easier?) ways to do this below.
+See the solutions for one of many ways of doing this. Now this might seem like a huge amount of code just to plot your predicted values (and admittedly it is!) but most of the code is just repeated for each level of graze. Just work through it slowly and logically and hopefully it will make sense (please ask if you are confused). I will also show you some alternative (easier?) ways to do this in the solutions.
 
 ```{r Q9a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 par(mfrow= c(1, 1))
@@ -289,8 +290,6 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-\  
-
 **(Optional, for the geeks)** Alternative method, using a loop. Just keep this code in case you ever want to do something like this in the future.
 
 ```{r Q9b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
@@ -325,7 +324,5 @@ ggplot(loyn, aes(x = LOGAREA, y = ABUND, colour = FGRAZE) ) +
      geom_point() +
      geom_smooth(method = "lm", se = FALSE)
 ```
-
-\ 
 
 End of the Linear model with continuous and categorical explanatory variables exercise

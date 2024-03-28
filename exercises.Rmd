@@ -42,6 +42,8 @@ rmarkdown::render("linear_model_3_exercise.Rmd", output_format = "pdf_document",
 rmarkdown::render("linear_model_4_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_4_exercise.pdf", quiet = TRUE)
 ```
 
+\  
+
 ### Day 1
 
  - [Graphical data exploration exercise](graphical_data_exploration_exercise.html)

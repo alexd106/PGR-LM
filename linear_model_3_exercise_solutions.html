@@ -796,12 +796,12 @@ using the <code>predict()</code> function.</li>
 function with the appropriate colours.</li>
 </ul></li>
 </ul>
-<p>See the script below, for one of many ways of doing this. Now this
-might seem like a huge amount of code just to plot your predicted values
-(and admittedly it is!) but most of the code is just repeated for each
-level of graze. Just work through it slowly and logically and hopefully
-it will make sense (please ask if you are confused). I will also show
-you some alternative (easier?) ways to do this below.</p>
+<p>See the solutions for one of many ways of doing this. Now this might
+seem like a huge amount of code just to plot your predicted values (and
+admittedly it is!) but most of the code is just repeated for each level
+of graze. Just work through it slowly and logically and hopefully it
+will make sense (please ask if you are confused). I will also show you
+some alternative (easier?) ways to do this in the solutions.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> LOGAREA, <span class="at">data =</span> loyn, <span class="at">col =</span> GRAZE, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co"># Note: # colour 1 means black in R</span></span>
@@ -875,7 +875,6 @@ you some alternative (easier?) ways to do this below.</p>
 <span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a> <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
 <span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a> <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9a-1.png" width="672" /></p>
-<p> </p>
 <p><strong>(Optional, for the geeks)</strong> Alternative method, using
 a loop. Just keep this code in case you ever want to do something like
 this in the future.</p>
@@ -910,7 +909,6 @@ already have it.</p>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>     <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>     <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9c-1.png" width="672" /></p>
-<p> </p>
 <p>End of the Linear model with continuous and categorical explanatory
 variables exercise</p>
 </div>

@@ -29,6 +29,8 @@ paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
 ```
 
+\  
+
 ### Day 2
 
 ```{r sol_lm1, results='asis', eval = isTRUE(show_text_lm1)}
@@ -37,6 +39,8 @@ file_name <- "exercise_solutions/linear_model_1_exercise_solutions.R"
 paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
 ```
+
+\  
 
 ### Day 3
 
@@ -53,6 +57,8 @@ file_name <- "exercise_solutions/linear_model_3_exercise_solutions.R"
 paste0("- [", link_name, "](", file_name, ")") %>%
 cat(sep="\n\n")
 ```
+
+\  
 
 ### Day 4
 
