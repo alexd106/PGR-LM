@@ -515,7 +515,7 @@ included the main effects of the area of the forest patch
 (<code>LOGAREA</code>), the grazing intensity (<code>FGRAZE</code>) and
 the interaction between these two explanatory variables
 (<code>FGRAZE:LOGAREA</code>). This was useful as a training exercise,
-and might be a viable approach when analysing these data if the
+and might be a viable approach when analysing these data if an
 experiment had been designed to test these effects only. However, if
 other potentially important variables are not included in the model this
 may lead to biased inferences (interpretation). Additionally, if the
@@ -529,20 +529,20 @@ explanatory variables and by performing model selection. Because we
 would like to test the significance of the interaction between
 <code>LOGAREA</code>, and <code>FGRAZE</code>, whilst accounting for the
 potential effects of other explanatory variables, we will also include
-<code>LOGAREA</code>, <code>FGRAZE</code> and their interaction in the
-model as before. Including other interaction terms between other
-variables may be reasonable, but we will focus only on the
-<code>FGRAZE:LOGAREA</code> interaction as we have relatively little
-information in this data set (67 observations). This will hopefully
-avoid fitting an overly complex model which will estimate many
-parameters for which we have very little data. This is a balance you
-will all have to maintain with your own data and analyses (or better
+<code>LOGAREA</code>, <code>FGRAZE</code> and their interaction
+(<code>FGRAZE:LOGAREA</code>) in the model as before. Including other
+interaction terms between other variables may be reasonable, but we will
+focus only on the <code>FGRAZE:LOGAREA</code> interaction as we have
+relatively little information in this data set (67 observations). This
+will hopefully avoid fitting an overly complex model which will estimate
+many parameters for which we have very little data. This is a balance
+you will all have to maintain with your own data and analyses (or better
 still, perform a power analysis before you even collect your data). No
 4-way interaction terms in your models please!</p>
 <p> </p>
 <p>It’s also important to note that we will assume that all the
-explanatory variables were collected by the researchers <em>because</em>
-they believed them to be biologically relevant for explaining bird
+explanatory variables were collected by the researchers because <em>they
+believed</em> them to be biologically relevant for explaining bird
 abundance (i.e. data were collected for a reason). Of course, this is
 probably not your area of expertise but it is nevertheless a good idea
 to pause and think what might be relevant or not-so relevant and why.
@@ -553,9 +553,10 @@ is collecting heaps of data across many variables (just because you can)
 and then expecting your statistical models to make sense of it for you.
 As mentioned in the lecture, model selection is a relatively
 controversial topic and should not be treated as a purely mechanical
-process. Your expertise needs to be woven into this process otherwise
-you may end up with a model that is implausible or not very useful (and
-all models need to be useful!).</p>
+process (chuck everything in and see what comes out). Your expertise
+needs to be woven into this process otherwise you may end up with a
+model that is implausible or not very useful (and all models need to be
+useful!).</p>
 <p> </p>
 <p>1. Import the ‘loyn.txt’ data file into RStudio and assign it to a
 variable called <code>loyn</code>. Here we will be using all the
@@ -619,7 +620,7 @@ first).</p>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co"># between these explanatory variables are quite weak so we can probably </span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># include these variables in the same model (but keep an eye on things). </span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># There also seems to be a reasonable spread of observations across these </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># pairs of explanatory variables.</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># pairs of explanatory variables which is a good thing.</span></span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co"># The relationship between the response variable ABUND and all the explanatory</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co"># variables is visible in the top row:</span></span>
@@ -682,8 +683,9 @@ selection approach. This will allow us to decide which explanatory
 variables may be suitable for removal from the model. Remember to use
 the <code>test = "F"</code> argument to perform <em>F</em> tests when
 using <code>drop1()</code>. Which explanatory variable is the best
-candidate for removal and why? What hypothesis is being tested when we
-do this model selection step?</p>
+candidate for removal and why?</p>
+<p>What hypothesis is being tested when we do this model selection
+step?</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Wait: why can&#39;t we use information from the &#39;summary(M1)&#39; or &#39;anova(M1)&#39; functions</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co"># to do this?</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
@@ -722,15 +724,16 @@ do this model selection step?</p>
 <span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a></span>
 <span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="co"># LOGLDIST is the least significant (p = 0.88), and therefore makes the least </span></span>
 <span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a><span class="co"># contribution to the variability explained by the model, with respect to </span></span>
-<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="co"># the number of degrees of freedom it uses (1)</span></span></code></pre></div>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="co"># the number of degrees of freedom it uses (1). This variable is a good candidate </span></span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="co"># to remove from the model </span></span></code></pre></div>
 <p> </p>
 <p>6. Update and refit your model and remove the least significant
 explanatory variable (from above). Repeat single term deletions with
 <code>drop1()</code> again using this updated model. You can update the
 model by just fitting a new model without the appropriate explanatory
 variable and assign it to a new name (<code>M2</code>). Alternatively
-you can use the <code>update()</code> function instead. I’ll show you
-both ways in the solutions below.</p>
+you can use the <code>update()</code> function instead (I show you how
+to do this in the solutions).</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># new model removing LOGLDIST </span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> LOGDIST <span class="sc">+</span> YR.ISOL <span class="sc">+</span> ALT <span class="sc">+</span> LOGAREA <span class="sc">+</span> FGRAZE <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>           LOGAREA<span class="sc">:</span>FGRAZE, <span class="at">data =</span> loyn) </span>
@@ -860,9 +863,10 @@ think why this might be the case?</p>
 model validation and model interpretation as usual. As we have already
 completed this in the previous exercise I’ll leave it up to you to
 decide whether you include it here (you should be able to just copy and
-paste the code). Please make sure you understand the biological
-interpretation of each of the parameter estimates and the interpretation
-of the hypotheses you are testing.</p>
+paste the code).</p>
+<p>Please make sure you understand the biological interpretation of each
+of the parameter estimates and the interpretation of the hypotheses you
+are testing.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Biologically: confirming what we already found out in the previous exercise:</span></span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co"># There is a significant interaction between the area of the patch and the level </span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co"># of grazing </span></span>
@@ -900,9 +904,9 @@ inclination!</p>
 <p> </p>
 <p>A1. If we weren’t aiming to directly test the effect of the
 <code>LOGAREA:FGRAZE</code> interaction statistically (i.e. test this
-specific hypothesis), we could also have used AIC to perform model
-selection. Repeat the model selection you did above, but this time use
-the <code>drop1()</code> function and perform model selection using AIC
+specific hypothesis), we could use AIC to perform model selection.
+Repeat the model selection you did above, but this time use the
+<code>drop1()</code> function and perform model selection using AIC
 instead. Don’t forget, if we want to perform model selection based on
 AIC with the <code>drop1()</code> function we need to omit the
 <code>test = "F"</code> argument)</p>
@@ -1029,9 +1033,8 @@ selection but the same principles apply when using <em>F</em> tests
 rather than AIC values).</p>
 <p>Although you can use the output from the <code>drop1()</code> (and do
 a bit more wrangling) let’s make it a little simpler by fitting all of
-our nested models and then use the <code>AIC()</code> function to
-calculate the AIC values for each model rather than
-<code>drop1()</code>.</p>
+our models and then use the <code>AIC()</code> function to calculate the
+AIC values for each model rather than <code>drop1()</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># one way of constructing a summary table for reporting the results:</span></span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co"># create a vector of all the models compared during out model selection</span></span>
@@ -1046,48 +1049,49 @@ calculate the AIC values for each model rather than
 <span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co"># fit each model. Need to use the noquote() function to remove the </span></span>
 <span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="co"># quotations around our model formula otherwise you will get an error when </span></span>
 <span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="co"># using the lm() function.</span></span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co"># You will also need to paste the response variable &#39;ABUND ~ &#39; </span></span>
-<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="co"># together with out explanatory variables to create a valid model formula</span></span>
-<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a>M.start <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">1</span>])), <span class="at">data =</span> loyn)</span>
-<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>M.step2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">2</span>])), <span class="at">data =</span> loyn)</span>
-<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>M.step3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">3</span>])), <span class="at">data =</span> loyn)</span>
-<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>M.step4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">4</span>])), <span class="at">data =</span> loyn)</span>
-<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>M.step5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">5</span>])), <span class="at">data =</span> loyn)</span>
-<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a><span class="co"># obtain the AIC values for each model. Note: these will be different </span></span>
-<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a><span class="co"># than those obtained with the drop1() function due to a small difference in</span></span>
-<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a><span class="co"># how AIC is calculated. This isn;t a problem, just don&#39;t mix and match</span></span>
-<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a><span class="co"># the AIC values form drop1 and AIC functions.</span></span>
-<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a></span>
-<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a>model.AIC<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">AIC</span>(M.start),</span>
-<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step2),</span>
-<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step3),</span>
-<span id="cb18-32"><a href="#cb18-32" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step4),</span>
-<span id="cb18-33"><a href="#cb18-33" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step5))</span>
-<span id="cb18-34"><a href="#cb18-34" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" tabindex="-1"></a><span class="co"># create a dataframe of models and AIC values</span></span>
-<span id="cb18-36"><a href="#cb18-36" tabindex="-1"></a></span>
-<span id="cb18-37"><a href="#cb18-37" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Model =</span> model.formulas,</span>
-<span id="cb18-38"><a href="#cb18-38" tabindex="-1"></a>    <span class="at">AIC=</span> <span class="fu">round</span>(model.AIC, <span class="dv">2</span>))</span>
-<span id="cb18-39"><a href="#cb18-39" tabindex="-1"></a></span>
-<span id="cb18-40"><a href="#cb18-40" tabindex="-1"></a><span class="co"># Sort the models from lowest AIC (preferred) to highest (least preferred)</span></span>
-<span id="cb18-41"><a href="#cb18-41" tabindex="-1"></a></span>
-<span id="cb18-42"><a href="#cb18-42" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> summary.table[<span class="fu">order</span>(summary.table<span class="sc">$</span>AIC), ]</span>
-<span id="cb18-43"><a href="#cb18-43" tabindex="-1"></a></span>
-<span id="cb18-44"><a href="#cb18-44" tabindex="-1"></a><span class="co"># Add the difference in AIC with respect to best model</span></span>
-<span id="cb18-45"><a href="#cb18-45" tabindex="-1"></a></span>
-<span id="cb18-46"><a href="#cb18-46" tabindex="-1"></a>summary.table<span class="sc">$</span>deltaAIC<span class="ot">&lt;-</span> summary.table<span class="sc">$</span>AIC <span class="sc">-</span> summary.table<span class="sc">$</span>AIC[<span class="dv">1</span>]</span>
-<span id="cb18-47"><a href="#cb18-47" tabindex="-1"></a></span>
-<span id="cb18-48"><a href="#cb18-48" tabindex="-1"></a><span class="co"># print the dataframe to the console</span></span>
-<span id="cb18-49"><a href="#cb18-49" tabindex="-1"></a></span>
-<span id="cb18-50"><a href="#cb18-50" tabindex="-1"></a>summary.table</span>
-<span id="cb18-51"><a href="#cb18-51" tabindex="-1"></a><span class="do">##                                                                    Model    AIC deltaAIC</span></span>
-<span id="cb18-52"><a href="#cb18-52" tabindex="-1"></a><span class="do">## 5                                      LOGAREA + FGRAZE + LOGAREA:FGRAZE 413.71     0.00</span></span>
-<span id="cb18-53"><a href="#cb18-53" tabindex="-1"></a><span class="do">## 4                                ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 414.57     0.86</span></span>
-<span id="cb18-54"><a href="#cb18-54" tabindex="-1"></a><span class="do">## 3                      ALT + LOGDIST + LOGAREA + FGRAZE + LOGAREA:FGRAZE 416.41     2.70</span></span>
-<span id="cb18-55"><a href="#cb18-55" tabindex="-1"></a><span class="do">## 2            LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 418.37     4.66</span></span>
-<span id="cb18-56"><a href="#cb18-56" tabindex="-1"></a><span class="do">## 1 LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 420.34     6.63</span></span></code></pre></div>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="co"># You will also need to paste the response variable &#39;ABUND ~ &#39; </span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a><span class="co"># together with out explanatory variables to create a valid model formula</span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>M.start <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">1</span>])), <span class="at">data =</span> loyn)</span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>M.step2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">2</span>])), <span class="at">data =</span> loyn)</span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a>M.step3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">3</span>])), <span class="at">data =</span> loyn)</span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>M.step4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">4</span>])), <span class="at">data =</span> loyn)</span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>M.step5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">noquote</span>(<span class="fu">paste</span>(<span class="st">&#39;ABUND ~&#39;</span>, model.formulas[<span class="dv">5</span>])), <span class="at">data =</span> loyn)</span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a><span class="co"># obtain the AIC values for each model. Note: these will be different </span></span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a><span class="co"># than those obtained with the drop1() function due to a small difference in</span></span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a><span class="co"># how AIC is calculated. This isn;t a problem, just don&#39;t mix and match</span></span>
+<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a><span class="co"># the AIC values form drop1 and AIC functions.</span></span>
+<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a>model.AIC<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">AIC</span>(M.start),</span>
+<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step2),</span>
+<span id="cb18-32"><a href="#cb18-32" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step3),</span>
+<span id="cb18-33"><a href="#cb18-33" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step4),</span>
+<span id="cb18-34"><a href="#cb18-34" tabindex="-1"></a>    <span class="fu">AIC</span>(M.step5))</span>
+<span id="cb18-35"><a href="#cb18-35" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="#cb18-36" tabindex="-1"></a><span class="co"># create a dataframe of models and AIC values</span></span>
+<span id="cb18-37"><a href="#cb18-37" tabindex="-1"></a></span>
+<span id="cb18-38"><a href="#cb18-38" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Model =</span> model.formulas,</span>
+<span id="cb18-39"><a href="#cb18-39" tabindex="-1"></a>    <span class="at">AIC=</span> <span class="fu">round</span>(model.AIC, <span class="dv">2</span>))</span>
+<span id="cb18-40"><a href="#cb18-40" tabindex="-1"></a></span>
+<span id="cb18-41"><a href="#cb18-41" tabindex="-1"></a><span class="co"># Sort the models from lowest AIC (preferred) to highest (least preferred)</span></span>
+<span id="cb18-42"><a href="#cb18-42" tabindex="-1"></a></span>
+<span id="cb18-43"><a href="#cb18-43" tabindex="-1"></a>summary.table<span class="ot">&lt;-</span> summary.table[<span class="fu">order</span>(summary.table<span class="sc">$</span>AIC), ]</span>
+<span id="cb18-44"><a href="#cb18-44" tabindex="-1"></a></span>
+<span id="cb18-45"><a href="#cb18-45" tabindex="-1"></a><span class="co"># Add the difference in AIC with respect to best model</span></span>
+<span id="cb18-46"><a href="#cb18-46" tabindex="-1"></a></span>
+<span id="cb18-47"><a href="#cb18-47" tabindex="-1"></a>summary.table<span class="sc">$</span>deltaAIC<span class="ot">&lt;-</span> summary.table<span class="sc">$</span>AIC <span class="sc">-</span> summary.table<span class="sc">$</span>AIC[<span class="dv">1</span>]</span>
+<span id="cb18-48"><a href="#cb18-48" tabindex="-1"></a></span>
+<span id="cb18-49"><a href="#cb18-49" tabindex="-1"></a><span class="co"># print the dataframe to the console</span></span>
+<span id="cb18-50"><a href="#cb18-50" tabindex="-1"></a></span>
+<span id="cb18-51"><a href="#cb18-51" tabindex="-1"></a>summary.table</span>
+<span id="cb18-52"><a href="#cb18-52" tabindex="-1"></a><span class="do">##                                                                    Model    AIC deltaAIC</span></span>
+<span id="cb18-53"><a href="#cb18-53" tabindex="-1"></a><span class="do">## 5                                      LOGAREA + FGRAZE + LOGAREA:FGRAZE 413.71     0.00</span></span>
+<span id="cb18-54"><a href="#cb18-54" tabindex="-1"></a><span class="do">## 4                                ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 414.57     0.86</span></span>
+<span id="cb18-55"><a href="#cb18-55" tabindex="-1"></a><span class="do">## 3                      ALT + LOGDIST + LOGAREA + FGRAZE + LOGAREA:FGRAZE 416.41     2.70</span></span>
+<span id="cb18-56"><a href="#cb18-56" tabindex="-1"></a><span class="do">## 2            LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 418.37     4.66</span></span>
+<span id="cb18-57"><a href="#cb18-57" tabindex="-1"></a><span class="do">## 1 LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 420.34     6.63</span></span></code></pre></div>
 <p> </p>
 <p>Or if you prefer a prettier version to include directly in your paper
 / thesis. You will need to install the <code>knitr</code> package before

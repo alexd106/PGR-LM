@@ -405,7 +405,7 @@ included the main effects of the area of the forest patch
 (<code>LOGAREA</code>), the grazing intensity (<code>FGRAZE</code>) and
 the interaction between these two explanatory variables
 (<code>FGRAZE:LOGAREA</code>). This was useful as a training exercise,
-and might be a viable approach when analysing these data if the
+and might be a viable approach when analysing these data if an
 experiment had been designed to test these effects only. However, if
 other potentially important variables are not included in the model this
 may lead to biased inferences (interpretation). Additionally, if the
@@ -419,20 +419,20 @@ explanatory variables and by performing model selection. Because we
 would like to test the significance of the interaction between
 <code>LOGAREA</code>, and <code>FGRAZE</code>, whilst accounting for the
 potential effects of other explanatory variables, we will also include
-<code>LOGAREA</code>, <code>FGRAZE</code> and their interaction in the
-model as before. Including other interaction terms between other
-variables may be reasonable, but we will focus only on the
-<code>FGRAZE:LOGAREA</code> interaction as we have relatively little
-information in this data set (67 observations). This will hopefully
-avoid fitting an overly complex model which will estimate many
-parameters for which we have very little data. This is a balance you
-will all have to maintain with your own data and analyses (or better
+<code>LOGAREA</code>, <code>FGRAZE</code> and their interaction
+(<code>FGRAZE:LOGAREA</code>) in the model as before. Including other
+interaction terms between other variables may be reasonable, but we will
+focus only on the <code>FGRAZE:LOGAREA</code> interaction as we have
+relatively little information in this data set (67 observations). This
+will hopefully avoid fitting an overly complex model which will estimate
+many parameters for which we have very little data. This is a balance
+you will all have to maintain with your own data and analyses (or better
 still, perform a power analysis before you even collect your data). No
 4-way interaction terms in your models please!</p>
 <p> </p>
 <p>It’s also important to note that we will assume that all the
-explanatory variables were collected by the researchers <em>because</em>
-they believed them to be biologically relevant for explaining bird
+explanatory variables were collected by the researchers because <em>they
+believed</em> them to be biologically relevant for explaining bird
 abundance (i.e. data were collected for a reason). Of course, this is
 probably not your area of expertise but it is nevertheless a good idea
 to pause and think what might be relevant or not-so relevant and why.
@@ -443,9 +443,10 @@ is collecting heaps of data across many variables (just because you can)
 and then expecting your statistical models to make sense of it for you.
 As mentioned in the lecture, model selection is a relatively
 controversial topic and should not be treated as a purely mechanical
-process. Your expertise needs to be woven into this process otherwise
-you may end up with a model that is implausible or not very useful (and
-all models need to be useful!).</p>
+process (chuck everything in and see what comes out). Your expertise
+needs to be woven into this process otherwise you may end up with a
+model that is implausible or not very useful (and all models need to be
+useful!).</p>
 <p> </p>
 <p>1. Import the ‘loyn.txt’ data file into RStudio and assign it to a
 variable called <code>loyn</code>. Here we will be using all the
@@ -491,16 +492,17 @@ selection approach. This will allow us to decide which explanatory
 variables may be suitable for removal from the model. Remember to use
 the <code>test = "F"</code> argument to perform <em>F</em> tests when
 using <code>drop1()</code>. Which explanatory variable is the best
-candidate for removal and why? What hypothesis is being tested when we
-do this model selection step?</p>
+candidate for removal and why?</p>
+<p>What hypothesis is being tested when we do this model selection
+step?</p>
 <p> </p>
 <p>6. Update and refit your model and remove the least significant
 explanatory variable (from above). Repeat single term deletions with
 <code>drop1()</code> again using this updated model. You can update the
 model by just fitting a new model without the appropriate explanatory
 variable and assign it to a new name (<code>M2</code>). Alternatively
-you can use the <code>update()</code> function instead. I’ll show you
-both ways in the solutions below.</p>
+you can use the <code>update()</code> function instead (I show you how
+to do this in the solutions).</p>
 <p> </p>
 <p>7. Again, update the model to remove the least significant
 explanatory variable (from above) and repeat single term deletions with
@@ -525,18 +527,19 @@ think why this might be the case?</p>
 model validation and model interpretation as usual. As we have already
 completed this in the previous exercise I’ll leave it up to you to
 decide whether you include it here (you should be able to just copy and
-paste the code). Please make sure you understand the biological
-interpretation of each of the parameter estimates and the interpretation
-of the hypotheses you are testing.</p>
+paste the code).</p>
+<p>Please make sure you understand the biological interpretation of each
+of the parameter estimates and the interpretation of the hypotheses you
+are testing.</p>
 <p> </p>
 <p><strong>OPTIONAL questions</strong> if you have time / energy /
 inclination!</p>
 <p> </p>
 <p>A1. If we weren’t aiming to directly test the effect of the
 <code>LOGAREA:FGRAZE</code> interaction statistically (i.e. test this
-specific hypothesis), we could also have used AIC to perform model
-selection. Repeat the model selection you did above, but this time use
-the <code>drop1()</code> function and perform model selection using AIC
+specific hypothesis), we could use AIC to perform model selection.
+Repeat the model selection you did above, but this time use the
+<code>drop1()</code> function and perform model selection using AIC
 instead. Don’t forget, if we want to perform model selection based on
 AIC with the <code>drop1()</code> function we need to omit the
 <code>test = "F"</code> argument)</p>
@@ -572,9 +575,8 @@ selection but the same principles apply when using <em>F</em> tests
 rather than AIC values).</p>
 <p>Although you can use the output from the <code>drop1()</code> (and do
 a bit more wrangling) let’s make it a little simpler by fitting all of
-our nested models and then use the <code>AIC()</code> function to
-calculate the AIC values for each model rather than
-<code>drop1()</code>.</p>
+our models and then use the <code>AIC()</code> function to calculate the
+AIC values for each model rather than <code>drop1()</code>.</p>
 <p> </p>
 <p>Or if you prefer a prettier version to include directly in your paper
 / thesis. You will need to install the <code>knitr</code> package before

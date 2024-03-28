@@ -523,10 +523,10 @@ explanatory variable). This is the third of four complementary
 exercises, based on the <code>loyn</code> data set.</p>
 <p> </p>
 <p>1. As in previous exercises, either create a new R script (perhaps
-call it linear_model_3) or continue with your previous R script in your
-RStudio Project. Again, make sure you include any metadata you feel is
-appropriate (title, description of task, date of creation etc) and don’t
-forget to comment out your metadata with a <code>#</code> at the
+call it ‘linear_model_3’) or continue with your previous R script in
+your RStudio Project. Again, make sure you include any metadata you feel
+is appropriate (title, description of task, date of creation etc) and
+don’t forget to comment out your metadata with a <code>#</code> at the
 beginning of the line.</p>
 <p> </p>
 <p>2. Import the data file ‘loyn.txt’ into R and take a look at the
@@ -541,7 +541,6 @@ with low grazing intensity have more birds than a larger patch with high
 grazing intensity? Could the fit of the <code>ABUND ~ LOGAREA</code>
 model for the large patches be improved if we accounted for grazing
 intensity in the patches?</p>
-<p> </p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/loyn.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>                   <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">str</span>(loyn)</span>
@@ -557,11 +556,10 @@ intensity in the patches?</p>
 <p> </p>
 <p>3. As previously we want to treat <code>AREA</code> as a
 log<sub>10</sub>-transformed area to limit the influence of the couple
-of disproportionately large patches, and <code>GRAZE</code> as a
+of disproportionately large forest patches, and <code>GRAZE</code> as a
 categorical variable with five levels. So the first thing we need to do
 is create the corresponding variables in the <code>loyn</code>
 dataframe, called <code>LOGAREA</code> and <code>FGRAZE</code>.</p>
-<p> </p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>loyn<span class="sc">$</span>LOGAREA <span class="ot">&lt;-</span> <span class="fu">log10</span>(loyn<span class="sc">$</span>AREA)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># create factor GRAZE as it was originally coded as an integer</span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>loyn<span class="sc">$</span>FGRAZE <span class="ot">&lt;-</span> <span class="fu">factor</span>(loyn<span class="sc">$</span>GRAZE)</span></code></pre></div>
@@ -569,7 +567,7 @@ dataframe, called <code>LOGAREA</code> and <code>FGRAZE</code>.</p>
 <p>4. Explore the relationship between bird abundance and log
 transformed forest patch area for each level of grazing. You could
 manually create a separate plot for each graze level but it’s more
-efficient to use a conditional scatter plot (aka coplot, see <a
+efficient to use a conditional scatterplot (aka coplot, see <a
 href="https://intro2r.com/simple-base-r-plots.html#coplots">section
 4.2.6</a> of the R book or the help page for the function
 <code>coplot()</code>). A coplot lets you visualise the relationship
@@ -582,7 +580,6 @@ grazing levels or does the relationship change? This is effectively
 asking if the slopes of the relationship between <code>ABUND</code> and
 <code>LOGAREA</code> are different for each <code>FGRAZE</code> level -
 this is called an interaction.</p>
-<p> </p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">coplot</span>(ABUND <span class="sc">~</span> LOGAREA <span class="sc">|</span> FGRAZE, <span class="at">data =</span> loyn)</span></code></pre></div>
 <p><img src="linear_model_3_exercise_solutions_files/figure-html/Q4-1.png" width="672" /></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
@@ -608,7 +605,6 @@ interaction between <code>LOGAREA</code> and <code>FGRAZE</code>. Hint:
 appropriately named object, like <code>birds_inter1</code>. Optional:
 Can you remember how to specify the model using the ‘shortcut’ version
 (with <code>*</code>) instead?</p>
-<p> </p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>birds_inter1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> FGRAZE <span class="sc">+</span> LOGAREA <span class="sc">+</span> FGRAZE<span class="sc">:</span>LOGAREA, <span class="at">data =</span> loyn)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co"># Or use the &#39;shortcut&#39; - it&#39;s equivalent to the model above</span></span>
@@ -620,7 +616,6 @@ can split your plotting device into 2 rows and 2 columns using the
 <code>par()</code> function before you create the plots. Check each of
 the assumptions using these plots and report whether your model meets
 these assumptions.</p>
-<p> </p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># first split the plotting device into 2 rows and 2 columns</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
@@ -651,9 +646,10 @@ only P value that we should interpret is the one that occurs in the
 second to last row of the table (the one above ‘Residuals’). This is the
 interaction term between <code>FGRAZE</code> and <code>LOGAREA</code>
 (<code>FGRAZE:LOGAREA</code>). What is the null hypothesis associated
-with this interaction term? Do we reject or fail to reject this
-hypothesis? What is the biological interpretation of this interaction
-term? Can we say anything about the hypotheses for the main effects of
+with this interaction term?</p>
+<p>Do we reject or fail to reject this hypothesis?</p>
+<p>What is the biological interpretation of this interaction term? Can
+we say anything about the hypotheses for the main effects of
 <code>FGRAZE</code> or <code>LOGAREA</code>?</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">anova</span>(birds_inter1)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
@@ -684,14 +680,18 @@ term? Can we say anything about the hypotheses for the main effects of
 <p>8. OK, now for the part you all know and love! Use the
 <code>summary()</code> function on your model object to produce the
 table of parameter estimates. Using this output, take each line in turn
-and answer the following questions: (A) what does this parameter
-estimate? (B) What is the biological interpretation of the corresponding
-estimate? (C) What is the null hypothesis associated with it? (D) Do you
-reject or fail to reject this hypothesis? Also compare the multiple
-R<sup>2</sup> from this model the models you created in the previous two
-exercises. I encourage you to get someone to discuss your answers with
-you if you are confused :).</p>
-<p> </p>
+and answer the following questions:</p>
+<ol style="list-style-type: upper-alpha">
+<li>what does this parameter estimate?</li>
+<li>What is the biological interpretation of the corresponding
+estimate?</li>
+<li>What is the null hypothesis associated with it?</li>
+<li>Do you reject or fail to reject this hypothesis?</li>
+</ol>
+<p>Also compare the multiple R<sup>2</sup> from this model the models
+you created in the previous two exercises.</p>
+<p>Please ask one of the course instructors to take you through this if
+you’re confused :).</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">summary</span>(birds_inter1)</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">## Call:</span></span>
@@ -800,7 +800,6 @@ might seem like a huge amount of code just to plot your predicted values
 level of graze. Just work through it slowly and logically and hopefully
 it will make sense (please ask if you are confused). I will also show
 you some alternative (easier?) ways to do this below.</p>
-<p> </p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> LOGAREA, <span class="at">data =</span> loyn, <span class="at">col =</span> GRAZE, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co"># Note: # colour 1 means black in R</span></span>
@@ -878,7 +877,6 @@ you some alternative (easier?) ways to do this below.</p>
 <p><strong>(Optional, for the geeks)</strong> Alternative method, using
 a loop. Just keep this code in case you ever want to do something like
 this in the future.</p>
-<p> </p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Okay, that was a long-winded way of doing this.</span></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># If, like me, you prefer more compact code and less risks of errors,</span></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co"># you can use a loop, to save repeating the sequence 5 times:</span></span>
@@ -903,7 +901,6 @@ this in the future.</p>
 easier way, then we can use the <code>ggolot2</code> package. Note: you
 will need to install the <code>ggplot2</code> package first if you don’t
 already have it.</p>
-<p> </p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># install.packages(&#39;ggplot2&#39;, dep = TRUE)</span></span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>

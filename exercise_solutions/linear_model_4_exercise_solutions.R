@@ -1,4 +1,4 @@
-## ----Q1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## loyn <- read.table("data/loyn.txt", header = TRUE)
 ## str(loyn)
 ## 
@@ -10,7 +10,7 @@
 ## loyn$FGRAZE <- factor(loyn$GRAZE)
 
 
-## ----Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## # define the panel.cor function from ?pairs
 ## panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
 ## {
@@ -33,7 +33,7 @@
 ## # between these explanatory variables are quite weak so we can probably
 ## # include these variables in the same model (but keep an eye on things).
 ## # There also seems to be a reasonable spread of observations across these
-## # pairs of explanatory variables.
+## # pairs of explanatory variables which is a good thing.
 ## 
 ## # The relationship between the response variable ABUND and all the explanatory
 ## # variables is visible in the top row:
@@ -41,16 +41,16 @@
 ## # maybe ALT (positive) and FGRAZE (negative).
 
 
-## ----Q3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## M1 <- lm(ABUND ~ LOGDIST + LOGLDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
 ##            FGRAZE:LOGAREA, data = loyn)
 
 
-## ----Q4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## summary(M1)
 
 
-## ----Q5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## # Wait: why can't we use information from the 'summary(M1)' or 'anova(M1)' functions
 ## # to do this?
 ## 
@@ -75,10 +75,11 @@
 ## 
 ## # LOGLDIST is the least significant (p = 0.88), and therefore makes the least
 ## # contribution to the variability explained by the model, with respect to
-## # the number of degrees of freedom it uses (1)
+## # the number of degrees of freedom it uses (1). This variable is a good candidate
+## # to remove from the model
 
 
-## ----Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## # new model removing LOGLDIST
 ## M2 <- lm(ABUND ~ LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
 ##            LOGAREA:FGRAZE, data = loyn)
@@ -94,7 +95,7 @@
 ## # with respect to the number of degrees of freedom it uses (1)
 
 
-## ----Q7, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q7, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## M3 <- update(M2, formula = . ~ . - YR.ISOL)
 ## 
 ## drop1(M3, test = "F")
@@ -103,14 +104,14 @@
 ## # the next model.
 
 
-## ----Q8, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q8, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## M4 <- update(M3, formula = . ~ . - LOGDIST)
 ## drop1(M4, test = "F")
 ## 
 ## # ALT is not significant (p = 0.331)
 
 
-## ----Q9, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------
+## ----Q9, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE------------------------------------------------------------------
 ## # and finally drop ALT from the model
 ## M5 <- update(M4, formula = . ~ . - ALT)
 ## drop1(M5, test = "F")
@@ -120,7 +121,7 @@
 ## # process comes to an end.
 
 
-## ----Q10, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----Q10, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # As the interaction between LOGAREA and FGRAZE was significant at each step of
 ## # model selection process the main effects should be left in our model,
 ## # irrespective of significance. This is because it is quite difficult to
@@ -137,7 +138,7 @@
 ## drop1(M5, test= "F")
 
 
-## ----Q11, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----Q11, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # Biologically: confirming what we already found out in the previous exercise:
 ## # There is a significant interaction between the area of the patch and the level
 ## # of grazing
@@ -171,7 +172,7 @@
 ## # patches may have a less important effect)
 
 
-## ----QA1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----QA1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # This time, we are not doing any specific hypothesis testing, rather we are
 ## # attempting to select a model with the 'best' goodness of fit with the minimal
 ## # number of estimated parameters.
@@ -185,7 +186,7 @@
 ## drop1(M.start.AIC)
 
 
-## ----QA2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----QA2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # So, our starting model with no variables removed has an AIC of 228.20. If we
 ## # remove the interaction term `LOGAREA:FGRAZE` from the model then this results
 ## # in a big increase in AIC (238.02 - 228.20 = 9.82) so this suggests that there
@@ -199,7 +200,7 @@
 ## drop1(M2.AIC)
 
 
-## ----QA3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----QA3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # Ok, as the model without the variable `YR.ISOL` has the lowest AIC (224.27)
 ## # let's update our model and remove this variable.
 ## 
@@ -207,7 +208,7 @@
 ## drop1(M3.AIC)
 
 
-## ----QA4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----QA4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # So, now the model without `LOGDIST` has the lowest AIC (222.43) so we should
 ## # refit the model without this variable and run `drop1()` again.
 ## 
@@ -215,7 +216,7 @@
 ## drop1(M4.AIC)
 
 
-## ----QA5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------
+## ----QA5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE-----------------------------------------------------------------
 ## # And the model without the variable `ALT` has an AIC of 221.57 which is about
 ## # the same as the model with `ALT` (AIC 222.43), so let's remove this variable
 ## # from the model as this suggests that the simpler model fits our data just as
@@ -231,7 +232,7 @@
 ## # should leave it in and finish our model selection here.
 
 
-## ----QA2a, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE---------------------------------------------------
+## ----QA2a, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE----------------------------------------------------------------
 ## # one way of constructing a summary table for reporting the results:
 ## 
 ## # create a vector of all the models compared during out model selection
@@ -246,6 +247,7 @@
 ## # fit each model. Need to use the noquote() function to remove the
 ## # quotations around our model formula otherwise you will get an error when
 ## # using the lm() function.
+## 
 ## # You will also need to paste the response variable 'ABUND ~ '
 ## # together with out explanatory variables to create a valid model formula
 ## 
@@ -284,6 +286,6 @@
 ## summary.table
 
 
-## ----Q12c, eval=SOLUTIONS, echo=FALSE-----------------------------------------------------------------------------------------
+## ----Q12c, eval=SOLUTIONS, echo=FALSE------------------------------------------------------------------------------------------------------
 ## knitr::kable(summary.table, "html", align = "lcr", row.names = FALSE)
 

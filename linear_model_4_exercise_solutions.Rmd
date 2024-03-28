@@ -19,15 +19,15 @@ SOLUTIONS <- TRUE
 
 \  
 
-In the previous exercise you fitted a pre-conceived model which included the main effects of the area of the forest patch (`LOGAREA`), the grazing intensity (`FGRAZE`) and the interaction between these two explanatory variables (`FGRAZE:LOGAREA`). This was useful as a training exercise, and might be a viable approach when analysing these data if the experiment had been designed to test these effects only. However, if other potentially important variables are not included in the model this may lead to biased inferences (interpretation). Additionally, if the goal of the analysis is to explore what models explain the data in a parsimonious way (as opposed to formally testing hypotheses), we would also want to include relevant additional explanatory variables. 
+In the previous exercise you fitted a pre-conceived model which included the main effects of the area of the forest patch (`LOGAREA`), the grazing intensity (`FGRAZE`) and the interaction between these two explanatory variables (`FGRAZE:LOGAREA`). This was useful as a training exercise, and might be a viable approach when analysing these data if an experiment had been designed to test these effects only. However, if other potentially important variables are not included in the model this may lead to biased inferences (interpretation). Additionally, if the goal of the analysis is to explore what models explain the data in a parsimonious way (as opposed to formally testing hypotheses), we would also want to include relevant additional explanatory variables. 
 
 \  
 
-Here we revisit the previous loyn data analysis, and ask if a 'better' model for these data could be achieved by including additional explanatory variables and by performing model selection. Because we would like to test the significance of the interaction between `LOGAREA`, and `FGRAZE`, whilst accounting for the potential effects of other explanatory variables, we will also include `LOGAREA`, `FGRAZE` and their interaction in the model as before. Including other interaction terms between other variables may be reasonable, but we will focus only on the `FGRAZE:LOGAREA` interaction as we have relatively little information in this data set (67 observations). This will hopefully avoid fitting an overly complex model which will estimate many parameters for which we have very little data. This is a balance you will all have to maintain with your own data and analyses (or better still, perform a power analysis before you even collect your data). No 4-way interaction terms in your models please!
+Here we revisit the previous loyn data analysis, and ask if a 'better' model for these data could be achieved by including additional explanatory variables and by performing model selection. Because we would like to test the significance of the interaction between `LOGAREA`, and `FGRAZE`, whilst accounting for the potential effects of other explanatory variables, we will also include `LOGAREA`, `FGRAZE` and their interaction (`FGRAZE:LOGAREA`) in the model as before. Including other interaction terms between other variables may be reasonable, but we will focus only on the `FGRAZE:LOGAREA` interaction as we have relatively little information in this data set (67 observations). This will hopefully avoid fitting an overly complex model which will estimate many parameters for which we have very little data. This is a balance you will all have to maintain with your own data and analyses (or better still, perform a power analysis before you even collect your data). No 4-way interaction terms in your models please!
 
 \ 
 
-It's also important to note that we will assume that all the explanatory variables were collected by the researchers *because* they believed them to be biologically relevant for explaining bird abundance (i.e. data were collected for a reason). Of course, this is probably not your area of expertise but it is nevertheless a good idea to pause and think what might be relevant or not-so relevant and why. This highlights the importance of knowing your study organism / study area and discussing research designs with colleagues and other experts in the field before you collect your data. What you should try to avoid is collecting heaps of data across many variables (just because you can) and then expecting your statistical models to make sense of it for you. As mentioned in the lecture, model selection is a relatively controversial topic and should not be treated as a purely mechanical process. Your expertise needs to be woven into this process otherwise you may end up with a model that is implausible or not very useful (and all models need to be useful!). 
+It's also important to note that we will assume that all the explanatory variables were collected by the researchers because *they believed* them to be biologically relevant for explaining bird abundance (i.e. data were collected for a reason). Of course, this is probably not your area of expertise but it is nevertheless a good idea to pause and think what might be relevant or not-so relevant and why. This highlights the importance of knowing your study organism / study area and discussing research designs with colleagues and other experts in the field before you collect your data. What you should try to avoid is collecting heaps of data across many variables (just because you can) and then expecting your statistical models to make sense of it for you. As mentioned in the lecture, model selection is a relatively controversial topic and should not be treated as a purely mechanical process (chuck everything in and see what comes out). Your expertise needs to be woven into this process otherwise you may end up with a model that is implausible or not very useful (and all models need to be useful!). 
 
 \  
 
@@ -72,7 +72,7 @@ pairs(loyn[, VOI], lower.panel = panel.cor)
 # between these explanatory variables are quite weak so we can probably 
 # include these variables in the same model (but keep an eye on things). 
 # There also seems to be a reasonable spread of observations across these 
-# pairs of explanatory variables.
+# pairs of explanatory variables which is a good thing.
 
 # The relationship between the response variable ABUND and all the explanatory
 # variables is visible in the top row:
@@ -99,7 +99,9 @@ summary(M1)
 
 \  
 
-5\. Let's perform a first step in model selection using the `drop1()` function and use an *F* test based model selection approach. This will allow us to decide which explanatory variables may be suitable for removal from the model. Remember to use the `test = "F"` argument to perform *F* tests when using `drop1()`. Which explanatory variable is the best candidate for removal and why? What hypothesis is being tested when we do this model selection step?
+5\. Let's perform a first step in model selection using the `drop1()` function and use an *F* test based model selection approach. This will allow us to decide which explanatory variables may be suitable for removal from the model. Remember to use the `test = "F"` argument to perform *F* tests when using `drop1()`. Which explanatory variable is the best candidate for removal and why? 
+
+What hypothesis is being tested when we do this model selection step?
 
 ```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # Wait: why can't we use information from the 'summary(M1)' or 'anova(M1)' functions
@@ -126,12 +128,13 @@ drop1(M1, test = "F")
 
 # LOGLDIST is the least significant (p = 0.88), and therefore makes the least 
 # contribution to the variability explained by the model, with respect to 
-# the number of degrees of freedom it uses (1)
+# the number of degrees of freedom it uses (1). This variable is a good candidate 
+# to remove from the model 
 ```
 
 \  
 
-6\. Update and refit your model and remove the least significant explanatory variable (from above). Repeat single term deletions with `drop1()` again using this updated model. You can update the model by just fitting a new model without the appropriate explanatory variable and assign it to a new name (`M2`). Alternatively you can use the `update()` function instead. I'll show you both ways in the solutions below.
+6\. Update and refit your model and remove the least significant explanatory variable (from above). Repeat single term deletions with `drop1()` again using this updated model. You can update the model by just fitting a new model without the appropriate explanatory variable and assign it to a new name (`M2`). Alternatively you can use the `update()` function instead (I show you how to do this in the solutions).
 
 ```{r Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # new model removing LOGLDIST 
@@ -210,7 +213,9 @@ drop1(M5, test= "F")
 
 \  
 
-11\. Now that you have your final model, you should go through your model validation and model interpretation as usual. As we have already completed this in the previous exercise I'll leave it up to you to decide whether you include it here (you should be able to just copy and paste the code). Please make sure you understand the biological interpretation of each of the parameter estimates and the interpretation of the hypotheses you are testing. 
+11\. Now that you have your final model, you should go through your model validation and model interpretation as usual. As we have already completed this in the previous exercise I'll leave it up to you to decide whether you include it here (you should be able to just copy and paste the code). 
+
+Please make sure you understand the biological interpretation of each of the parameter estimates and the interpretation of the hypotheses you are testing. 
 
 ```{r Q11, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # Biologically: confirming what we already found out in the previous exercise:
@@ -252,7 +257,7 @@ drop1(M5, test= "F")
 
 \ 
 
-A1\. If we weren't aiming to directly test the effect of the `LOGAREA:FGRAZE` interaction statistically (i.e. test this specific hypothesis), we could also have used AIC to perform model selection. Repeat the model selection you did above, but this time use the `drop1()` function and perform model selection using AIC instead. Don't forget, if we want to perform model selection based on AIC with the `drop1()` function we need to omit the `test = "F"` argument)
+A1\. If we weren't aiming to directly test the effect of the `LOGAREA:FGRAZE` interaction statistically (i.e. test this specific hypothesis), we could use AIC to perform model selection. Repeat the model selection you did above, but this time use the `drop1()` function and perform model selection using AIC instead. Don't forget, if we want to perform model selection based on AIC with the `drop1()` function we need to omit the `test = "F"` argument)
 
 ```{r QA1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # This time, we are not doing any specific hypothesis testing, rather we are 
@@ -339,7 +344,7 @@ We don't need to re-validate or re-interpret the model, since we have already do
 
 I guess the next question is how to present your results from the model selection process (using either *F* tests or AIC) in your paper and/or thesis chapter. One approach which I quite like is to construct a table which includes a description of all of our models and associated summary statistics. Let's do this for the AIC based model selection but the same principles apply when using *F* tests (although you will be presenting *F* statistics and P values rather than AIC values). 
 
-Although you can use the output from the `drop1()` (and do a bit more wrangling) let's make it a little simpler by fitting all of our nested models and then use the `AIC()` function to calculate the AIC values for each model rather than `drop1()`.
+Although you can use the output from the `drop1()` (and do a bit more wrangling) let's make it a little simpler by fitting all of our models and then use the `AIC()` function to calculate the AIC values for each model rather than `drop1()`.
 
 ```{r QA2a, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # one way of constructing a summary table for reporting the results:
@@ -356,6 +361,7 @@ model.formulas<- c(
 # fit each model. Need to use the noquote() function to remove the 
 # quotations around our model formula otherwise you will get an error when 
 # using the lm() function.
+
 # You will also need to paste the response variable 'ABUND ~ ' 
 # together with out explanatory variables to create a valid model formula
 
