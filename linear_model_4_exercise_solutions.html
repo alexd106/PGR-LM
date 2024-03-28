@@ -1034,7 +1034,8 @@ rather than AIC values).</p>
 <p>Although you can use the output from the <code>drop1()</code> (and do
 a bit more wrangling) let’s make it a little simpler by fitting all of
 our models and then use the <code>AIC()</code> function to calculate the
-AIC values for each model rather than <code>drop1()</code>.</p>
+AIC values for each model rather than <code>drop1()</code>. Details on
+how to do this are given in the solutions to this exercise.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># one way of constructing a summary table for reporting the results:</span></span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co"># create a vector of all the models compared during out model selection</span></span>
@@ -1092,12 +1093,6 @@ AIC values for each model rather than <code>drop1()</code>.</p>
 <span id="cb18-55"><a href="#cb18-55" tabindex="-1"></a><span class="do">## 3                      ALT + LOGDIST + LOGAREA + FGRAZE + LOGAREA:FGRAZE 416.41     2.70</span></span>
 <span id="cb18-56"><a href="#cb18-56" tabindex="-1"></a><span class="do">## 2            LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 418.37     4.66</span></span>
 <span id="cb18-57"><a href="#cb18-57" tabindex="-1"></a><span class="do">## 1 LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE 420.34     6.63</span></span></code></pre></div>
-<p> </p>
-<p>Or if you prefer a prettier version to include directly in your paper
-/ thesis. You will need to install the <code>knitr</code> package before
-you can do this. See the ‘Installing R Markdown’ in <a
-href="https://intro2r.com/install-rm.html">Appendix A</a> in the
-Introduction to R book for more details.</p>
 <table>
 <thead>
 <tr>

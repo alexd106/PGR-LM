@@ -209,9 +209,9 @@ summary(birds_inter1)
 
 * for each `FGRAZE` level in turn:
     + create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values, probably best not too!).
-    + store it in a data frame (e.g. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes.
-    + Create a vector of predicted bird abundances using our new dataframe using the `predict()` function.
-    + Add the predicted to your plot using the `lines()` function with the appropriate colours.
+    + store it in a data frame (i.e. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes (i.e. `FGRAZE = "1"`).
+    + Create a vector of predicted bird abundances using our new dataframe (`dat4pred`) using the `predict()` function.
+    + Add the predicted values to the plot using the `lines()` function with the appropriate colour (same points colour for each `FGRAZE` level above).
   
 See the solutions for one of many ways of doing this. Now this might seem like a huge amount of code just to plot your predicted values (and admittedly it is!) but most of the code is just repeated for each level of graze. Just work through it slowly and logically and hopefully it will make sense (please ask if you are confused). I will also show you some alternative (easier?) ways to do this in the solutions.
 
@@ -324,5 +324,6 @@ ggplot(loyn, aes(x = LOGAREA, y = ABUND, colour = FGRAZE) ) +
      geom_point() +
      geom_smooth(method = "lm", se = FALSE)
 ```
+\  
 
 End of the Linear model with continuous and categorical explanatory variables exercise

@@ -341,10 +341,9 @@ If all goes well, your final model should be `lm(ABUND ~ LOGAREA + FGRAZE + LOGA
 
 We don't need to re-validate or re-interpret the model, since we have already done this previously.
 
-
 I guess the next question is how to present your results from the model selection process (using either *F* tests or AIC) in your paper and/or thesis chapter. One approach which I quite like is to construct a table which includes a description of all of our models and associated summary statistics. Let's do this for the AIC based model selection but the same principles apply when using *F* tests (although you will be presenting *F* statistics and P values rather than AIC values). 
 
-Although you can use the output from the `drop1()` (and do a bit more wrangling) let's make it a little simpler by fitting all of our models and then use the `AIC()` function to calculate the AIC values for each model rather than `drop1()`.
+Although you can use the output from the `drop1()` (and do a bit more wrangling) let's make it a little simpler by fitting all of our models and then use the `AIC()` function to calculate the AIC values for each model rather than `drop1()`. Details on how to do this are given in the solutions to this exercise.
 
 ```{r QA2a, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # one way of constructing a summary table for reporting the results:
@@ -400,11 +399,14 @@ summary.table$deltaAIC<- summary.table$AIC - summary.table$AIC[1]
 summary.table
 ```
 
-\  
-
-Or if you prefer a prettier version to include directly in your paper / thesis. You will need to install the `knitr` package before you can do this. See the 'Installing R Markdown' in [Appendix A](https://intro2r.com/install-rm.html) in the Introduction to R book for more details.
 
 ```{r Q12c, eval=SOLUTIONS, echo=FALSE}
+# Or if you prefer a prettier version to include directly in 
+# your paper / thesis. You will need to install the knitr 
+# package before you can do this. See the 'Installing R Markdown' 
+# in [Appendix A](https://intro2r.com/install-rm.html) 
+# in the Introduction to R book for more details.
+
 knitr::kable(summary.table, "html", align = "lcr", row.names = FALSE)
 ```
 
