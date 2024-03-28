@@ -5,7 +5,7 @@ output:
     toc: false
 ---
 
-```{r setup-ex, include=FALSE}
+```{r setup-ex, echo=FALSE, purl = FALSE}
 library(knitr)
 library(stringr)
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE)
@@ -28,13 +28,9 @@ We will release the [solutions to the exercises](exercise_solutions.html){target
 
 Have fun!
 
-\  
-
 ```{r, reveal, echo=FALSE, eval = isFALSE(show_exercise)}
 cat("Exercises will be released as the course progresses")
 ```
-
-\  
 
 ```{r pdf-out, include = FALSE}
 # TODO: generate list automagically
@@ -45,8 +41,6 @@ rmarkdown::render("linear_model_2_exercise.Rmd", output_format = "pdf_document",
 rmarkdown::render("linear_model_3_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_3_exercise.pdf", quiet = TRUE)
 rmarkdown::render("linear_model_4_exercise.Rmd", output_format = "pdf_document", output_file = "./exercises/linear_model_4_exercise.pdf", quiet = TRUE)
 ```
-
-\  
 
 ### Day 1
 

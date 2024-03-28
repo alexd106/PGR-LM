@@ -5,7 +5,7 @@ output:
     toc: false
 ---
 
-```{r, include=FALSE}
+```{r, echo=FALSE, purl = FALSE}
 library(knitr)
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE)
 suppressPackageStartupMessages(library(dplyr))

@@ -5,7 +5,7 @@ output:
     toc: false
 ---
 
-```{r setup-alex, include=FALSE}
+```{r setup-alex, echo=FALSE, purl = FALSE}
 library(knitr)
 library(stringr)
 knitr::opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=FALSE)
@@ -13,8 +13,6 @@ suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(stringr))
 source('reveal.R')
 ```
-
-\  
 
 Follow the links below for solutions to each of the exercises you have completed on this course. Click on the 'code' buttons to reveal the R code associated with each question. If you would prefer these solutions as R scripts for later offline use then you can [find these here](course_code.html).
 
