@@ -290,7 +290,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-**(Optional, for the geeks)** Alternative method, using a loop. Just keep this code in case you ever want to do something like this in the future.
+**(Optional, for the geeks)** Alternative method given in the solutions using a`for` loop. Just keep this code in case you ever want to do something like this in the future.
 
 ```{r Q9b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Okay, that was a long-winded way of doing this.
@@ -314,7 +314,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-**(Optional, for the lazy!)** And, if you want an even easier way, then we can use the `ggolot2` package. Note: you will need to install the `ggplot2` package first if you don't already have it. 
+**(Optional, for the lazy!)** And, if you want an even easier way, then we can use the `ggolot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
 
 ```{r Q9c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # install.packages('ggplot2', dep = TRUE)
