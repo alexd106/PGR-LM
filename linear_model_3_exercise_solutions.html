@@ -13,7 +13,7 @@
 
 <title>Exercises</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -31,8 +31,8 @@
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -54,8 +54,9 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -450,13 +451,7 @@ $(document).ready(function () {
         Resources
       </a>
     </li>
-    <li>
-      <a href="https://forms.gle/TNV73wnSQAZ71p7U9">
-        <span class="fa fa-commenting"></span>
-         
-        Feedback
-      </a>
-    </li>
+    <li class="dropdown-header">Feedback</li>
     <li>
       <a href="People.html">
         <span class="fa fa-envelope fa-lg"></span>
@@ -579,7 +574,7 @@ asking if the slopes of the relationship between <code>ABUND</code> and
 <code>LOGAREA</code> are different for each <code>FGRAZE</code> level -
 this is called an interaction.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">coplot</span>(ABUND <span class="sc">~</span> LOGAREA <span class="sc">|</span> FGRAZE, <span class="at">data =</span> loyn)</span></code></pre></div>
-<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q4-1.png" width="672" /></p>
+<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q4-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># or</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># library(lattice)</span></span>
@@ -619,7 +614,7 @@ these assumptions.</p>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># now create the residuals plots</span></span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">plot</span>(birds_inter1)</span></code></pre></div>
-<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q6-1.png" width="672" /></p>
+<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q6-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># To test the normality of residuals assumption we use the Normal Q-Q plot. </span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co"># The central residuals are not too far from the Q-Q line but the extremes</span></span>
@@ -873,7 +868,7 @@ some alternative (easier?) ways to do this in the solutions.</p>
 <span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a> <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>,</span>
 <span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a> <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
 <span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a> <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9a-1.png" width="672" /></p>
+<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9a-1.png" alt="" width="672" /></p>
 <p><strong>(Optional, for the geeks)</strong> Alternative method given
 in the solutions using a<code>for</code> loop. Just keep this code in
 case you ever want to do something like this in the future.</p>
@@ -896,7 +891,7 @@ case you ever want to do something like this in the future.</p>
 <span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a> <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">bty=</span> <span class="st">&quot;n&quot;</span>,</span>
 <span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a> <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
 <span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a> <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9b-1.png" width="672" /></p>
+<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9b-1.png" alt="" width="672" /></p>
 <p><strong>(Optional, for the lazy!)</strong> And, if you want an even
 easier way, then we can use the <code>ggolot2</code> package (code in
 the solutions). Note: you will need to install the <code>ggplot2</code>
@@ -907,7 +902,7 @@ package first if you don’t already have it.</p>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="fu">ggplot</span>(loyn, <span class="fu">aes</span>(<span class="at">x =</span> LOGAREA, <span class="at">y =</span> ABUND, <span class="at">colour =</span> FGRAZE) ) <span class="sc">+</span></span>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>     <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>     <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9c-1.png" width="672" />
+<p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9c-1.png" alt="" width="672" />
  </p>
 <p>End of the Linear model with continuous and categorical explanatory
 variables exercise</p>

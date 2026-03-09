@@ -1,9 +1,9 @@
 Version: 1.0
 ProjectId: 225a8b61-1d89-46be-83d7-461aa8fcdd03
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+RestoreWorkspace: No
+SaveWorkspace: No
+AlwaysSaveHistory: No
 
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
@@ -12,5 +12,7 @@ Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: XeLaTeX
+
+AutoAppendNewline: Yes
 
 BuildType: Website

@@ -13,7 +13,7 @@
 
 <title>Exercises</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -31,8 +31,8 @@
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -54,8 +54,9 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -450,13 +451,7 @@ $(document).ready(function () {
         Resources
       </a>
     </li>
-    <li>
-      <a href="https://forms.gle/TNV73wnSQAZ71p7U9">
-        <span class="fa fa-commenting"></span>
-         
-        Feedback
-      </a>
-    </li>
+    <li class="dropdown-header">Feedback</li>
     <li>
       <a href="People.html">
         <span class="fa fa-envelope fa-lg"></span>
@@ -563,7 +558,7 @@ plot? What might you expect to see in your analysis? Write your
 predictions in your R script as a comment. What is the mean number of
 birds for each level of <code>FGRAZE</code>?</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">boxplot</span>(ABUND <span class="sc">~</span> FGRAZE, <span class="at">xlab =</span> <span class="st">&quot;Grazing level&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Bird abundance&quot;</span>, <span class="at">data =</span> loyn)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q4-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q4-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># mean bird abundance for each level of FGRAZE</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">tapply</span>(loyn<span class="sc">$</span>ABUND, loyn<span class="sc">$</span>FGRAZE, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
@@ -782,7 +777,7 @@ these assumptions in your R script.</p>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># now create the residuals plots</span></span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="fu">plot</span>(birds_lm)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q10-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q10-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># To test the normality of residuals assumption we use the Normal Q-Q plot. Although the majority of the residuals </span></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co"># lie along the 1:1 line there are five residuals which are all below the line resulting in reasonably substantial </span></span>
@@ -808,7 +803,7 @@ these assumptions in your R script.</p>
 <span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a>birds_lm_sqrt <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND.SQRT <span class="sc">~</span> FGRAZE, <span class="at">data =</span> loyn)</span>
 <span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="fu">plot</span>(birds_lm_sqrt)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q10-2.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q10-2.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a></span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co"># Sadly this doesn&#39;t seemed to have improved things!</span></span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
@@ -835,14 +830,14 @@ solutions code if you’re thoroughly confused!</p>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="fu">plotmeans</span>(ABUND <span class="sc">~</span> FGRAZE, <span class="at">xlab =</span> <span class="st">&quot;grazing level&quot;</span>,</span>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;bird abundance&quot;</span>, <span class="at">data =</span> loyn, <span class="at">connect =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11a-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11a-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Using the effects package, you may need to install this package first</span></span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co"># install.packages(&#39;effects&#39;)</span></span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="fu">library</span>(effects)</span>
 <span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>loyn_effects <span class="ot">&lt;-</span> <span class="fu">allEffects</span>(birds_lm)</span>
 <span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">plot</span>(loyn_effects,<span class="st">&quot;FGRAZE&quot;</span>, <span class="at">lty =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11b-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11b-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># and finally using old faithful the predict function and base R graphics</span></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># with the segments function</span></span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
@@ -855,7 +850,7 @@ solutions code if you’re thoroughly confused!</p>
 <span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit)</span>
 <span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> pred_vals<span class="sc">$</span>se.fit)</span>
 <span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="fu">segments</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> pred_vals<span class="sc">$</span>se.fit)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11c-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11c-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># using old faithful the predict function and base R graphics </span></span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co"># with the arrows function </span></span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
@@ -870,7 +865,7 @@ solutions code if you’re thoroughly confused!</p>
 <span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> pred_vals<span class="sc">$</span>se.fit,</span>
 <span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>       <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">2</span>, <span class="at">length =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
 <span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, pred_vals<span class="sc">$</span>fit, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11d-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11d-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># or using the ggplot2 package</span></span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># make the functions in ggplot2 available</span></span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a></span>
@@ -883,7 +878,7 @@ solutions code if you’re thoroughly confused!</p>
 <span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">3</span>, <span class="at">position=</span><span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.15</span>)) <span class="sc">+</span></span>
 <span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_normal, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
 <span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>        <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">position=</span><span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.15</span>))</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11e-1.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11e-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># and as an added bonus, if you wanted to also plot the </span></span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co"># raw data along with the means for FGRAZE</span></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
@@ -893,7 +888,7 @@ solutions code if you’re thoroughly confused!</p>
 <span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">3</span>, <span class="at">position=</span><span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.15</span>)) <span class="sc">+</span></span>
 <span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_normal, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
 <span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>        <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">position=</span><span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.15</span>))</span></code></pre></div>
-<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11e-2.png" width="672" /></p>
+<p><img src="linear_model_2_exercise_solutions_files/figure-html/Q11e-2.png" alt="" width="672" /></p>
 <p> </p>
 <p>End of the linear model with single categorical explanatory variable
 exercise</p>

@@ -9,14 +9,14 @@ output:
 
 The course will start at 09:30 each morning and finish at 17:00. We will break for a one hour lunch break around 12:30. However, everyone learns R and statistics in their own way and at their own pace so this syllabus should be treated as indicative rather than absolute. There will also be plenty of opportunities to take short breaks during the course.
 
-The live sessions will be held on Blackboard Collaborate at the time indicated in the timetable below. The recorded video lectures will be hosted on MyAberdeen and you should watch them at the time indicated below.
+The live sessions will be held on MS Teams at the time indicated in the timetable below. The recorded video lectures will be hosted on MyAberdeen and you should watch them at the time indicated below.
 
 <!--All teaching will be held in room FN113 in the Fraser Noble building (building No. 7 on [this map](images/uoa_map.png){target="_blank"} on the old Aberdeen campus).
 -->
 
 \  
 
-#### Monday 7^th^ March 2025
+#### Monday 6^th^ March 2026
 
 \  
 
@@ -28,7 +28,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Tuesday 8^th^ March 2025
+#### Tuesday 7^th^ March 2026
 
 \  
 
@@ -40,7 +40,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Wednesday 9^th^ March 2025
+#### Wednesday 8^th^ March 2026
 
 \  
 
@@ -50,7 +50,7 @@ The live sessions will be held on Blackboard Collaborate at the time indicated i
 
 \  
 
-#### Thursday 10^th^ March 2025
+#### Thursday 9^th^ March 2026
 
 \  
 
