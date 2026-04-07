@@ -115,7 +115,7 @@ What is the biological interpretation of this interaction term? Can we say anyth
 ```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 anova(birds_inter1)
 
-# The null hypothesis is that there is no significant interaction between 
+# The null hypothesis is that there is no interaction between 
 # FGRAZE and LOGAREA. 
 # As the P value is smaller than our cutoff of 0.05 (p = 0.005) we reject the 
 # null hypothesis and conclude that there is a significant interaction. 
@@ -158,9 +158,9 @@ summary(birds_inter1)
 # The null hypothesis is that the slope of the relationship
 # between LOGAREA and ABUND = 0, for level FGRAZE = 1 only. 
 # So, for graze 1 the slope is 4.14. This means, that for a 1 unit increase in LOGAREA
-# we get a corresponding increase of 4.4 birds on average.
+# we get a corresponding increase of 4.14 birds on average.
 # As the P value (0.022) is < 0.05 we conclude that the slope is
-# significantly different than 0.
+# significantly different from 0.
 
 # FGRAZE2
 # Is the estimated difference (contrasts) between the *intercept* of FGRAZE level
@@ -168,7 +168,8 @@ summary(birds_inter1)
 # The null hypothesis associated with this estimate is that the difference
 # in the intercepts between graze level 1 and graze level 2 = 0.
 # As the P value (0.118) is > 0.05 we fail to reject this null hypothesis and
-# conclude that the intercepts for graze level 1 and graze level 2 are the same.
+# we cannot conclude that the intercepts for graze level 1 and graze level 2 
+# differ.
 
 # FGRAZE3, FGRAZE4, FGRAZE5
 # The parameter estimates have the same interpretation as for FGRAZE2 (above). 
@@ -193,10 +194,10 @@ summary(birds_inter1)
 
 # FGRAZE4:LOGAREA, # FGRAZE5:LOGAREA
 # These parameter estimates and null hypotheses are interpreted in the same way 
-# as for FGRAZE4:LOGAREA and FGRAZE5:LOGAREA
+# as for FGRAZE3:LOGAREA
 
 
-# The Multiple R-square value is 0.79, so 79% of the variation in the data is 
+# The Multiple R-square value is 0.79, 79% of the variation in bird abundance is 
 # explained by the model. This is quite a bit more than the models with only
 # LOGAREA and FGRAZE as single explanatory variables.
 ```
@@ -208,8 +209,8 @@ summary(birds_inter1)
 * plot the raw data, using a different colour for points from each `FGRAZE` level
 
 * for each `FGRAZE` level in turn:
-    + create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values, probably best not too!).
-    + store it in a data frame (i.e. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA.` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes (i.e. `FGRAZE = "1"`).
+    + create a sequence of `LOGAREA` from the minimum value to the maximum within the grazing level (unless you wish to predict outside the range of observed values, probably best not to!).
+    + store it in a data frame (i.e. `dat4pred`) containing the variables `FGRAZE` and `LOGAREA` Remember that `FGRAZE` is a factor, so its value need to be placed in quotes (i.e. `FGRAZE = "1"`).
     + Create a vector of predicted bird abundances using our new dataframe (`dat4pred`) using the `predict()` function.
     + Add the predicted values to the plot using the `lines()` function with the appropriate colour (same points colour for each `FGRAZE` level above).
   
@@ -314,7 +315,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-**(Optional, for the lazy!)** And, if you want an even easier way, then we can use the `ggolot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
+**(Optional, for the lazy!)** And, if you want an even easier way, then we can use the `ggplot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
 
 ```{r Q9c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # install.packages('ggplot2', dep = TRUE)
@@ -324,7 +325,6 @@ ggplot(loyn, aes(x = LOGAREA, y = ABUND, colour = FGRAZE) ) +
      geom_point() +
      geom_smooth(method = "lm", se = FALSE)
 ```
-
 \  
 
 End of the Linear model with continuous and categorical explanatory variables exercise
