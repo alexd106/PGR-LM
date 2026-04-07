@@ -606,7 +606,7 @@ report? Summarise in your R script as a comment.</p>
 <span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a></span>
 <span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co"># for a report you might write something like:</span></span>
 <span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co"># there was a significant difference in the mean abundance of birds between the five levels</span></span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co"># of grazing intensity (F_4,62 = 14.98, p &lt; 0.0001)</span></span></code></pre></div>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co"># of grazing intensity (F_4,62 = 14.99, p &lt; 0.0001)</span></span></code></pre></div>
 <p> </p>
 <p>7. Use the <code>summary()</code> function on the model object to
 produce the table of parameter estimates (remember these are called
@@ -658,7 +658,7 @@ as a comment in your R script.</p>
 <span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co"># The difference between graze level 3 (FGRAZE3) and graze level 1 (intercept) is </span></span>
 <span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co"># -8.45 (8.45 fewer birds in graze 3 compared to graze 1). This difference is significantly </span></span>
 <span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co"># different from 0 (p = 0.003) and therefore the mean abundance of birds in graze level 1 is</span></span>
-<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co"># significantly different from graze level 1.</span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co"># significantly different from graze level 3.</span></span>
 <span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a></span>
 <span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="co"># The difference between graze level 4 (FGRAZE4) and graze level 1 (intercept) is </span></span>
 <span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="co"># -9.66 (9.66 fewer birds in graze 4 compared to graze 1). This difference is significantly </span></span>
@@ -734,7 +734,7 @@ other?</p>
 <span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.4915, Adjusted R-squared:  0.4587 </span></span>
 <span id="cb8-55"><a href="#cb8-55" tabindex="-1"></a><span class="do">## F-statistic: 14.98 on 4 and 62 DF,  p-value: 1.272e-08</span></span>
 <span id="cb8-56"><a href="#cb8-56" tabindex="-1"></a></span>
-<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co"># The intercept is now FGRAZE level 3, we can now compare between levels &#39;3 and 4&#39;, &#39;and 3 and 5&#39;</span></span>
+<span id="cb8-57"><a href="#cb8-57" tabindex="-1"></a><span class="co"># The intercept is now FGRAZE level 3, we can now compare between levels &#39;3 and 4&#39;, and &#39;3 and 5&#39;</span></span>
 <span id="cb8-58"><a href="#cb8-58" tabindex="-1"></a></span>
 <span id="cb8-59"><a href="#cb8-59" tabindex="-1"></a>loyn<span class="sc">$</span>FGRAZE <span class="ot">&lt;-</span> <span class="fu">relevel</span>(loyn<span class="sc">$</span>FGRAZE, <span class="at">ref =</span> <span class="st">&quot;4&quot;</span>)</span>
 <span id="cb8-60"><a href="#cb8-60" tabindex="-1"></a>birds_lm4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> FGRAZE, <span class="at">data =</span> loyn)</span>
@@ -848,7 +848,7 @@ these assumptions in your R script.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co"># To test the normality of residuals assumption we use the Normal Q-Q plot. Although the majority of the residuals </span></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co"># lie along the 1:1 line there are five residuals which are all below the line resulting in reasonably substantial </span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># negative residuals. This suggest that the model does not fit these observation very well.</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># negative residuals. These suggest that the model does not fit these observation very well.</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co"># Looking at the homogeneity of variance assumption (Residuals vs Fitted and Scale-Location plot) you can see the </span></span>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co"># five columns of residuals corresponding to the fitted values for the five grazing levels. Again, things don&#39;t look </span></span>
@@ -861,7 +861,7 @@ these assumptions in your R script.</p>
 <span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co"># Residuals vs Leverage plot.  </span></span>
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a></span>
 <span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co"># So what to do? You could go back and check the original field notebook data to see if a</span></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co"># transcribing mistake has been made (seems unlikely and you dont have this luxury anyway). </span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co"># transcribing mistake has been made (seems unlikely and you don&#39;t have this luxury anyway). </span></span>
 <span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="co"># You could also try applying a transformation (log or square root) on the ABUND variable, refit the model and </span></span>
 <span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="co"># see if this improves things. </span></span>
 <span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="co"># for example </span></span>
@@ -886,8 +886,8 @@ fitted values and 95% confidence intervals. Try Googling the
 <code>predict()</code> function to calculate the fitted values and
 standard errors. Add the fitted values and 95% confidence intervals to a
 plot of bird abundance and graze level (to add your upper and lower
-confidence intervals will need to use either the <code>segments()</code>
-or <code>arrows()</code> function).</p>
+confidence intervals you will need to use either the
+<code>segments()</code> or <code>arrows()</code> function).</p>
 <p>Or we can even use the <code>ggplot2</code> package. Check out the
 solutions code if you’re thoroughly confused!</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Using the gplots package, you may need to install this package first</span></span>
@@ -986,7 +986,7 @@ summary statistics.</p>
 <span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a><span class="co"># Results</span></span>
 <span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a><span class="co"># Grazing intensity had a significant effect on bird abundance </span></span>
 <span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a><span class="co"># (Figure XX; F_4,62 = 14.99, p &lt; 0.001), with grazing level accounting </span></span>
-<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="co"># for 54.5% of the variation in abundance. Tukey&#39;s HSD post-hoc </span></span>
+<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="co"># for 45.9% of the variation in abundance. Tukey&#39;s HSD post-hoc </span></span>
 <span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a><span class="co"># comparisons revealed that bird abundance at grazing level 1 was significantly </span></span>
 <span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a><span class="co"># greater than at levels 2 (difference = 9.20, p = 0.029), 3 (difference = 8.46, </span></span>
 <span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a><span class="co"># p = 0.025), 4 (difference = 9.66, p = 0.013), and 5 (difference = 22.33, </span></span>
@@ -998,7 +998,7 @@ summary statistics.</p>
 <span id="cb21-35"><a href="#cb21-35" tabindex="-1"></a><span class="co"># or non p-value centric</span></span>
 <span id="cb21-36"><a href="#cb21-36" tabindex="-1"></a></span>
 <span id="cb21-37"><a href="#cb21-37" tabindex="-1"></a><span class="co"># Grazing intensity had a substantial effect on bird abundance </span></span>
-<span id="cb21-38"><a href="#cb21-38" tabindex="-1"></a><span class="co"># (Figure XX; F_4,62 = 14.99), accounting for 54.5% of the variation in </span></span>
+<span id="cb21-38"><a href="#cb21-38" tabindex="-1"></a><span class="co"># (Figure XX; F_4,62 = 14.99), accounting for 45.9% of the variation in </span></span>
 <span id="cb21-39"><a href="#cb21-39" tabindex="-1"></a><span class="co"># abundance across patches. Tukey&#39;s HSD post-hoc comparisons indicated that bird </span></span>
 <span id="cb21-40"><a href="#cb21-40" tabindex="-1"></a><span class="co"># abundance at grazing level 1 exceeded that at levels 2 (difference = 9.20, </span></span>
 <span id="cb21-41"><a href="#cb21-41" tabindex="-1"></a><span class="co"># 95% CI: 0.63, 17.78), 3 (difference = 8.46, 95% CI: 0.75, 16.17), </span></span>

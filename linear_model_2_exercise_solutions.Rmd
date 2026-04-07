@@ -82,7 +82,7 @@ anova(birds_lm)
 
 # for a report you might write something like:
 # there was a significant difference in the mean abundance of birds between the five levels
-# of grazing intensity (F_4,62 = 14.98, p < 0.0001)
+# of grazing intensity (F_4,62 = 14.99, p < 0.0001)
 ```
 
 \  
@@ -110,7 +110,7 @@ summary(birds_lm)
 # The difference between graze level 3 (FGRAZE3) and graze level 1 (intercept) is 
 # -8.45 (8.45 fewer birds in graze 3 compared to graze 1). This difference is significantly 
 # different from 0 (p = 0.003) and therefore the mean abundance of birds in graze level 1 is
-# significantly different from graze level 1.
+# significantly different from graze level 3.
 
 # The difference between graze level 4 (FGRAZE4) and graze level 1 (intercept) is 
 # -9.66 (9.66 fewer birds in graze 4 compared to graze 1). This difference is significantly 
@@ -144,7 +144,7 @@ loyn$FGRAZE <- relevel(loyn$FGRAZE, ref = "3")
 birds_lm3 <- lm(ABUND ~ FGRAZE, data = loyn)
 summary(birds_lm3)
 
-# The intercept is now FGRAZE level 3, we can now compare between levels '3 and 4', 'and 3 and 5'
+# The intercept is now FGRAZE level 3, we can now compare between levels '3 and 4', and '3 and 5'
 
 loyn$FGRAZE <- relevel(loyn$FGRAZE, ref = "4")
 birds_lm4 <- lm(ABUND ~ FGRAZE, data = loyn)
@@ -201,7 +201,7 @@ plot(birds_lm)
 
 # To test the normality of residuals assumption we use the Normal Q-Q plot. Although the majority of the residuals 
 # lie along the 1:1 line there are five residuals which are all below the line resulting in reasonably substantial 
-# negative residuals. This suggest that the model does not fit these observation very well.
+# negative residuals. These suggest that the model does not fit these observation very well.
 
 # Looking at the homogeneity of variance assumption (Residuals vs Fitted and Scale-Location plot) you can see the 
 # five columns of residuals corresponding to the fitted values for the five grazing levels. Again, things don't look 
@@ -214,7 +214,7 @@ plot(birds_lm)
 # Residuals vs Leverage plot.  
 
 # So what to do? You could go back and check the original field notebook data to see if a
-# transcribing mistake has been made (seems unlikely and you dont have this luxury anyway). 
+# transcribing mistake has been made (seems unlikely and you don't have this luxury anyway). 
 # You could also try applying a transformation (log or square root) on the ABUND variable, refit the model and 
 # see if this improves things. 
 # for example 
@@ -234,7 +234,7 @@ plot(birds_lm_sqrt)
 
 12\. This is an optional question and really just for information. I'll give you the code in the solutions so don't overly stress about this! Use Google (yep, this is OK!) to figure out how to plot your fitted values and 95% confidence intervals. Try Googling the `gplots` package or the `effects` package. 
 
-Alternatively, have a go at using our old trusty `predict()` function to calculate the fitted values and standard errors. Add the fitted values and 95% confidence intervals to a plot of bird abundance and graze level (to add your upper and lower confidence intervals will need to use either the `segments()` or `arrows()` function). 
+Alternatively, have a go at using our old trusty `predict()` function to calculate the fitted values and standard errors. Add the fitted values and 95% confidence intervals to a plot of bird abundance and graze level (to add your upper and lower confidence intervals you will need to use either the `segments()` or `arrows()` function). 
 
 Or we can even use the `ggplot2` package. Check out the solutions code if you're thoroughly confused!
 
@@ -347,7 +347,7 @@ ggplot(loyn, aes(x = FGRAZE, y = ABUND)) +
 # Results
 # Grazing intensity had a significant effect on bird abundance 
 # (Figure XX; F_4,62 = 14.99, p < 0.001), with grazing level accounting 
-# for 54.5% of the variation in abundance. Tukey's HSD post-hoc 
+# for 45.9% of the variation in abundance. Tukey's HSD post-hoc 
 # comparisons revealed that bird abundance at grazing level 1 was significantly 
 # greater than at levels 2 (difference = 9.20, p = 0.029), 3 (difference = 8.46, 
 # p = 0.025), 4 (difference = 9.66, p = 0.013), and 5 (difference = 22.33, 
@@ -359,7 +359,7 @@ ggplot(loyn, aes(x = FGRAZE, y = ABUND)) +
 # or non p-value centric
 
 # Grazing intensity had a substantial effect on bird abundance 
-# (Figure XX; F_4,62 = 14.99), accounting for 54.5% of the variation in 
+# (Figure XX; F_4,62 = 14.99), accounting for 45.9% of the variation in 
 # abundance across patches. Tukey's HSD post-hoc comparisons indicated that bird 
 # abundance at grazing level 1 exceeded that at levels 2 (difference = 9.20, 
 # 95% CI: 0.63, 17.78), 3 (difference = 8.46, 95% CI: 0.75, 16.17), 
