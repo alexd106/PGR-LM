@@ -492,7 +492,12 @@ fitted values calculated in Question 10 as a line on the plot (you will
 need to use the <code>lines()</code> function to do this but only after
 you have created the plot).</p>
 <p> </p>
-<p>12. OK, this is an optional question so feel free to skip if you’ve
+<p>12. Have a go at writing a short ‘Data analysis’ section for your
+paper/thesis Chapter Materials and Methods and also a ‘Results’ section.
+Keep this brief but remember to include all relevant information and
+summary statistics.</p>
+<p> </p>
+<p>13. OK, this is an optional question so feel free to skip if you’ve
 had enough! (you can find the R code for this question in the exercise
 solutions if you want to refer to it at a later date). Let’s recreate
 the plot you made in Question 11, but this time we’ll add the 95%
@@ -509,13 +514,17 @@ errors. Once you’ve got your head around this you can now use the
 <code>lines()</code> function three times to add the fitted values (as
 before) and also the upper and lower 95% confidence intervals. Don’t
 forget, if you want the 95% confidence intervals then you will need to
-multiply your standard error values by the critical value of 1.96. If
-you need a reminder then take a look at the video on confidence
-intervals on the course MyAberdeen site (in the ‘Introductory statistics
-lectures’ folder which you can find in the ‘Course Resources’ learning
-module).</p>
+multiply your standard error values by the critical value of 1.96.
+Actually, strictly speaking, for a linear model you should use the
+appropriate t critical value rather than 1.96, since 1.96 is the normal
+approximation. With 65 residual degrees of freedom the t critical value
+at <span class="math inline">\(\alpha\)</span> = 0.05 is approximately
+2.00, so in practice the difference is negligible here. If you need a
+reminder then take a look at the video on confidence intervals on the
+course MyAberdeen site (in the ‘Introductory statistics lectures’ folder
+which you can find in the ‘Course Resources’ learning module).</p>
 <p> </p>
-<p>13. And another optional question (honestly, it’s optional!). This
+<p>14. And another optional question (honestly, it’s optional!). This
 time plot the relationship between bird abundance (<code>ABUND</code>)
 and the original untransformed <code>AREA</code> variable. Now
 back-transform your fitted values (remember you got these with the
