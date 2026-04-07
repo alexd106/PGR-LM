@@ -155,44 +155,18 @@ summary(birds_lm4)
 
 \  
 
-9\. In Q8 you obtained all pairwise comparisons between grazing levels by repeatedly relevelling the model. As you will have noticed, this is a rather laborious approach! A more convenient alternative is to use Tukey's Honest Significant Difference (HSD) test, which performs all pairwise comparisons in a single step whilst also controlling the familywise error rate (i.e. the probability of making at least one Type I error across all comparisons). Use the `TukeyHSD()` function from the `mosaic` package (you will need to install this first) on your model object to perform these comparisons. Examine the output and check that the pairwise differences are consistent with what you found in Q8. You can also produce a plot of the confidence intervals for each pairwise comparison using the `plot()` function on the `TukeyHSD()` output.
-
-**A note of caution:** the `TukeyHSD()` function used here compares every possible pair of grazing levels. This is only appropriate if comparing every pair of levels was an integral part of your original research question, specified *before* you looked at your data. In practice, you should think carefully about which comparisons are actually meaningful given your study system and hypotheses. Performing all pairwise comparisons when only a subset are of genuine interest reduces statistical power and may be difficult to justify biologically. If only a specific subset of comparisons are relevant (for example, each grazing level compared against a single control level), a more targeted approach using planned contrasts would be more appropriate.
+9\. Staying with the summary table of parameter estimates, how much of the variation in bird abundance does the explanatory variable `FGRAZE` explain? 
 
 ```{r Q9, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
-# install.packages('mosaic')
-
-library(mosaic)
-
-TukeyHSD(birds_lm)
-
-par(mfrow = c(1,1))
-plot(TukeyHSD(birds_lm), las = 2)
-
-# The Tukey HSD output gives the difference in mean bird abundance between 
-# each pair of grazing levels, along with 95% family-wise confidence intervals
-# and adjusted p values. The results are consistent with those from Q8:
-# grazing level 1 differs significantly from all other levels, and grazing 
-# level 5 differs significantly from levels 2, 3, and 4. Grazing levels 2, 3, 
-# and 4 do not differ significantly from one another. Note how the confidence 
-# intervals in the plot that do not cross zero correspond to the significant 
-# pairwise differences.
-```
-
-\  
-
-10\. Going back to the summary table of parameter estimates, how much of the variation in bird abundance does the explanatory variable `FGRAZE` explain? 
-
-```{r Q10, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # The Adjusted R-squared value is 0.459 and therefore 45.9% of
 # the variation in ABUND is explained by FGRAZE
 ```
 
 \  
 
-11\. Now onto a really important part of the model fitting process. Let's check the assumptions of your linear model by creating plots of the residuals from the model. Remember, you can easily create these plots by using the `plot()` function on your model object. Also remember that if you want to see all plots at once then you should split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions using these plots and report whether your model meets these assumptions in your R script.
+10\. Now onto a really important part of the model fitting process. Let's check the assumptions of your linear model by creating plots of the residuals from the model. Remember, you can easily create these plots by using the `plot()` function on your model object. Also remember that if you want to see all plots at once then you should split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions using these plots and report whether your model meets these assumptions in your R script.
 
-```{r Q11, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
+```{r Q10, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # first split the plotting device into 2 rows and 2 columns
 par(mfrow = c(2,2))
 
@@ -232,13 +206,13 @@ plot(birds_lm_sqrt)
 
 \  
 
-12\. This is an optional question and really just for information. I'll give you the code in the solutions so don't overly stress about this! Use Google (yep, this is OK!) to figure out how to plot your fitted values and 95% confidence intervals. Try Googling the `gplots` package or the `effects` package. 
+11\. This is an optional question and really just for information. I'll give you the code in the solutions so don't overly stress about this! Use Google (yep, this is OK!) to figure out how to plot your fitted values and 95% confidence intervals. Try Googling the `gplots` package or the `effects` package. 
 
 Alternatively, have a go at using our old trusty `predict()` function to calculate the fitted values and standard errors. Add the fitted values and 95% confidence intervals to a plot of bird abundance and graze level (to add your upper and lower confidence intervals will need to use either the `segments()` or `arrows()` function). 
 
 Or we can even use the `ggplot2` package. Check out the solutions code if you're thoroughly confused!
 
-```{r Q12a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
+```{r Q11a, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the gplots package, you may need to install this package first
 # install.packages('gplots')
 
@@ -248,7 +222,7 @@ plotmeans(ABUND ~ FGRAZE, xlab = "grazing level",
   ylab = "bird abundance", data = loyn, connect = FALSE)
 ```
 
-```{r Q12b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
+```{r Q11b, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # Using the effects package, you may need to install this package first
 # install.packages('effects')
 
@@ -257,7 +231,7 @@ loyn_effects <- allEffects(birds_lm)
 plot(loyn_effects,"FGRAZE", lty = 0)
 ```
 
-```{r Q12c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
+```{r Q11c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # and finally using old faithful the predict function and base R graphics
 # with the segments function
 
@@ -272,7 +246,7 @@ segments(1:5, pred_vals$fit, 1:5, pred_vals$fit - 1.96 * pred_vals$se.fit)
 segments(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit)
 ```
 
-```{r Q12d, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
+```{r Q11d, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # using old faithful the predict function and base R graphics 
 # with the arrows function 
 
@@ -289,7 +263,7 @@ arrows(1:5, pred_vals$fit, 1:5, pred_vals$fit + 1.96 * pred_vals$se.fit,
 points(1:5, pred_vals$fit, pch = 16)
 ```
 
-```{r Q12e, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
+```{r Q11e, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # or using the ggplot2 package
 library(ggplot2) # make the functions in ggplot2 available
 
@@ -315,60 +289,6 @@ ggplot(loyn, aes(x = FGRAZE, y = ABUND)) +
         width = 0.1, position=position_nudge(x = 0.15))
 
 
-```
-
-\ 
-
-13\. Have a go at writing a short 'Data analysis' section for your paper/thesis Chapter Materials and Methods and also a 'Results' section. Keep this brief but remember to include all relevant information and summary statistics.
-
-```{r Q13, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
-# suggested text 
-
-# Note: in the text below the Tukey HSD post-hoc test used here performs all possible pairwise 
-# comparisons between grazing levels. This is only appropriate if comparing 
-# every pair of grazing levels was an integral part of your original research 
-# question. In practice, you should think carefully about which comparisons 
-# are actually meaningful given your study system and hypotheses and conducting 
-# all pairwise comparisons when only a subset are relevant will reduce 
-# statistical power and may be difficult to justify. If only a 
-# specific subset of comparisons are of interest (e.g. each grazing level 
-# compared against a control), a more targeted approach using planned contrasts 
-# would be more appropriate.
-
-# Data Analysis
-# The effect of grazing intensity on bird abundance was examined using a 
-# linear model with grazing treated as a categorical predictor with five levels. 
-# The overall significance of grazing level was assessed via an F test. 
-# Pairwise differences between grazing levels were subsequently explored 
-# using Tukey's HSD post-hoc test to control the familywise error rate. Model 
-# assumptions were assessed via standard residual diagnostics. All analyses 
-# were conducted in R (v4.x).
-
-# Results
-# Grazing intensity had a significant effect on bird abundance 
-# (Figure XX; F_4,62 = 14.99, p < 0.001), with grazing level accounting 
-# for 54.5% of the variation in abundance. Tukey's HSD post-hoc 
-# comparisons revealed that bird abundance at grazing level 1 was significantly 
-# greater than at levels 2 (difference = 9.20, p = 0.029), 3 (difference = 8.46, 
-# p = 0.025), 4 (difference = 9.66, p = 0.013), and 5 (difference = 22.33, 
-# p < 0.001). Grazing level 5 also supported significantly lower abundance 
-# than levels 2 (difference = 13.13, p < 0.001), 3 (difference = 13.87, 
-# p < 0.001), and 4 (difference = 12.67, p < 0.001). Grazing levels 2, 3, and 4 
-# did not differ significantly from one another (p > 0.05 in all cases).
-
-# or non p-value centric
-
-# Grazing intensity had a substantial effect on bird abundance 
-# (Figure XX; F_4,62 = 14.99), accounting for 54.5% of the variation in 
-# abundance across patches. Tukey's HSD post-hoc comparisons indicated that bird 
-# abundance at grazing level 1 exceeded that at levels 2 (difference = 9.20, 
-# 95% CI: 0.63, 17.78), 3 (difference = 8.46, 95% CI: 0.75, 16.17), 
-# 4 (difference = 9.66, 95% CI: 1.45, 17.87), and 5 (difference = 22.33, 
-# 95% CI: 14.12, 30.54). Grazing level 5 also supported lower abundance than 
-# levels 2 (difference = 13.13, 95% CI: 4.55, 21.70), 3 (difference = 13.87, 
-# 95% CI: 6.16, 21.58), and 4 (difference = 12.67, 95% CI: 4.46, 20.88). Grazing 
-# levels 2, 3, and 4 were broadly similar, with all pairwise confidence 
-# intervals spanning zero.
 ```
 
 \  

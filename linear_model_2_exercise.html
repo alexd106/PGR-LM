@@ -469,11 +469,37 @@ refit the model, produce the new table of parameter estimates using the
 summarise which levels of <code>FGRAZE</code> are different from each
 other?</p>
 <p> </p>
-<p>9. Staying with the summary table of parameter estimates, how much of
-the variation in bird abundance does the explanatory variable
+<p>9. In Q8 you obtained all pairwise comparisons between grazing levels
+by repeatedly relevelling the model. As you will have noticed, this is a
+rather laborious approach! A more convenient alternative is to use
+Tukey’s Honest Significant Difference (HSD) test, which performs all
+pairwise comparisons in a single step whilst also controlling the
+familywise error rate (i.e. the probability of making at least one Type
+I error across all comparisons). Use the <code>TukeyHSD()</code>
+function from the <code>mosaic</code> package (you will need to install
+this first) on your model object to perform these comparisons. Examine
+the output and check that the pairwise differences are consistent with
+what you found in Q8. You can also produce a plot of the confidence
+intervals for each pairwise comparison using the <code>plot()</code>
+function on the <code>TukeyHSD()</code> output.</p>
+<p><strong>A note of caution:</strong> the <code>TukeyHSD()</code>
+function used here compares every possible pair of grazing levels. This
+is only appropriate if comparing every pair of levels was an integral
+part of your original research question, specified <em>before</em> you
+looked at your data. In practice, you should think carefully about which
+comparisons are actually meaningful given your study system and
+hypotheses. Performing all pairwise comparisons when only a subset are
+of genuine interest reduces statistical power and may be difficult to
+justify biologically. If only a specific subset of comparisons are
+relevant (for example, each grazing level compared against a single
+control level), a more targeted approach using planned contrasts would
+be more appropriate.</p>
+<p> </p>
+<p>10. Going back to the summary table of parameter estimates, how much
+of the variation in bird abundance does the explanatory variable
 <code>FGRAZE</code> explain?</p>
 <p> </p>
-<p>10. Now onto a really important part of the model fitting process.
+<p>11. Now onto a really important part of the model fitting process.
 Let’s check the assumptions of your linear model by creating plots of
 the residuals from the model. Remember, you can easily create these
 plots by using the <code>plot()</code> function on your model object.
@@ -483,7 +509,7 @@ split your plotting device into 2 rows and 2 columns using the
 the assumptions using these plots and report whether your model meets
 these assumptions in your R script.</p>
 <p> </p>
-<p>11. This is an optional question and really just for information.
+<p>12. This is an optional question and really just for information.
 I’ll give you the code in the solutions so don’t overly stress about
 this! Use Google (yep, this is OK!) to figure out how to plot your
 fitted values and 95% confidence intervals. Try Googling the
@@ -496,6 +522,11 @@ confidence intervals will need to use either the <code>segments()</code>
 or <code>arrows()</code> function).</p>
 <p>Or we can even use the <code>ggplot2</code> package. Check out the
 solutions code if you’re thoroughly confused!</p>
+<p> </p>
+<p>13. Have a go at writing a short ‘Data analysis’ section for your
+paper/thesis Chapter Materials and Methods and also a ‘Results’ section.
+Keep this brief but remember to include all relevant information and
+summary statistics.</p>
 <p> </p>
 <p>End of the linear model with single categorical explanatory variable
 exercise</p>
