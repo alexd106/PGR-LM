@@ -554,7 +554,7 @@ relationship using the <code>lm()</code> function. Remember to use the
 appropriately named object (<code>loyn_lm</code> if you imagination
 fails you!).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># let&#39;s first log10 transform the AREA variable due to the couple </span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># of unusually large forest area values (check you data exploration)</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># of unusually large forest area values (check your data exploration)</span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># to remind yourself</span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>loyn<span class="sc">$</span>LOGAREA <span class="ot">&lt;-</span> <span class="fu">log10</span>(loyn<span class="sc">$</span>AREA)</span>
@@ -664,7 +664,7 @@ transformed <code>AREA</code> variable?</p>
 <span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.5882, Adjusted R-squared:  0.5819 </span></span>
 <span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="do">## F-statistic: 92.85 on 1 and 65 DF,  p-value: 3.81e-14</span></span>
 <span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co"># The multiple R-squared value is 0.588 and therefore 58.8% of</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co"># The Adjusted R-squared value is 0.582 and therefore 58.2% of</span></span>
 <span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co"># the variation in ABUND is explained by LOGAREA</span></span></code></pre></div>
 <p> </p>
 <p>8. Now onto a really important part of the model fitting process.
@@ -821,7 +821,7 @@ in a new object called <code>pred_vals_se</code>). When you use the
 <code>se.fit = TRUE</code> argument with the <code>predict()</code>
 function the returned object will have a slightly different structure
 compared to when you used it before. Use the <code>str()</code> function
-on the <code>pred.vals.se</code> to take a look at the structure. See if
+on the <code>pred_vals_se</code> to take a look at the structure. See if
 you can figure out how to access the fitted values and the standard
 errors. Once you’ve got your head around this you can now use the
 <code>lines()</code> function three times to add the fitted values (as
@@ -863,7 +863,7 @@ which you can find in the ‘Course Resources’ learning module).</p>
 <span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a>    </span>
 <span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a></span>
 <span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a><span class="co"># add the fitted values as before but now we need to use </span></span>
-<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co"># pred.vals.se$fit</span></span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a><span class="co"># pred_vals_se$fit</span></span>
 <span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="fu">lines</span>(my_data<span class="sc">$</span>LOGAREA, pred_vals_se<span class="sc">$</span>fit, <span class="at">lty =</span> <span class="dv">1</span>,<span class="at">col =</span> <span class="st">&quot;firebrick&quot;</span>)</span>
 <span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a></span>
 <span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a><span class="co"># add the upper 95% confidence interval</span></span>
@@ -890,10 +890,10 @@ back-transform your fitted values (remember you got these with the
 <code>predict()</code> function) to the original scale and add these to
 the plot as a line. Hint 1: you don’t need to reuse the
 <code>predict()</code> function, you just need to back-transform your
-<code>my.data$LOGAREA</code> values. Hint 2: remember if you used a
+<code>my_data$LOGAREA</code> values. Hint 2: remember if you used a
 log<sub>10</sub> transformation (<code>log10()</code>) then you can
-back-transform using <code>10^my.data$LOGAREA</code> and if you used a
-natural log transformation then use <code>exp(my.data$LOGAREA)</code> to
+back-transform using <code>10^my_data$LOGAREA</code> and if you used a
+natural log transformation then use <code>exp(my_data$LOGAREA)</code> to
 back-transform. Comment on the differences between the plot on the
 transformed (log) scale and the plot on the back-transformed scale in
 your R script.</p>
@@ -913,12 +913,28 @@ your R script.</p>
 <span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">10</span><span class="sc">^</span>(my_data<span class="sc">$</span>LOGAREA), pred_vals_se<span class="sc">$</span>fit <span class="sc">-</span> (<span class="fl">1.96</span> <span class="sc">*</span> pred_vals_se<span class="sc">$</span>se.fit), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;firebrick&quot;</span>)</span></code></pre></div>
 <p><img src="linear_model_1_exercise_solutions_files/figure-html/Q14-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co"># the model doesn&#39;t look too great now! Technically, if we transform variables in our model</span></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co"># then we should only really interpret the model on the scale of the transformation.</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co"># If we interpret on the back transformed scale, you can see the model doesn&#39;t really fit the </span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co"># data very well, especially for the two large forest patch AREAs and also those patches with</span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co"># high bird abundance.</span></span></code></pre></div>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co"># Since the model was fitted on the log10 scale, presenting the fitted values on </span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co"># the original scale produces a curve rather than a straight line, which is expected. </span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co"># In an applied setting this is often requested as stakeholders and managers will </span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co"># generally find predictions on the original scale more interpretable. However, </span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co"># there are a few important caveats. The model fits less well on the back-transformed </span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co"># scale, particularly for the two unusually large patches and for patches with high </span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co"># bird abundance. The back-transformed curve also passes through a region of the </span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co"># x-axis where there are no intermediate-sized patches, implying a fitted </span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co"># relationship in a part of the data space that is not actually supported by </span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co"># observations. Both of these are expected consequences of the highly skewed </span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co"># distribution of patch sizes and the decision to model on the log10 scale, but </span></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co"># they serve as a reminder that back-transformed plots should be interpreted with </span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co"># care and presented cautiously to audiences unfamiliar with the underlying </span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co"># modelling decisions. </span></span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a><span class="co"># Despite these caveats the model remains useful, particularly </span></span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a><span class="co"># for making predictions within the range of the observed data on the log10 scale. </span></span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a><span class="co"># For example, it could be used to predict bird abundance for a patch of a given </span></span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a><span class="co"># size, or to estimate the increase in abundance associated with an increase in </span></span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a><span class="co"># patch area, both of which are practically relevant questions in a conservation </span></span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a><span class="co"># or land management context. Extrapolation beyond the range of the observed data, </span></span>
+<span id="cb19-23"><a href="#cb19-23" tabindex="-1"></a><span class="co"># however, should be avoided.</span></span></code></pre></div>
 <p> </p>
 <p>End of the linear model with single continuous explanatory variable
 exercise</p>

@@ -38,7 +38,7 @@ str(loyn)
 
 ```{r Q3, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # let's first log10 transform the AREA variable due to the couple 
-# of unusually large forest area values (check you data exploration)
+# of unusually large forest area values (check your data exploration)
 # to remind yourself
 
 loyn$LOGAREA <- log10(loyn$AREA)
@@ -109,7 +109,7 @@ summary(loyn_lm)
 ```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 summary(loyn_lm)
 
-# The multiple R-squared value is 0.588 and therefore 58.8% of
+# The Adjusted R-squared value is 0.582 and therefore 58.2% of
 # the variation in ABUND is explained by LOGAREA
 ```
 
@@ -244,7 +244,7 @@ ggplot(mapping = aes(x = LOGAREA, y = ABUND), data = loyn) +
 
 \ 
 
-13\. OK, this is an optional question so feel free to skip if you've had enough! (you can find the R code for this question in the exercise solutions if you want to refer to it at a later date). Let's recreate the plot you made in Question 11, but this time we'll add the 95% confidence intervals in addition to the fitted values. Remember, you will need to use the `predict()` function again but this time include the`se.fit = TRUE` argument (store these new values in a new object called `pred_vals_se`). When you use the `se.fit = TRUE` argument with the `predict()` function the returned object will have a slightly different structure compared to when you used it before. Use the `str()` function on the `pred.vals.se` to take a look at the structure. See if you can figure out how to access the fitted values and the standard errors. Once you've got your head around this you can now use the `lines()` function three times to add the fitted values (as before) and also the upper and lower 95% confidence intervals. Don't forget, if you want the 95% confidence intervals then you will need to multiply your standard error values by the critical value of 1.96. Actually, strictly speaking, for a linear model you should use the appropriate t critical value rather than 1.96, since 1.96 is the normal approximation. With 65 residual degrees of freedom the t critical value at $\alpha$ = 0.05 is approximately 2.00, so in practice the difference is negligible here. If you need a reminder then take a look at the video on confidence intervals on the course MyAberdeen site (in the 'Introductory statistics lectures' folder which you can find in the 'Course Resources' learning module). 
+13\. OK, this is an optional question so feel free to skip if you've had enough! (you can find the R code for this question in the exercise solutions if you want to refer to it at a later date). Let's recreate the plot you made in Question 11, but this time we'll add the 95% confidence intervals in addition to the fitted values. Remember, you will need to use the `predict()` function again but this time include the`se.fit = TRUE` argument (store these new values in a new object called `pred_vals_se`). When you use the `se.fit = TRUE` argument with the `predict()` function the returned object will have a slightly different structure compared to when you used it before. Use the `str()` function on the `pred_vals_se` to take a look at the structure. See if you can figure out how to access the fitted values and the standard errors. Once you've got your head around this you can now use the `lines()` function three times to add the fitted values (as before) and also the upper and lower 95% confidence intervals. Don't forget, if you want the 95% confidence intervals then you will need to multiply your standard error values by the critical value of 1.96. Actually, strictly speaking, for a linear model you should use the appropriate t critical value rather than 1.96, since 1.96 is the normal approximation. With 65 residual degrees of freedom the t critical value at $\alpha$ = 0.05 is approximately 2.00, so in practice the difference is negligible here. If you need a reminder then take a look at the video on confidence intervals on the course MyAberdeen site (in the 'Introductory statistics lectures' folder which you can find in the 'Course Resources' learning module). 
 
 ```{r Q13, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 pred_vals_se <- predict(loyn_lm, newdata = my_data, se.fit = TRUE) # note the use of the se.fit argument
@@ -267,7 +267,7 @@ plot(x = loyn$LOGAREA, y = loyn$ABUND,
     
 
 # add the fitted values as before but now we need to use 
-# pred.vals.se$fit
+# pred_vals_se$fit
 lines(my_data$LOGAREA, pred_vals_se$fit, lty = 1,col = "firebrick")
 
 # add the upper 95% confidence interval
@@ -288,7 +288,7 @@ ggplot(mapping = aes(x = LOGAREA, y = ABUND), data = loyn) +
 
 \  
 
-14\. And another optional question (honestly, it's optional!). This time plot the relationship between bird abundance (`ABUND`) and the original untransformed `AREA` variable. Now back-transform your fitted values (remember you got these with the `predict()` function) to the original scale and add these to the plot as a line. Hint 1: you don't need to reuse the `predict()` function, you just need to back-transform your `my.data$LOGAREA` values. Hint 2: remember if you used a log~10~ transformation (`log10()`) then you can back-transform using `10^my.data$LOGAREA` and if you used a natural log transformation then use `exp(my.data$LOGAREA)` to back-transform. Comment on the differences between the plot on the transformed (log) scale and the plot on the back-transformed scale in your R script.
+14\. And another optional question (honestly, it's optional!). This time plot the relationship between bird abundance (`ABUND`) and the original untransformed `AREA` variable. Now back-transform your fitted values (remember you got these with the `predict()` function) to the original scale and add these to the plot as a line. Hint 1: you don't need to reuse the `predict()` function, you just need to back-transform your `my_data$LOGAREA` values. Hint 2: remember if you used a log~10~ transformation (`log10()`) then you can back-transform using `10^my_data$LOGAREA` and if you used a natural log transformation then use `exp(my_data$LOGAREA)` to back-transform. Comment on the differences between the plot on the transformed (log) scale and the plot on the back-transformed scale in your R script.
 
 ```{r Q14, eval=SOLUTIONS, echo=SOLUTIONS, collapse=TRUE}
 # back transformed LOGAREA and 95% confidence intervals
@@ -306,12 +306,28 @@ lines(10^(my_data$LOGAREA), pred_vals_se$fit, lty = 1,col = "firebrick")
 lines(10^(my_data$LOGAREA), pred_vals_se$fit + (1.96 * pred_vals_se$se.fit), lty = 2, col = "firebrick")
 lines(10^(my_data$LOGAREA), pred_vals_se$fit - (1.96 * pred_vals_se$se.fit), lty = 2, col = "firebrick")
 
-# the model doesn't look too great now! Technically, if we transform variables in our model
-# then we should only really interpret the model on the scale of the transformation.
+# Since the model was fitted on the log10 scale, presenting the fitted values on 
+# the original scale produces a curve rather than a straight line, which is expected. 
+# In an applied setting this is often requested as stakeholders and managers will 
+# generally find predictions on the original scale more interpretable. However, 
+# there are a few important caveats. The model fits less well on the back-transformed 
+# scale, particularly for the two unusually large patches and for patches with high 
+# bird abundance. The back-transformed curve also passes through a region of the 
+# x-axis where there are no intermediate-sized patches, implying a fitted 
+# relationship in a part of the data space that is not actually supported by 
+# observations. Both of these are expected consequences of the highly skewed 
+# distribution of patch sizes and the decision to model on the log10 scale, but 
+# they serve as a reminder that back-transformed plots should be interpreted with 
+# care and presented cautiously to audiences unfamiliar with the underlying 
+# modelling decisions. 
 
-# If we interpret on the back transformed scale, you can see the model doesn't really fit the 
-# data very well, especially for the two large forest patch AREAs and also those patches with
-# high bird abundance.
+# Despite these caveats the model remains useful, particularly 
+# for making predictions within the range of the observed data on the log10 scale. 
+# For example, it could be used to predict bird abundance for a patch of a given 
+# size, or to estimate the increase in abundance associated with an increase in 
+# patch area, both of which are practically relevant questions in a conservation 
+# or land management context. Extrapolation beyond the range of the observed data, 
+# however, should be avoided.
 ```
 
 \  
