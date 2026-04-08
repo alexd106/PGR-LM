@@ -1,0 +1,479 @@
+---
+title: 'Exercises'
+output:
+  html_document:
+    toc: false
+    code_folding: hide
+---
+
+
+```{r setup, echo=FALSE, purl = FALSE}
+knitr::opts_chunk$set(echo=TRUE, message = FALSE, warning = FALSE, eval = FALSE, cache = FALSE)
+SOLUTIONS <- TRUE
+```
+
+\
+
+## Linear models - Model selection
+
+\
+
+Model selection is one of the most debated topics in applied statistics. Before you start this exercise it is worth being clear about what kind of analysis you are attempting. There are broadly three situations where models are compared or simplified:
+
+- **Confirmatory testing**: you had a specific hypothesis before seeing the data (for example, "does grazing intensity affect bird abundance after accounting for patch area?"). In this case you fit the pre-specified model and test it once. Model selection is not needed.
+- **Exploratory variable selection**: you have several candidate predictors and want to identify which ones contribute meaningfully to explaining the response. This is the situation in the present exercise, and it is where backward elimination is commonly used.
+- **Predictive modelling**: you want the model that will generalise best to new data. This requires different methods (cross-validation, regularisation) that are beyond the scope of this course.
+
+In practice many analyses blend these situations, and this is where care is needed.
+
+\
+
+In the previous exercise you fitted a pre-specified model which included the main effects of patch area (`LOGAREA`), grazing intensity (`FGRAZE`) and their interaction (`FGRAZE:LOGAREA`). Here we revisit those data and ask whether a more complete model, incorporating the remaining explanatory variables, is warranted. We will build a maximal model including all main effects and the `LOGAREA:FGRAZE` interaction, and then simplify it systematically. We focus on only the `LOGAREA:FGRAZE` interaction because we have relatively limited data (67 observations) and fitting additional interaction terms would require estimating many parameters from few observations. This is a balance you will need to maintain with your own data.
+
+\
+
+It is also important to note that we will assume all the explanatory variables were collected because the researchers *believed* them to be biologically relevant for explaining bird abundance. What you should try to avoid is collecting large numbers of variables simply because you can, and then expecting your statistical models to make sense of it all for you. Your biological knowledge must be woven into this process at every step.
+
+\
+
+<div class="infobox caution">
+**What can go wrong with backward elimination**
+
+Backward elimination is a useful tool but it carries real risks. Bear these in mind throughout this exercise.
+
+- **Capitalising on chance**: at each step you are searching for the least significant term. Across many steps, some terms will appear significant or non-significant purely by chance. The p-values from the final selected model are not valid in the usual sense.
+- **The final model is not "the correct model"**: it is the most parsimonious description of *these* data given the candidate variables and the selection criterion used. A different starting model, or a different dataset from the same population, could yield a different final model.
+- **Correlation between predictors**: if two predictors are correlated, removing one may change the apparent significance of the other. Check for collinearity before you start.
+- **Biology must guide every step**: a term should not be retained purely because it is statistically significant, nor discarded purely because it is not. Ask at each step whether the decision makes biological sense.
+</div>
+
+\
+
+1\.  Import the `loyn.txt` data file into RStudio and assign it to a variable called `loyn`. Here we will be using all the explanatory variables to explain the variation in bird abundance. Do any variables need log-transforming or converting to a factor? Add the transformed variables to the `loyn` dataframe as you have done in previous exercises.
+
+```{r Q1, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+loyn <- read.table("data/loyn.txt", header = TRUE)
+str(loyn)
+
+loyn$LOGAREA <- log10(loyn$AREA)
+loyn$LOGDIST <- log10(loyn$DIST)
+loyn$LOGLDIST <- log10(loyn$LDIST)
+
+# create factor GRAZE as it was originally coded as an integer
+loyn$FGRAZE <- factor(loyn$GRAZE)
+```
+
+\
+
+2\. Create a pairs plot of your variables of interest using `pairs()` and add correlation coefficients to the lower triangle. Pay attention to pairs of explanatory variables with |r| > 0.7, as this indicates potential collinearity that may cause problems when both variables are included in the same model. Note any pairs that concern you.
+
+```{r Q2, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
+{
+    usr <- par("usr")
+    par(usr = c(0, 1, 0, 1))
+    r <- abs(cor(x, y))
+    txt <- format(c(r, 0.123456789), digits = digits)[1]
+    txt <- paste0(prefix, txt)
+    if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+    text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+
+VOI <- c("ABUND", "LOGAREA", "LOGDIST", "LOGLDIST", "YR.ISOL", "ALT", "FGRAZE")
+pairs(loyn[, VOI], lower.panel = panel.cor)
+
+# There are varying degrees of correlation between explanatory variables:
+# LOGAREA and FGRAZE (0.48), LOGDIST and LOGLDIST (0.59), YR.ISOL and FGRAZE (0.56).
+# None of these exceed 0.7, so collinearity is not immediately alarming. However,
+# the correlations between LOGDIST/LOGLDIST and between YR.ISOL/FGRAZE are worth
+# monitoring. We will examine these more formally using VIF values in the next question.
+#
+# Looking at the top row, ABUND shows the clearest relationships with LOGAREA
+# (positive) and FGRAZE (negative), with weaker signals from the other variables.
+```
+
+\
+
+3\. Pairwise correlations do not capture *multicollinearity*, where one predictor is a near-linear combination of two or more others. A more formal measure is the variance inflation factor (VIF). Fit a model with all main effects only (no interaction term yet) and use `car::vif()` to compute VIFs for each predictor. VIF values below 5 are generally considered acceptable; values above 10 indicate severe collinearity. What do you conclude?
+
+Note: we check VIFs on a main-effects model because `car::vif()` does not work sensibly when interaction terms are present.
+
+```{r Q3, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+library(car)
+
+M.vif <- lm(ABUND ~ LOGDIST + LOGLDIST + YR.ISOL + ALT + LOGAREA + FGRAZE,
+            data = loyn)
+vif(M.vif)
+
+# For factor variables with more than two levels, car::vif() returns a generalised
+# VIF (GVIF) adjusted for degrees of freedom: GVIF^(1/(2*Df)). This makes it
+# directly comparable to standard VIF values for continuous predictors.
+#
+# All VIF values should be well below 5, confirming that although some predictors
+# are moderately correlated, multicollinearity is not severe enough to prevent
+# meaningful interpretation. We can proceed with including all predictors in the
+# maximal model.
+```
+
+\
+
+4\. Before fitting the maximal model, take a moment to think about the biology. Based on what you know (or can reasonably infer) about bird communities in forest patches, which of the six explanatory variables would you expect to have the strongest relationship with bird abundance, and which might you expect to have little or no effect? Jot down a brief justification for each variable.
+
+The six variables are: `LOGAREA`, `FGRAZE`, `LOGDIST`, `LOGLDIST`, `YR.ISOL`, `ALT`.
+
+There are no right or wrong answers here. The point is to engage your biological knowledge *before* you look at any model output, so that the statistics inform your reasoning rather than replace it.
+
+```{r Q4, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# This question has no R code -- it is a thinking exercise.
+
+# Some possible reasoning:
+
+# LOGAREA: patch area is a fundamental predictor in island biogeography theory.
+# Larger patches support more viable populations and provide proportionally more
+# interior habitat. A strong positive relationship is expected. High priority.
+
+# FGRAZE: grazing directly reduces vegetation structure and food resources for
+# birds. A negative relationship with abundance is expected. High priority.
+
+# LOGDIST: distance to the nearest patch affects immigration rates and the ability
+# of populations to recover after local decline. A negative relationship is plausible.
+# Moderate priority.
+
+# LOGLDIST: distance to the nearest large patch -- similar reasoning to LOGDIST but
+# emphasising the role of large patches as colonisation sources. Moderate priority.
+# Note that LOGDIST and LOGLDIST are correlated (r = 0.59), so their independent
+# effects may be difficult to distinguish.
+
+# YR.ISOL: patches isolated more recently may still retain species that have not
+# yet been lost through local extinction (extinction debt). Uncertain effect --
+# the range of isolation years in this dataset may not be large enough to detect
+# a clear signal. Lower priority.
+
+# ALT: altitude influences vegetation type and microclimate. May affect species
+# composition more than overall abundance in this context. Lower priority.
+```
+
+\
+
+5\. Now fit the maximal model. Include all six explanatory variables as main effects and add the interaction `LOGAREA:FGRAZE`. Call this model `M1`.
+
+```{r Q5, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+M1 <- lm(ABUND ~ LOGDIST + LOGLDIST + YR.ISOL + ALT + LOGAREA + FGRAZE +
+           FGRAZE:LOGAREA, data = loyn)
+```
+
+\
+
+6\. Examine the model using `summary()`. You will find 14 parameter estimates and a corresponding set of p-values. Do not try to interpret each one individually at this stage. Instead, note the overall picture: how much of the variation in `ABUND` does this model explain (adjusted R-squared), and does there appear to be scope for simplification?
+
+```{r Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+summary(M1)
+
+# The model explains a large proportion of the variance in ABUND (adjusted R² ≈ 0.72).
+# Many individual parameter estimates are not significant, suggesting scope for
+# simplification.
+#
+# Note that summary() tests individual coefficients, not whole terms. For a
+# multi-level factor like FGRAZE (5 levels, 4 parameters), the individual
+# coefficient p-values do not tell us whether to retain the term as a whole.
+# We will use drop1() for that purpose.
+```
+
+\
+
+---
+
+### Section A: F-test backward elimination
+
+\
+
+We will now use `drop1(test = "F")` to test the contribution of each term. Recall from the previous exercise that unlike `anova()`, which uses sequential (Type I) sums of squares where the order of terms matters, `drop1()` tests each term as if it were entered last. This removes any dependence on the order of terms in the model formula and is the appropriate tool for models with multiple predictors.
+
+At each step we remove the term with the largest p-value (least significant), but only if we are comfortable with that decision on biological grounds as well as statistical ones.
+
+\
+
+7\. Run `drop1(M1, test = "F")`. Which term is the weakest candidate for the model? Before removing it, consider whether there is a biological reason to retain it regardless of its significance. Remove it and call the updated model `M2`.
+
+```{r Q7, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M1, test = "F")
+
+# LOGLDIST has the largest p-value (p ≈ 0.88) and is the weakest candidate.
+#
+# Biological consideration: LOGLDIST (log distance to the nearest large patch) is
+# plausibly related to abundance through colonisation dynamics, but its effect would
+# likely be captured by LOGDIST when both are in the model -- they are correlated
+# (r = 0.59). Given the weak evidence for an independent effect, removing LOGLDIST
+# is biologically reasonable.
+
+M2 <- update(M1, formula = . ~ . - LOGLDIST)
+```
+
+\
+
+8\. Run `drop1()` on `M2`. Identify the weakest term. Is removing it biologically reasonable? Update the model and call it `M3`.
+
+```{r Q8, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M2, test = "F")
+
+# YR.ISOL is now the weakest term (p ≈ 0.86).
+#
+# Biological consideration: the year of isolation is a plausible predictor in
+# theory, but the signal may be too weak to detect with 67 observations and
+# the range of isolation years in this dataset. Removing YR.ISOL is defensible,
+# though a researcher studying extinction debt specifically might choose to retain it.
+
+M3 <- update(M2, formula = . ~ . - YR.ISOL)
+```
+
+\
+
+9\. Run `drop1()` on `M3`. Identify the weakest term, consider whether removing it is biologically reasonable, and update the model.
+
+```{r Q9, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M3, test = "F")
+
+# LOGDIST is now the weakest term (p ≈ 0.71).
+#
+# Biological consideration: with LOGLDIST already removed, LOGDIST is the only
+# distance variable remaining and still shows little explanatory power in this model.
+# The effect of isolation by distance may already be partially captured by LOGAREA
+# (larger patches attract more immigrants independently of distance). Removing LOGDIST
+# is reasonable, although a researcher with strong prior belief in dispersal
+# limitation might prefer to retain it.
+
+M4 <- update(M3, formula = . ~ . - LOGDIST)
+```
+
+\
+
+10\. Run `drop1()` on `M4`. Identify the weakest remaining term, consider it biologically, and update the model.
+
+```{r Q10, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M4, test = "F")
+
+# ALT is not significant (p ≈ 0.33).
+#
+# Biological consideration: altitude may affect vegetation type and species
+# composition but has a less direct link to overall abundance in lowland forest
+# patches. The weak signal here supports removing it.
+
+M5 <- update(M4, formula = . ~ . - ALT)
+```
+
+\
+
+11\. Run `drop1()` on `M5`. What happens, and does the model selection process end here?
+
+```{r Q11, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M5, test = "F")
+
+# The LOGAREA:FGRAZE interaction is significant (p ≈ 0.005). We stop here.
+# The final model from F-test backward elimination is:
+# lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)
+# This is the same model we fitted in the previous exercise.
+```
+
+\
+
+12\. You will have noticed that `drop1()` does not show p-values for the main effects `LOGAREA` and `FGRAZE` in the final model. Why is this?
+
+```{r Q12, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# Because the interaction term LOGAREA:FGRAZE is present and significant, the main
+# effects cannot be meaningfully tested or removed in isolation: a model containing
+# LOGAREA:FGRAZE but not LOGAREA would be extremely difficult to interpret. R's
+# drop1() function recognises this and suppresses the tests for main effects that
+# appear in a significant interaction.
+
+# As a check: the p-value for the interaction from drop1() and from anova() on the
+# final model are identical, because R always places interaction terms after their
+# main effects in the ANOVA table.
+anova(M5)
+drop1(M5, test = "F")
+```
+
+\
+
+---
+
+### Section B: AIC-based selection
+
+\
+
+F-test backward elimination requires a significance threshold (typically p > 0.05 for removal). This threshold is arbitrary, and, as noted above, the p-values at each step are not strictly valid because the same data are used to decide which terms to test. An alternative is to use the Akaike Information Criterion (AIC), which does not rely on p-values. AIC rewards goodness of fit and penalises complexity (number of parameters), selecting the simpler model whenever removing a term does not substantially increase AIC.
+
+A widely used rule of thumb: if removing a term increases AIC by less than 2 units, the evidence for retaining it is weak and the simpler model is generally preferred.
+
+\
+
+13\. Starting again from `M1`, run `drop1(M1)` *without* the `test = "F"` argument to obtain AIC values for each possible term removal. The `<none>` row shows the AIC of the current model; all other rows show the AIC after removing the named term. Which term, if removed, gives the lowest AIC? Remove it and call the new model `M2.AIC`.
+
+```{r Q13, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M1)
+
+# The starting model AIC is shown on the <none> row (≈ 228.2). Removing the
+# interaction LOGAREA:FGRAZE increases AIC substantially (≈ 238.0), confirming
+# it should be retained.
+#
+# The models without LOGLDIST, LOGDIST, and YR.ISOL all have similar AIC values
+# (around 226), so in practice we could remove any of them. We remove LOGLDIST
+# as it has the lowest AIC after removal (≈ 226.2), consistent with Section A.
+
+M2.AIC <- update(M1, formula = . ~ . - LOGLDIST)
+```
+
+\
+
+14\. Continue the AIC-based selection. Run `drop1()` on `M2.AIC`, remove the term that yields the lowest AIC, and repeat until no further removal reduces the AIC. Show each step clearly.
+
+```{r Q14, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+drop1(M2.AIC)
+# YR.ISOL gives the lowest AIC after removal (≈ 224.3). Remove it.
+
+M3.AIC <- update(M2.AIC, formula = . ~ . - YR.ISOL)
+
+drop1(M3.AIC)
+# LOGDIST gives the lowest AIC after removal (≈ 222.4). Remove it.
+
+M4.AIC <- update(M3.AIC, formula = . ~ . - LOGDIST)
+
+drop1(M4.AIC)
+# ALT: removing it gives an AIC of ≈ 221.6 versus the current model AIC of ≈ 222.4.
+# The difference is less than 1 unit; by our rule of thumb (delta AIC < 2) the
+# simpler model is preferred.
+
+M5.AIC <- update(M4.AIC, formula = . ~ . - ALT)
+
+drop1(M5.AIC)
+# Removing LOGAREA:FGRAZE would increase AIC by ≈ 9 units (≈ 230.5 vs ≈ 221.6).
+# This is strong evidence that the interaction should remain in the model.
+# Selection ends here with the same final model as Section A.
+```
+
+\
+
+15\. Both approaches have produced the same final model: `lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)`. This will not always be the case. What are the key differences between F-test backward elimination and AIC-based selection, and when might you prefer one over the other?
+
+```{r Q15, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# No R code needed -- this is a reflection question.
+
+# Key differences:
+#
+# F-test elimination relies on a p-value threshold (typically p > 0.05 to remove).
+# This threshold is arbitrary. The p-values at each step are also not strictly valid
+# because the data have already been used to determine what to test ("double dipping").
+# However, F-test results are familiar to reviewers across many fields and are
+# straightforward to report.
+#
+# AIC-based selection does not rely on p-values. It selects the model that best
+# balances fit against complexity without requiring an arbitrary cutoff. It is the
+# dominant approach in ecology and related fields (Burnham & Anderson 2002) and is
+# generally preferred when the goal is a parsimonious description of the data
+# rather than testing a specific hypothesis.
+#
+# AIC-based selection tends to retain slightly more terms than F-test elimination
+# because the AIC penalty for complexity is less stringent than p < 0.05.
+#
+# When the two approaches agree (as here), that is reassuring. When they disagree,
+# it is worth thinking carefully about which criterion is more appropriate for your
+# scientific question.
+```
+
+\
+
+---
+
+### Validation and reporting
+
+\
+
+16\. Now that you have your final model, carry out model validation using `plot()` and extract the coefficient estimates and 95% confidence intervals using `summary()` and `confint()`. You have already done this for this model in the previous exercise, so this should be quick. What is the biological interpretation of the interaction?
+
+```{r Q16, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+par(mfrow = c(2, 2))
+plot(M5)
+par(mfrow = c(1, 1))
+
+summary(M5)
+confint(M5)
+
+# Validation: the residual plots show no systematic patterns. Two observations
+# (the very large forest patches) are poorly fitted but there is no strong
+# violation of model assumptions.
+
+# The significant LOGAREA:FGRAZE interaction means the relationship between patch
+# area and bird abundance differs across grazing levels. In lightly grazed patches
+# (FGRAZE 1), abundance increases steeply with log patch area. In heavily grazed
+# patches (FGRAZE 5), the relationship is much flatter. This suggests that heavy
+# grazing largely erases the positive effect of patch size for bird communities.
+
+# The confidence intervals on the interaction coefficients are wide, reflecting
+# limited data relative to model complexity. These should be reported alongside
+# the point estimates.
+```
+
+\
+
+17\. Construct a summary table of the models compared during the AIC-based selection, showing AIC and ΔAIC (difference from the best model) for each. Fit each model explicitly using `lm()` and compute AIC values using the `AIC()` function.
+
+Note: AIC values from `AIC()` differ slightly from those returned by `drop1()` due to a small difference in how the constant term is calculated. This is not a problem, but do not mix values from the two functions in the same table.
+
+```{r Q17, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# Fit each model in the selection sequence explicitly
+M.tab1 <- lm(ABUND ~ LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE,
+             data = loyn)
+M.tab2 <- lm(ABUND ~ LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE,
+             data = loyn)
+M.tab3 <- lm(ABUND ~ ALT + LOGDIST + LOGAREA + FGRAZE + LOGAREA:FGRAZE,
+             data = loyn)
+M.tab4 <- lm(ABUND ~ ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE,
+             data = loyn)
+M.tab5 <- lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE,
+             data = loyn)
+
+# Collect AIC values
+aic.vals <- c(AIC(M.tab1), AIC(M.tab2), AIC(M.tab3), AIC(M.tab4), AIC(M.tab5))
+
+model.labels <- c(
+  "LOGLDIST + LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
+  "LOGDIST + YR.ISOL + ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
+  "ALT + LOGDIST + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
+  "ALT + LOGAREA + FGRAZE + LOGAREA:FGRAZE",
+  "LOGAREA + FGRAZE + LOGAREA:FGRAZE"
+)
+
+summary.table <- data.frame(Model = model.labels, AIC = round(aic.vals, 2))
+summary.table <- summary.table[order(summary.table$AIC), ]
+summary.table$deltaAIC <- round(summary.table$AIC - summary.table$AIC[1], 2)
+
+summary.table
+```
+
+\
+
+18\. Write a short paragraph (four to six sentences) suitable for the Methods section of a paper, describing how you arrived at the final model. Your paragraph should include: the starting model and the justification for its structure; which selection approach was used; the criterion for removing terms; the final model; and at least one honest caveat about what the results do and do not show.
+
+```{r Q18, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+# No R code needed. An example Methods paragraph:
+
+# "Bird abundance was modelled using a linear model with six explanatory variables
+# as main effects (log10-transformed patch area, log10-transformed distance to
+# nearest patch, log10-transformed distance to nearest large patch, year of
+# isolation, altitude, and grazing intensity as a five-level factor), plus an
+# a priori interaction between patch area and grazing intensity, motivated by
+# the prediction that the effect of patch size would depend on grazing pressure.
+# Collinearity was assessed using variance inflation factors prior to model
+# fitting; all values were below 5. Model simplification was performed by backward
+# elimination using drop1() with F tests, removing the least significant term at
+# each step (removal criterion: p > 0.05). The same procedure was repeated using
+# AIC as the selection criterion; both approaches yielded the same final model
+# (ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE). Model assumptions were assessed
+# using standard residual diagnostic plots. The p-values reported for the final
+# model reflect the outcome of a selection process applied to the same data, and
+# should be interpreted as indicative rather than as the result of pre-specified
+# hypothesis tests."
+```
+
+\
+
+End of the model selection exercise
