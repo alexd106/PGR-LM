@@ -631,12 +631,14 @@ these assumptions.</p>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co"># extreme residuals happen for intermediate fitted values.</span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co"># Looking at the homogeneity of variance assumption (Residuals vs</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co"># Fitted and Scale-Location plot),</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co"># the graphs are mostly messy, with no clear pattern emerging.</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co"># The observations with the highest leverage don&#39;t appear to be overly</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co"># influential, according to the Cook&#39;s distances in the Residuals vs</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co"># Leverage plot (all &lt; 0.5).  </span></span></code></pre></div>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co"># Fitted and Scale-Location plot), the residuals vs fitted plot shows</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co"># no strong systematic pattern with respect to the fitted values. However,</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co"># for models with multiple explanatory variables it is also worth plotting</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co"># the residuals against each explanatory variable separately - see below.</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co"># The observations with the highest leverage don&#39;t appear to be overly</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co"># influential, according to the Cook&#39;s distances in the Residuals vs</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co"># Leverage plot (all &lt; 0.5).  </span></span></code></pre></div>
 <p> </p>
 <p>For these slightly more complicated models with more than one
 explanatory variable it’s also a good idea to plot the residuals from
@@ -701,8 +703,8 @@ we say anything about the hypotheses for the main effects of
 <span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a></span>
 <span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co"># The null hypothesis is that there is no interaction between </span></span>
 <span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co"># FGRAZE and LOGAREA. </span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co"># As the P value is smaller than our cutoff of 0.05 (p = 0.005) we reject the </span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co"># null hypothesis and conclude that there is a significant interaction. </span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co"># As the P value is smaller than our cutoff of 0.05 (p = 0.006) we reject the</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co"># null hypothesis and conclude that there is a significant interaction.</span></span>
 <span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a></span>
 <span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co"># This means that there is a significant relationship between bird abundance </span></span>
 <span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co"># and log area, and that this relationship is different for different levels of </span></span>
@@ -769,7 +771,7 @@ you’re confused :).</p>
 <span id="cb11-39"><a href="#cb11-39" tabindex="-1"></a><span class="co"># between LOGAREA and ABUND = 0, for level FGRAZE = 1 only. </span></span>
 <span id="cb11-40"><a href="#cb11-40" tabindex="-1"></a><span class="co"># So, for graze 1 the slope is 4.14. This means, that for a 1 unit increase in LOGAREA</span></span>
 <span id="cb11-41"><a href="#cb11-41" tabindex="-1"></a><span class="co"># we get a corresponding increase of 4.14 birds on average.</span></span>
-<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a><span class="co"># As the P value (0.022) is &lt; 0.05 we conclude that the slope is</span></span>
+<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a><span class="co"># As the P value (0.023) is &lt; 0.05 we conclude that the slope is</span></span>
 <span id="cb11-43"><a href="#cb11-43" tabindex="-1"></a><span class="co"># significantly different from 0.</span></span>
 <span id="cb11-44"><a href="#cb11-44" tabindex="-1"></a></span>
 <span id="cb11-45"><a href="#cb11-45" tabindex="-1"></a><span class="co"># FGRAZE2</span></span>
@@ -782,34 +784,48 @@ you’re confused :).</p>
 <span id="cb11-52"><a href="#cb11-52" tabindex="-1"></a><span class="co"># differ.</span></span>
 <span id="cb11-53"><a href="#cb11-53" tabindex="-1"></a></span>
 <span id="cb11-54"><a href="#cb11-54" tabindex="-1"></a><span class="co"># FGRAZE3, FGRAZE4, FGRAZE5</span></span>
-<span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a><span class="co"># The parameter estimates have the same interpretation as for FGRAZE2 (above). </span></span>
-<span id="cb11-56"><a href="#cb11-56" tabindex="-1"></a><span class="co"># They are all estimates of the difference between FGRAZE at the appropriate level </span></span>
-<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a><span class="co"># and FGRAZE 1 (Intercept).</span></span>
-<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a></span>
-<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="co"># FGRAZE2:LOGAREA</span></span>
-<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="co"># This represents the difference in the slope of the relationship between ABUND </span></span>
-<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a><span class="co"># and LOGAREA between graze level 2 and graze level 1.</span></span>
-<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a><span class="co"># The null hypothesis is that the difference in slopes between graze level 1 </span></span>
-<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="co"># and 2 = 0 (i.e. no difference).</span></span>
-<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="co"># As the P value (0.082) &gt; 0.05 we conclude that the slopes are not different </span></span>
-<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="co"># (i.e. they are the same).</span></span>
-<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a></span>
-<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="co"># FGRAZE3:LOGAREA</span></span>
-<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="co"># This represents the difference in the slope of the relationship between ABUND </span></span>
-<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="co"># and LOGAREA between graze level 3 and graze level 1.</span></span>
-<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="co"># The null hypothesis is that the difference in slopes between graze level 1 </span></span>
-<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="co"># and 3 = 0 (i.e. no difference).</span></span>
-<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="co"># As the P value (0.004) &lt; 0.05 we conclude that the slopes are different (and</span></span>
-<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="co"># therefore the relationship is different).</span></span>
-<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a></span>
-<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co"># FGRAZE4:LOGAREA, # FGRAZE5:LOGAREA</span></span>
-<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="co"># These parameter estimates and null hypotheses are interpreted in the same way </span></span>
-<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="co"># as for FGRAZE3:LOGAREA</span></span>
-<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a></span>
+<span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a><span class="co"># The parameter estimates have the same interpretation as for FGRAZE2 (above).</span></span>
+<span id="cb11-56"><a href="#cb11-56" tabindex="-1"></a><span class="co"># They are all estimates of the difference between the intercept at the</span></span>
+<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a><span class="co"># appropriate FGRAZE level and the intercept at FGRAZE level 1.</span></span>
+<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a><span class="co"># Unlike FGRAZE2, all three are statistically significant (FGRAZE3: p = 0.005,</span></span>
+<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="co"># FGRAZE4: p = 0.001, FGRAZE5: p &lt; 0.001), so we reject the null hypothesis in</span></span>
+<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="co"># each case and conclude that the intercepts for graze levels 3, 4, and 5 each</span></span>
+<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a><span class="co"># differ from the intercept for graze level 1.</span></span>
+<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a></span>
+<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="co"># FGRAZE2:LOGAREA</span></span>
+<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="co"># This represents the difference in the slope of the relationship between ABUND </span></span>
+<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="co"># and LOGAREA between graze level 2 and graze level 1.</span></span>
+<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="co"># The null hypothesis is that the difference in slopes between graze level 1 </span></span>
+<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="co"># and 2 = 0 (i.e. no difference).</span></span>
+<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="co"># As the P value (0.082) &gt; 0.05 we conclude that the slopes are not different </span></span>
+<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="co"># (i.e. they are the same).</span></span>
+<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a></span>
+<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="co"># FGRAZE3:LOGAREA</span></span>
+<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="co"># This represents the difference in the slope of the relationship between ABUND</span></span>
+<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="co"># and LOGAREA between graze level 3 and graze level 1.</span></span>
+<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="co"># The null hypothesis is that the difference in slopes between graze level 1</span></span>
+<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co"># and 3 = 0 (i.e. no difference).</span></span>
+<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="co"># As the P value (0.005) &lt; 0.05 we conclude that the slopes are different (and</span></span>
+<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="co"># therefore the relationship between ABUND and LOGAREA differs between graze</span></span>
+<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="co"># levels 1 and 3).</span></span>
 <span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a></span>
-<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="co"># The Multiple R-square value is 0.79, 79% of the variation in bird abundance is </span></span>
-<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="co"># explained by the model. This is quite a bit more than the models with only</span></span>
-<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="co"># LOGAREA and FGRAZE as single explanatory variables.</span></span></code></pre></div>
+<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="co"># FGRAZE4:LOGAREA</span></span>
+<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="co"># This is interpreted in the same way as FGRAZE3:LOGAREA.</span></span>
+<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="co"># As the P value (0.002) &lt; 0.05 we conclude that the slope for graze level 4</span></span>
+<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="co"># is significantly different from that of graze level 1.</span></span>
+<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a></span>
+<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="co"># FGRAZE5:LOGAREA</span></span>
+<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="co"># This is also interpreted in the same way as FGRAZE3:LOGAREA.</span></span>
+<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="co"># However, the P value (0.528) is &gt; 0.05, so we fail to reject the null</span></span>
+<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="co"># hypothesis. We cannot conclude that the slope for graze level 5 differs</span></span>
+<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="co"># from that of graze level 1.</span></span>
+<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a></span>
+<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a></span>
+<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="co"># The Multiple R-square value is 0.80, meaning that 80% of the variation in</span></span>
+<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a><span class="co"># bird abundance is explained by the model. This is considerably more than the</span></span>
+<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a><span class="co"># models with only a single explanatory variable (LOGAREA only: R2 = 0.59,</span></span>
+<span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a><span class="co"># FGRAZE only: R2 = 0.49), suggesting that including both variables and their</span></span>
+<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a><span class="co"># interaction improves the fit substantially.</span></span></code></pre></div>
 <p> </p>
 <p>9. Right, now hang onto your hat! Let’s plot the predictions from
 your model to figure out how it really fits the data (and help us
@@ -936,10 +952,10 @@ case you ever want to do something like this in the future.</p>
 <span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a> <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
 <span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a> <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="linear_model_3_exercise_solutions_files/figure-html/Q9b-1.png" alt="" width="672" /></p>
-<p><strong>(Optional, for the lazy!)</strong> And, if you want an even
-easier way, then we can use the <code>ggplot2</code> package (code in
-the solutions). Note: you will need to install the <code>ggplot2</code>
-package first if you don’t already have it.</p>
+<p><strong>(Optional, for the lazy - like me!)</strong> And, if you want
+an even easier way, then we can use the <code>ggplot2</code> package
+(code in the solutions). Note: you will need to install the
+<code>ggplot2</code> package first if you don’t already have it.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># install.packages(&#39;ggplot2&#39;, dep = TRUE)</span></span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>

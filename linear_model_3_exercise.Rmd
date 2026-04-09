@@ -96,8 +96,10 @@ plot(birds_inter1)
 # extreme residuals happen for intermediate fitted values.
 
 # Looking at the homogeneity of variance assumption (Residuals vs
-# Fitted and Scale-Location plot),
-# the graphs are mostly messy, with no clear pattern emerging.
+# Fitted and Scale-Location plot), the residuals vs fitted plot shows
+# no strong systematic pattern with respect to the fitted values. However,
+# for models with multiple explanatory variables it is also worth plotting
+# the residuals against each explanatory variable separately - see below.
 
 # The observations with the highest leverage don't appear to be overly
 # influential, according to the Cook's distances in the Residuals vs
@@ -139,7 +141,7 @@ abline(h = 0, col = 'red', lty = 2)
 # function in the nlme package.  
 ```
 
-\ 
+\  
 
 7\. Use the `anova()` function to produce the ANOVA table of your linear model. Remember, this ANOVA table is based on sequential sums of squares (the order of the explanatory variables matters). The only P value that we should interpret is the one that occurs in the second to last row of the table (the one above 'Residuals'). This is the interaction term between `FGRAZE` and `LOGAREA` (`FGRAZE:LOGAREA`). What is the null hypothesis associated with this interaction term? 
 
@@ -152,8 +154,8 @@ anova(birds_inter1)
 
 # The null hypothesis is that there is no interaction between 
 # FGRAZE and LOGAREA. 
-# As the P value is smaller than our cutoff of 0.05 (p = 0.005) we reject the 
-# null hypothesis and conclude that there is a significant interaction. 
+# As the P value is smaller than our cutoff of 0.05 (p = 0.006) we reject the
+# null hypothesis and conclude that there is a significant interaction.
 
 # This means that there is a significant relationship between bird abundance 
 # and log area, and that this relationship is different for different levels of 
@@ -194,7 +196,7 @@ summary(birds_inter1)
 # between LOGAREA and ABUND = 0, for level FGRAZE = 1 only. 
 # So, for graze 1 the slope is 4.14. This means, that for a 1 unit increase in LOGAREA
 # we get a corresponding increase of 4.14 birds on average.
-# As the P value (0.022) is < 0.05 we conclude that the slope is
+# As the P value (0.023) is < 0.05 we conclude that the slope is
 # significantly different from 0.
 
 # FGRAZE2
@@ -207,9 +209,13 @@ summary(birds_inter1)
 # differ.
 
 # FGRAZE3, FGRAZE4, FGRAZE5
-# The parameter estimates have the same interpretation as for FGRAZE2 (above). 
-# They are all estimates of the difference between FGRAZE at the appropriate level 
-# and FGRAZE 1 (Intercept).
+# The parameter estimates have the same interpretation as for FGRAZE2 (above).
+# They are all estimates of the difference between the intercept at the
+# appropriate FGRAZE level and the intercept at FGRAZE level 1.
+# Unlike FGRAZE2, all three are statistically significant (FGRAZE3: p = 0.005,
+# FGRAZE4: p = 0.001, FGRAZE5: p < 0.001), so we reject the null hypothesis in
+# each case and conclude that the intercepts for graze levels 3, 4, and 5 each
+# differ from the intercept for graze level 1.
 
 # FGRAZE2:LOGAREA
 # This represents the difference in the slope of the relationship between ABUND 
@@ -220,21 +226,31 @@ summary(birds_inter1)
 # (i.e. they are the same).
 
 # FGRAZE3:LOGAREA
-# This represents the difference in the slope of the relationship between ABUND 
+# This represents the difference in the slope of the relationship between ABUND
 # and LOGAREA between graze level 3 and graze level 1.
-# The null hypothesis is that the difference in slopes between graze level 1 
+# The null hypothesis is that the difference in slopes between graze level 1
 # and 3 = 0 (i.e. no difference).
-# As the P value (0.004) < 0.05 we conclude that the slopes are different (and
-# therefore the relationship is different).
+# As the P value (0.005) < 0.05 we conclude that the slopes are different (and
+# therefore the relationship between ABUND and LOGAREA differs between graze
+# levels 1 and 3).
 
-# FGRAZE4:LOGAREA, # FGRAZE5:LOGAREA
-# These parameter estimates and null hypotheses are interpreted in the same way 
-# as for FGRAZE3:LOGAREA
+# FGRAZE4:LOGAREA
+# This is interpreted in the same way as FGRAZE3:LOGAREA.
+# As the P value (0.002) < 0.05 we conclude that the slope for graze level 4
+# is significantly different from that of graze level 1.
+
+# FGRAZE5:LOGAREA
+# This is also interpreted in the same way as FGRAZE3:LOGAREA.
+# However, the P value (0.528) is > 0.05, so we fail to reject the null
+# hypothesis. We cannot conclude that the slope for graze level 5 differs
+# from that of graze level 1.
 
 
-# The Multiple R-square value is 0.79, 79% of the variation in bird abundance is 
-# explained by the model. This is quite a bit more than the models with only
-# LOGAREA and FGRAZE as single explanatory variables.
+# The Multiple R-square value is 0.80, meaning that 80% of the variation in
+# bird abundance is explained by the model. This is considerably more than the
+# models with only a single explanatory variable (LOGAREA only: R2 = 0.59,
+# FGRAZE only: R2 = 0.49), suggesting that including both variables and their
+# interaction improves the fit substantially.
 ```
 
 \  
@@ -350,7 +366,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-**(Optional, for the lazy!)** And, if you want an even easier way, then we can use the `ggplot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
+**(Optional, for the lazy - like me!)** And, if you want an even easier way, then we can use the `ggplot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
 
 ```{r Q9c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # install.packages('ggplot2', dep = TRUE)

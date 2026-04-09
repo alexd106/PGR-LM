@@ -248,8 +248,8 @@ summary(birds_inter1)
 
 # The Multiple R-square value is 0.80, meaning that 80% of the variation in
 # bird abundance is explained by the model. This is considerably more than the
-# models with only a single explanatory variable (LOGAREA only: R² = 0.59,
-# FGRAZE only: R² = 0.49), suggesting that including both variables and their
+# models with only a single explanatory variable (LOGAREA only: R2 = 0.59,
+# FGRAZE only: R2 = 0.49), suggesting that including both variables and their
 # interaction improves the fit substantially.
 ```
 
@@ -366,7 +366,7 @@ legend("topleft",
  lwd = c(1, 1, 1))
 ```
 
-**(Optional, for the lazy!)** And, if you want an even easier way, then we can use the `ggplot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
+**(Optional, for the lazy - like me!)** And, if you want an even easier way, then we can use the `ggplot2` package (code in the solutions). Note: you will need to install the `ggplot2` package first if you don't already have it. 
 
 ```{r Q9c, eval=SOLUTIONS, echo=SOLUTIONS, collapse=FALSE}
 # install.packages('ggplot2', dep = TRUE)
