@@ -471,6 +471,14 @@ can split your plotting device into 2 rows and 2 columns using the
 the assumptions using these plots and report whether your model meets
 these assumptions.</p>
 <p> </p>
+<p>For these slightly more complicated models with more than one
+explanatory variable it’s also a good idea to plot the residuals from
+the model against each explanatory variable. To do this, you will first
+need to extract the residuals using the <code>resid()</code> function
+and store them in an object (call it <code>res</code> or something that
+makes sense to you). Once you have the residuals you can then plot them
+against <code>LOGAREA</code> and also <code>FGRAZE</code>.</p>
+<p> </p>
 <p>7. Use the <code>anova()</code> function to produce the ANOVA table
 of your linear model. Remember, this ANOVA table is based on sequential
 sums of squares (the order of the explanatory variables matters). The

@@ -80,7 +80,7 @@ birds_inter1 <- lm(ABUND ~ FGRAZE + LOGAREA + FGRAZE:LOGAREA, data = loyn)
 
 6\. As conscientious researchers, let's first check the assumptions of our linear model by creating plots of the residuals. Remember, that you can split your plotting device into 2 rows and 2 columns using the `par()` function before you create the plots. Check each of the assumptions using these plots and report whether your model meets these assumptions.
 
-```{r Q6, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+```{r Q6a, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 # first split the plotting device into 2 rows and 2 columns
 par(mfrow = c(2,2))
 
@@ -105,6 +105,21 @@ plot(birds_inter1)
 ```
 
 \  
+
+For these slightly more complicated models with more than one explanatory variable it's also a good idea to plot the residuals from the model against each explanatory variable. To do this, you will first need to extract the residuals using the `resid()` function and store them in an object (call it `res` or something that makes sense to you). Once you have the residuals you can then plot them against `LOGAREA` and also `FGRAZE`.
+
+```{r Q6b, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
+res <- resid(birds_inter1) # extract the residuals
+
+par(mfrow = c(2, 2))
+plot(loyn$LOGAREA, res, xlab = 'Log area', ylab = 'residuals')
+abline(h = 0, col = 'red', lty = 2) # adds a red dotted line at 0 on the y axis
+
+plot(loyn$FGRAZE, res, xlab = 'Graze level', ylab = 'residuals')
+abline(h = 0, col = 'red', lty = 2)
+```
+
+\ 
 
 7\. Use the `anova()` function to produce the ANOVA table of your linear model. Remember, this ANOVA table is based on sequential sums of squares (the order of the explanatory variables matters). The only P value that we should interpret is the one that occurs in the second to last row of the table (the one above 'Residuals'). This is the interaction term between `FGRAZE` and `LOGAREA` (`FGRAZE:LOGAREA`). What is the null hypothesis associated with this interaction term? 
 
