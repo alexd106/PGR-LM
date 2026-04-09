@@ -511,35 +511,41 @@ $(document).ready(function () {
 <div id="linear-models---model-selection" class="section level2">
 <h2>Linear models - Model selection</h2>
 <p> </p>
-<p>In the previous exercise you fitted a pre-conceived model which
-included the main effects of the area of the forest patch
-(<code>LOGAREA</code>), the grazing intensity (<code>FGRAZE</code>) and
-the interaction between these two explanatory variables
-(<code>FGRAZE:LOGAREA</code>). This was useful as a training exercise,
-and might be a viable approach when analysing these data if an
-experiment had been designed to test these effects only. However, if
-other potentially important variables are not included in the model this
-may lead to biased inferences (interpretation). Additionally, if the
-goal of the analysis is to explore what models explain the data in a
-parsimonious way (as opposed to formally testing hypotheses), we would
-also want to include relevant additional explanatory variables.</p>
+<p>Model selection is a debated topic in applied statistics. Before you
+start this exercise it is worth being clear about what kind of analysis
+you are attempting. There are broadly three situations where models are
+compared or simplified:</p>
+<ul>
+<li><strong>Confirmatory testing</strong>: you had a specific hypothesis
+before seeing the data (for example, “does grazing intensity affect bird
+abundance after accounting for patch area?”). In this case you fit the
+pre-specified model and test it once. Model selection is not
+needed.</li>
+<li><strong>Exploratory variable selection</strong>: you have several
+candidate explanatory variables and want to identify which ones
+contribute meaningfully to explaining the response. This is the
+situation in the present exercise, and it is where backward elimination
+is commonly used.</li>
+<li><strong>Predictive modelling</strong>: you want the model that will
+generalise best to new data. This requires different methods
+(cross-validation, regularisation) that are beyond the scope of this
+course.</li>
+</ul>
+<p>In practice many analyses blend these situations, and this is where
+care is needed.</p>
 <p> </p>
-<p>Here we revisit the previous loyn data analysis, and ask if a
-‘better’ model for these data could be achieved by including additional
-explanatory variables and by performing model selection. Because we
-would like to test the significance of the interaction between
-<code>LOGAREA</code>, and <code>FGRAZE</code>, whilst accounting for the
-potential effects of other explanatory variables, we will also include
-<code>LOGAREA</code>, <code>FGRAZE</code> and their interaction
-(<code>FGRAZE:LOGAREA</code>) in the model as before. Including other
-interaction terms between other variables may be reasonable, but we will
-focus only on the <code>FGRAZE:LOGAREA</code> interaction as we have
-relatively little information in this data set (67 observations). This
-will hopefully avoid fitting an overly complex model which will estimate
-many parameters for which we have very little data. This is a balance
-you will all have to maintain with your own data and analyses (or better
-still, perform a power analysis before you even collect your data). No
-4-way interaction terms in your models please!</p>
+<p>In the previous exercise you fitted a pre-specified model which
+included the main effects of patch area (<code>LOGAREA</code>), grazing
+intensity (<code>FGRAZE</code>) and their interaction
+(<code>FGRAZE:LOGAREA</code>). Here we revisit those data and ask
+whether a more complete model, incorporating the remaining explanatory
+variables, is warranted. We will build a maximal model including all
+main effects and the <code>LOGAREA:FGRAZE</code> interaction, and then
+simplify it systematically. We focus on only the
+<code>LOGAREA:FGRAZE</code> interaction because we have relatively
+limited data (67 observations) and fitting additional interaction terms
+would require estimating many parameters from few observations. This is
+a balance you will need to maintain with your own data.</p>
 <p> </p>
 <p>It’s also important to note that we will assume that all the
 explanatory variables were collected by the researchers because <em>they
@@ -558,6 +564,29 @@ process (chuck everything in and see what comes out). Your expertise
 needs to be woven into this process otherwise you may end up with a
 model that is implausible or not very useful (and all models need to be
 useful!).</p>
+<p> </p>
+<p><strong>What can go wrong with backward elimination</strong></p>
+<p>Backward elimination is a useful tool but it carries real risks. Bear
+these in mind throughout this exercise.</p>
+<ul>
+<li><strong>Capitalising on chance</strong>: at each step you are
+searching for the least significant term. Across many steps, some terms
+will appear significant or non-significant purely by chance. The
+p-values from the final selected model are not valid in the usual
+sense.</li>
+<li><strong>The final model is not “the correct model”</strong>: it is
+the most parsimonious description of <em>these</em> data given the
+candidate variables and the selection criterion used. A different
+starting model, or a different dataset from the same population, could
+yield a different final model.</li>
+<li><strong>Correlation between predictors</strong>: if two predictors
+are correlated, removing one may change the apparent significance of the
+other. Check for collinearity before you start.</li>
+<li><strong>Biology must guide every step</strong>: a term should not be
+retained purely because it is statistically significant, nor discarded
+purely because it is not. Ask at each step whether the decision makes
+biological sense.</li>
+</ul>
 <p> </p>
 <p>1. Import the ‘loyn.txt’ data file into RStudio and assign it to a
 variable called <code>loyn</code>. Here we will be using all the

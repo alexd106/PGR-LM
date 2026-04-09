@@ -396,14 +396,16 @@ $(document).ready(function () {
 </div>
 
 
-<p> </p>
+<p><br />
+</p>
 <div id="linear-models---model-selection" class="section level2">
 <h2>Linear models - Model selection</h2>
-<p> </p>
-<p>Model selection is a debated topic in applied statistics. Before you
-start this exercise it is worth being clear about what kind of analysis
-you are attempting. There are broadly three situations where models are
-compared or simplified:</p>
+<p><br />
+</p>
+<p>Model selection is one of the most debated topics in applied
+statistics. Before you start this exercise it is worth being clear about
+what kind of analysis you are attempting. There are broadly three
+situations where models are compared or simplified:</p>
 <ul>
 <li><strong>Confirmatory testing</strong>: you had a specific hypothesis
 before seeing the data (for example, “does grazing intensity affect bird
@@ -411,10 +413,10 @@ abundance after accounting for patch area?”). In this case you fit the
 pre-specified model and test it once. Model selection is not
 needed.</li>
 <li><strong>Exploratory variable selection</strong>: you have several
-candidate explanatory variables and want to identify which ones
-contribute meaningfully to explaining the response. This is the
-situation in the present exercise, and it is where backward elimination
-is commonly used.</li>
+candidate predictors and want to identify which ones contribute
+meaningfully to explaining the response. This is the situation in the
+present exercise, and it is where backward elimination is commonly
+used.</li>
 <li><strong>Predictive modelling</strong>: you want the model that will
 generalise best to new data. This requires different methods
 (cross-validation, regularisation) that are beyond the scope of this
@@ -422,7 +424,8 @@ course.</li>
 </ul>
 <p>In practice many analyses blend these situations, and this is where
 care is needed.</p>
-<p> </p>
+<p><br />
+</p>
 <p>In the previous exercise you fitted a pre-specified model which
 included the main effects of patch area (<code>LOGAREA</code>), grazing
 intensity (<code>FGRAZE</code>) and their interaction
@@ -435,25 +438,18 @@ simplify it systematically. We focus on only the
 limited data (67 observations) and fitting additional interaction terms
 would require estimating many parameters from few observations. This is
 a balance you will need to maintain with your own data.</p>
-<p> </p>
-<p>It’s also important to note that we will assume that all the
-explanatory variables were collected by the researchers because <em>they
-believed</em> them to be biologically relevant for explaining bird
-abundance (i.e. data were collected for a reason). Of course, this is
-probably not your area of expertise but it is nevertheless a good idea
-to pause and think what might be relevant or not-so relevant and why.
-This highlights the importance of knowing your study organism / study
-area and discussing research designs with colleagues and other experts
-in the field before you collect your data. What you should try to avoid
-is collecting heaps of data across many variables (just because you can)
-and then expecting your statistical models to make sense of it for you.
-As mentioned in the lecture, model selection is a relatively
-controversial topic and should not be treated as a purely mechanical
-process (chuck everything in and see what comes out). Your expertise
-needs to be woven into this process otherwise you may end up with a
-model that is implausible or not very useful (and all models need to be
-useful!).</p>
-<p> </p>
+<p><br />
+</p>
+<p>It is also important to note that we will assume all the explanatory
+variables were collected because the researchers <em>believed</em> them
+to be biologically relevant for explaining bird abundance. What you
+should try to avoid is collecting large numbers of variables simply
+because you can, and then expecting your statistical models to make
+sense of it all for you. Your biological knowledge must be woven into
+this process at every step.</p>
+<p><br />
+</p>
+<div class="infobox caution">
 <p><strong>What can go wrong with backward elimination</strong></p>
 <p>Backward elimination is a useful tool but it carries real risks. Bear
 these in mind throughout this exercise.</p>
@@ -476,139 +472,184 @@ retained purely because it is statistically significant, nor discarded
 purely because it is not. Ask at each step whether the decision makes
 biological sense.</li>
 </ul>
-<p> </p>
-<p>1. Import the ‘loyn.txt’ data file into RStudio and assign it to a
-variable called <code>loyn</code>. Here we will be using all the
-explanatory variables to explain the variation in bird density. If
-needed, remind yourself of your data exploration you conducted
-previously. Do any of the remaining variables need transforming
-(i.e. <code>AREA</code>, <code>DIST</code>, <code>LDIST</code>) or
-converting to a factor type variable (i.e. <code>GRAZE</code>)? Add the
-transformed variables to the <code>loyn</code> dataframe.</p>
-<p> </p>
-<p>2. Let’s start with a very quick graphical exploration of any
-potential relationships between each explanatory variable (collinearity)
-and also between our response and explanatory variables (what we’re
-interested in). Create a pairs plot using the function
-<code>pairs()</code>of your variables of interest. Hint: restrict the
-plot to the variables you actually need. An effective way of doing this
-is to store the names of the variables of interest in a vector
-<code>VOI &lt;- c("Var1", "Var2", ...)</code> and then use the naming
-method for subsetting the data set <code>Mydata[, VOI]</code>. If you
-feel like it, you can also add the correlations to the lower triangle of
-the plot as you did previously (don’t forget to define the function
-first).</p>
-<p> </p>
-<p>3. Now, let’s fit our maximal model. Start with a model of
-<code>ABUND</code> and include all explanatory variables as main
-effects. Also include the interaction <code>LOGAREA:FGRAZE</code> but no
-other interaction terms as justified in the preamble above. Don’t forget
-to include the transformed versions of the variables where appropriate
-(but not the untransformed variables as well otherwise you will have
-very strong collinearity between these variables!). Perhaps, call this
-model <code>M1</code>.</p>
-<p> </p>
-<p>4. Have a look at the summary table of the model using the
-<code>summary()</code> function. You’ll probably find this summary is
-quite complicated with lots of parameter estimates (14) and P values
-testing lots of hypotheses. Are all the P values less than our cut-off
-of 0.05? If not, then this suggests that some form of model selection is
-warranted to simplify our model.</p>
-<p> </p>
-<p>5. Let’s perform a first step in model selection using the
-<code>drop1()</code> function and use an <em>F</em> test based model
-selection approach. This will allow us to decide which explanatory
-variables may be suitable for removal from the model. Remember to use
-the <code>test = "F"</code> argument to perform <em>F</em> tests when
-using <code>drop1()</code>. Which explanatory variable is the best
-candidate for removal and why?</p>
-<p>What hypothesis is being tested when we do this model selection
-step?</p>
-<p> </p>
-<p>6. Update and refit your model and remove the least significant
-explanatory variable (from above). Repeat single term deletions with
-<code>drop1()</code> again using this updated model. You can update the
-model by just fitting a new model without the appropriate explanatory
-variable and assign it to a new name (<code>M2</code>). Alternatively
-you can use the <code>update()</code> function instead (I show you how
-to do this in the solutions).</p>
-<p> </p>
-<p>7. Again, update the model to remove the least significant
-explanatory variable (from above) and repeat single term deletions with
-<code>drop1()</code>.</p>
-<p> </p>
-<p>8. Once again, update the model to remove the least significant
-explanatory variable (from above) and repeat single term deletions with
-<code>drop1()</code>.</p>
-<p> </p>
-<p>9. And finally, update the model to remove the least significant
-explanatory variable (from above) and repeat single term deletions with
-<code>drop1()</code>.</p>
-<p> </p>
-<p>10. If all goes well, your final model should be
-<code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code> which you
-encountered in the previous exercise. Also, you may have noticed that
-the output from the <code>drop1()</code> function does not include the
-main effects of <code>LOGAREA</code> or <code>FRGRAZE</code>. Can you
-think why this might be the case?</p>
-<p> </p>
-<p>11. Now that you have your final model, you should go through your
-model validation and model interpretation as usual. As we have already
-completed this in the previous exercise I’ll leave it up to you to
-decide whether you include it here (you should be able to just copy and
-paste the code).</p>
-<p>Please make sure you understand the biological interpretation of each
-of the parameter estimates and the interpretation of the hypotheses you
-are testing.</p>
-<p> </p>
-<p><strong>OPTIONAL questions</strong> if you have time / energy /
-inclination!</p>
-<p> </p>
-<p>A1. If we weren’t aiming to directly test the effect of the
-<code>LOGAREA:FGRAZE</code> interaction statistically (i.e. test this
-specific hypothesis), we could use AIC to perform model selection.
-Repeat the model selection you did above, but this time use the
-<code>drop1()</code> function and perform model selection using AIC
-instead. Don’t forget, if we want to perform model selection based on
-AIC with the <code>drop1()</code> function we need to omit the
-<code>test = "F"</code> argument)</p>
-<p> </p>
-<p>A2. Refit your model with the variable associated with the lowest AIC
-value removed. Run <code>drop1()</code> again on your updated model.
-Perhaps call this new model <code>M2.AIC</code>.</p>
-<p> </p>
-<p>A3. Refit your model with the variable associated with the lowest AIC
-value removed and run <code>drop1()</code> again on your new model
-(<code>M3.AIC</code>).</p>
-<p> </p>
-<p>A4. Repeat your model selection by removing the variable indicated by
-the model with the lowest AIC.</p>
-<p> </p>
-<p>A5. Rinse and repeat as above.</p>
-<p> </p>
-<p>If all goes well, your final model should be
-<code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This is the
-same model you ended up with when using the <em>F</em> test based model
-selection. This might not always be the case and generally speaking AIC
-based model selection approaches tend to favour more complicated minimum
-adequate models compared to <em>F</em> test based approaches.</p>
-<p>We don’t need to re-validate or re-interpret the model, since we have
-already done this previously.</p>
-<p>I guess the next question is how to present your results from the
-model selection process (using either <em>F</em> tests or AIC) in your
-paper and/or thesis chapter. One approach which I quite like is to
-construct a table which includes a description of all of our models and
-associated summary statistics. Let’s do this for the AIC based model
-selection but the same principles apply when using <em>F</em> tests
-(although you will be presenting <em>F</em> statistics and P values
-rather than AIC values).</p>
-<p>Although you can use the output from the <code>drop1()</code> (and do
-a bit more wrangling) let’s make it a little simpler by fitting all of
-our models and then use the <code>AIC()</code> function to calculate the
-AIC values for each model rather than <code>drop1()</code>. Details on
-how to do this are given in the solutions to this exercise.</p>
-<p> </p>
+</div>
+<p><br />
+</p>
+<p>1. Import the <code>loyn.txt</code> data file into RStudio and assign
+it to a variable called <code>loyn</code>. Here we will be using all the
+explanatory variables to explain the variation in bird abundance. Do any
+variables need log-transforming or converting to a factor? Add the
+transformed variables to the <code>loyn</code> dataframe as you have
+done in previous exercises.</p>
+<p><br />
+</p>
+<p>2. Create a pairs plot of your variables of interest using
+<code>pairs()</code> and add correlation coefficients to the lower
+triangle. Pay attention to pairs of explanatory variables with |r| &gt;
+0.7, as this indicates potential collinearity that may cause problems
+when both variables are included in the same model. Note any pairs that
+concern you.</p>
+<p><br />
+</p>
+<p>3. Pairwise correlations do not capture <em>multicollinearity</em>,
+where one predictor is a near-linear combination of two or more others.
+A more formal measure is the variance inflation factor (VIF). Fit a
+model with all main effects only (no interaction term yet) and use
+<code>car::vif()</code> to compute VIFs for each predictor. VIF values
+below 5 are generally considered acceptable; values above 10 indicate
+severe collinearity. What do you conclude?</p>
+<p>Note: we check VIFs on a main-effects model because
+<code>car::vif()</code> does not work sensibly when interaction terms
+are present.</p>
+<p><br />
+</p>
+<p>4. Before fitting the maximal model, take a moment to think about the
+biology. Based on what you know (or can reasonably infer) about bird
+communities in forest patches, which of the six explanatory variables
+would you expect to have the strongest relationship with bird abundance,
+and which might you expect to have little or no effect? Jot down a brief
+justification for each variable.</p>
+<p>The six variables are: <code>LOGAREA</code>, <code>FGRAZE</code>,
+<code>LOGDIST</code>, <code>LOGLDIST</code>, <code>YR.ISOL</code>,
+<code>ALT</code>.</p>
+<p>There are no right or wrong answers here. The point is to engage your
+biological knowledge <em>before</em> you look at any model output, so
+that the statistics inform your reasoning rather than replace it.</p>
+<p><br />
+</p>
+<p>5. Now fit the maximal model. Include all six explanatory variables
+as main effects and add the interaction <code>LOGAREA:FGRAZE</code>.
+Call this model <code>M1</code>.</p>
+<p><br />
+</p>
+<p>6. Examine the model using <code>summary()</code>. You will find 14
+parameter estimates and a corresponding set of p-values. Do not try to
+interpret each one individually at this stage. Instead, note the overall
+picture: how much of the variation in <code>ABUND</code> does this model
+explain (adjusted R-squared), and does there appear to be scope for
+simplification?</p>
+<p><br />
+</p>
+<hr />
+<div id="section-a-f-test-backward-elimination" class="section level3">
+<h3>Section A: F-test backward elimination</h3>
+<p><br />
+</p>
+<p>We will now use <code>drop1(test = "F")</code> to test the
+contribution of each term. Recall from the previous exercise that unlike
+<code>anova()</code>, which uses sequential (Type I) sums of squares
+where the order of terms matters, <code>drop1()</code> tests each term
+as if it were entered last. This removes any dependence on the order of
+terms in the model formula and is the appropriate tool for models with
+multiple predictors.</p>
+<p>At each step we remove the term with the largest p-value (least
+significant), but only if we are comfortable with that decision on
+biological grounds as well as statistical ones.</p>
+<p><br />
+</p>
+<p>7. Run <code>drop1(M1, test = "F")</code>. Which term is the weakest
+candidate for the model? Before removing it, consider whether there is a
+biological reason to retain it regardless of its significance. Remove it
+and call the updated model <code>M2</code>.</p>
+<p><br />
+</p>
+<p>8. Run <code>drop1()</code> on <code>M2</code>. Identify the weakest
+term. Is removing it biologically reasonable? Update the model and call
+it <code>M3</code>.</p>
+<p><br />
+</p>
+<p>9. Run <code>drop1()</code> on <code>M3</code>. Identify the weakest
+term, consider whether removing it is biologically reasonable, and
+update the model.</p>
+<p><br />
+</p>
+<p>10. Run <code>drop1()</code> on <code>M4</code>. Identify the weakest
+remaining term, consider it biologically, and update the model.</p>
+<p><br />
+</p>
+<p>11. Run <code>drop1()</code> on <code>M5</code>. What happens, and
+does the model selection process end here?</p>
+<p><br />
+</p>
+<p>12. You will have noticed that <code>drop1()</code> does not show
+p-values for the main effects <code>LOGAREA</code> and
+<code>FGRAZE</code> in the final model. Why is this?</p>
+<p><br />
+</p>
+<hr />
+</div>
+<div id="section-b-aic-based-selection" class="section level3">
+<h3>Section B: AIC-based selection</h3>
+<p><br />
+</p>
+<p>F-test backward elimination requires a significance threshold
+(typically p &gt; 0.05 for removal). This threshold is arbitrary, and,
+as noted above, the p-values at each step are not strictly valid because
+the same data are used to decide which terms to test. An alternative is
+to use the Akaike Information Criterion (AIC), which does not rely on
+p-values. AIC rewards goodness of fit and penalises complexity (number
+of parameters), selecting the simpler model whenever removing a term
+does not substantially increase AIC.</p>
+<p>A widely used rule of thumb: if removing a term increases AIC by less
+than 2 units, the evidence for retaining it is weak and the simpler
+model is generally preferred.</p>
+<p><br />
+</p>
+<p>13. Starting again from <code>M1</code>, run <code>drop1(M1)</code>
+<em>without</em> the <code>test = "F"</code> argument to obtain AIC
+values for each possible term removal. The <code>&lt;none&gt;</code> row
+shows the AIC of the current model; all other rows show the AIC after
+removing the named term. Which term, if removed, gives the lowest AIC?
+Remove it and call the new model <code>M2.AIC</code>.</p>
+<p><br />
+</p>
+<p>14. Continue the AIC-based selection. Run <code>drop1()</code> on
+<code>M2.AIC</code>, remove the term that yields the lowest AIC, and
+repeat until no further removal reduces the AIC. Show each step
+clearly.</p>
+<p><br />
+</p>
+<p>15. Both approaches have produced the same final model:
+<code>lm(ABUND ~ LOGAREA + FGRAZE + LOGAREA:FGRAZE)</code>. This will
+not always be the case. What are the key differences between F-test
+backward elimination and AIC-based selection, and when might you prefer
+one over the other?</p>
+<p><br />
+</p>
+<hr />
+</div>
+<div id="validation-and-reporting" class="section level3">
+<h3>Validation and reporting</h3>
+<p><br />
+</p>
+<p>16. Now that you have your final model, carry out model validation
+using <code>plot()</code> and extract the coefficient estimates and 95%
+confidence intervals using <code>summary()</code> and
+<code>confint()</code>. You have already done this for this model in the
+previous exercise, so this should be quick. What is the biological
+interpretation of the interaction?</p>
+<p><br />
+</p>
+<p>17. Construct a summary table of the models compared during the
+AIC-based selection, showing AIC and ΔAIC (difference from the best
+model) for each. Fit each model explicitly using <code>lm()</code> and
+compute AIC values using the <code>AIC()</code> function.</p>
+<p>Note: AIC values from <code>AIC()</code> differ slightly from those
+returned by <code>drop1()</code> due to a small difference in how the
+constant term is calculated. This is not a problem, but do not mix
+values from the two functions in the same table.</p>
+<p><br />
+</p>
+<p>18. Write a short paragraph (four to six sentences) suitable for the
+Methods section of a paper, describing how you arrived at the final
+model. Your paragraph should include: the starting model and the
+justification for its structure; which selection approach was used; the
+criterion for removing terms; the final model; and at least one honest
+caveat about what the results do and do not show.</p>
+<p><br />
+</p>
 <p>End of the model selection exercise</p>
+</div>
 </div>
 
 

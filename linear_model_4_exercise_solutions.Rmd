@@ -19,17 +19,34 @@ SOLUTIONS <- TRUE
 
 \  
 
-In the previous exercise you fitted a pre-conceived model which included the main effects of the area of the forest patch (`LOGAREA`), the grazing intensity (`FGRAZE`) and the interaction between these two explanatory variables (`FGRAZE:LOGAREA`). This was useful as a training exercise, and might be a viable approach when analysing these data if an experiment had been designed to test these effects only. However, if other potentially important variables are not included in the model this may lead to biased inferences (interpretation). Additionally, if the goal of the analysis is to explore what models explain the data in a parsimonious way (as opposed to formally testing hypotheses), we would also want to include relevant additional explanatory variables. 
+Model selection is a debated topic in applied statistics. Before you start this exercise it is worth being clear about what kind of analysis you are attempting. There are broadly three situations where models are compared or simplified:
 
-\  
+- **Confirmatory testing**: you had a specific hypothesis before seeing the data (for example, "does grazing intensity affect bird abundance after accounting for patch area?"). In this case you fit the pre-specified model and test it once. Model selection is not needed.
+- **Exploratory variable selection**: you have several candidate explanatory variables and want to identify which ones contribute meaningfully to explaining the response. This is the situation in the present exercise, and it is where backward elimination is commonly used.
+- **Predictive modelling**: you want the model that will generalise best to new data. This requires different methods (cross-validation, regularisation) that are beyond the scope of this course.
 
-Here we revisit the previous loyn data analysis, and ask if a 'better' model for these data could be achieved by including additional explanatory variables and by performing model selection. Because we would like to test the significance of the interaction between `LOGAREA`, and `FGRAZE`, whilst accounting for the potential effects of other explanatory variables, we will also include `LOGAREA`, `FGRAZE` and their interaction (`FGRAZE:LOGAREA`) in the model as before. Including other interaction terms between other variables may be reasonable, but we will focus only on the `FGRAZE:LOGAREA` interaction as we have relatively little information in this data set (67 observations). This will hopefully avoid fitting an overly complex model which will estimate many parameters for which we have very little data. This is a balance you will all have to maintain with your own data and analyses (or better still, perform a power analysis before you even collect your data). No 4-way interaction terms in your models please!
+In practice many analyses blend these situations, and this is where care is needed.
+
+\ 
+
+In the previous exercise you fitted a pre-specified model which included the main effects of patch area (`LOGAREA`), grazing intensity (`FGRAZE`) and their interaction (`FGRAZE:LOGAREA`). Here we revisit those data and ask whether a more complete model, incorporating the remaining explanatory variables, is warranted. We will build a maximal model including all main effects and the `LOGAREA:FGRAZE` interaction, and then simplify it systematically. We focus on only the `LOGAREA:FGRAZE` interaction because we have relatively limited data (67 observations) and fitting additional interaction terms would require estimating many parameters from few observations. This is a balance you will need to maintain with your own data.
 
 \ 
 
 It's also important to note that we will assume that all the explanatory variables were collected by the researchers because *they believed* them to be biologically relevant for explaining bird abundance (i.e. data were collected for a reason). Of course, this is probably not your area of expertise but it is nevertheless a good idea to pause and think what might be relevant or not-so relevant and why. This highlights the importance of knowing your study organism / study area and discussing research designs with colleagues and other experts in the field before you collect your data. What you should try to avoid is collecting heaps of data across many variables (just because you can) and then expecting your statistical models to make sense of it for you. As mentioned in the lecture, model selection is a relatively controversial topic and should not be treated as a purely mechanical process (chuck everything in and see what comes out). Your expertise needs to be woven into this process otherwise you may end up with a model that is implausible or not very useful (and all models need to be useful!). 
 
 \  
+
+**What can go wrong with backward elimination**
+
+Backward elimination is a useful tool but it carries real risks. Bear these in mind throughout this exercise.
+
+- **Capitalising on chance**: at each step you are searching for the least significant term. Across many steps, some terms will appear significant or non-significant purely by chance. The p-values from the final selected model are not valid in the usual sense.
+- **The final model is not "the correct model"**: it is the most parsimonious description of *these* data given the candidate variables and the selection criterion used. A different starting model, or a different dataset from the same population, could yield a different final model.
+- **Correlation between predictors**: if two predictors are correlated, removing one may change the apparent significance of the other. Check for collinearity before you start.
+- **Biology must guide every step**: a term should not be retained purely because it is statistically significant, nor discarded purely because it is not. Ask at each step whether the decision makes biological sense.
+
+\ 
 
 1\.  Import the 'loyn.txt' data file into RStudio and assign it to a variable called `loyn`. Here we will be using all the explanatory variables to explain the variation in bird density. If needed, remind yourself of your data exploration you conducted previously. Do any of the remaining variables need transforming (i.e. `AREA`, `DIST`, `LDIST`) or converting to a factor type variable (i.e. `GRAZE`)? Add the transformed variables to the `loyn` dataframe.
 
