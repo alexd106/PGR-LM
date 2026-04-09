@@ -647,7 +647,7 @@ makes sense to you). Once you have the residuals you can then plot them
 against <code>LOGAREA</code> and also <code>FGRAZE</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">resid</span>(birds_inter1) <span class="co"># extract the residuals</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">plot</span>(loyn<span class="sc">$</span>LOGAREA, res, <span class="at">xlab =</span> <span class="st">&#39;Log area&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;residuals&#39;</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&#39;red&#39;</span>, <span class="at">lty =</span> <span class="dv">2</span>) <span class="co"># adds a red dotted line at 0 on the y axis</span></span>
 <span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>

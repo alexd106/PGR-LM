@@ -111,7 +111,7 @@ For these slightly more complicated models with more than one explanatory variab
 ```{r Q6b, eval=SOLUTIONS, echo=SOLUTIONS, results=SOLUTIONS, collapse=TRUE}
 res <- resid(birds_inter1) # extract the residuals
 
-par(mfrow = c(2, 2))
+par(mfrow = c(1, 2))
 plot(loyn$LOGAREA, res, xlab = 'Log area', ylab = 'residuals')
 abline(h = 0, col = 'red', lty = 2) # adds a red dotted line at 0 on the y axis
 
