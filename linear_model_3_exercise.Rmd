@@ -117,6 +117,24 @@ abline(h = 0, col = 'red', lty = 2) # adds a red dotted line at 0 on the y axis
 
 plot(loyn$FGRAZE, res, xlab = 'Graze level', ylab = 'residuals')
 abline(h = 0, col = 'red', lty = 2)
+
+# The spread of the residuals looks reasonably consistent across the range of
+# log patch area values, with no obvious fan or funnel shape. This suggests
+# the homogeneity of variance assumption is reasonably met with respect to
+# LOGAREA.
+
+# The spread of the residuals differs noticeably across grazing levels.                                                  
+# Grazing level 3 has considerably more spread than the other levels                                                     
+# (residuals range from around -15 to +8), whilst levels 2 and 4 are                                                     
+# comparatively tight. The variance ratio between the most and least variable                                            
+# levels is around 8:1, which is a meaningful violation of the homogeneity                                               
+# of variance assumption. The resonably balanced sample sizes across levels (between                                        # 11 and 17) offer some robustness, but this should not be ignored.                                                      
+# One option would be to apply a square root transformation to ABUND and                                                 
+# refit the model, checking whether this stabilises the variances. A more                                                
+# principled approach would be to use generalised least squares (GLS),                                                   
+# which can explicitly model different variances for each grazing level                                                  
+# using a variance covariate structure. You can do this using the gls() 
+# function in the nlme package. 
 ```
 
 \ 
