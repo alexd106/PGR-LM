@@ -125,7 +125,7 @@ abline(h = 0, col = 'red', lty = 2)
 
 # The spread of the residuals differs noticeably across grazing levels.                     
 # Grazing level 3 has considerably more spread than the other levels                       
-# (residuals range from around -15 to +8), whilst levels 2 and 4 are
+# (residuals range from around -15 to +8), whilst levels 2 and 5 are
 # comparatively tight. The variance ratio between the most and least variable
 # levels is around 8:1, which is a meaningful violation of the homogeneity
 # of variance assumption. The reasonably balanced sample sizes across levels 
